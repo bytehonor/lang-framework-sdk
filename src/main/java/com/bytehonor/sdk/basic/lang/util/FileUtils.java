@@ -22,16 +22,20 @@ public class FileUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
 
-    public static String getFileSubfixWithDot(String path) {
-        Objects.requireNonNull(path, "path");
-        int at = path.lastIndexOf('.');
+    public static String getFileSubfixWithDot(String url) {
+        Objects.requireNonNull(url, "url");
+        int at = url.indexOf('?');
+        if (at > 1) {
+            url = url.substring(0, at);
+        }
+        at = url.lastIndexOf('.');
         if (at < 0) {
             return "";
         }
-        if (path.length() - at > 7) {
+        if (url.length() - at > 7) {
             return "";
         }
-        return path.substring(at);
+        return url.substring(at);
     }
 
     /**
