@@ -27,7 +27,7 @@ public class StringRemoveUtils {
     private static final Pattern PSZ_PATTERN = Pattern.compile(PSZ);
     
     /**
-     * 移除指定范围内的字串
+     * 移除指定范围内的字串，左闭右闭
      * 
      * @param text
      * @param from
@@ -35,11 +35,17 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeByFromTo(String text, int from, int to) {
-        if (from < 2) {
-            return text;
+        if (to < from) {
+            throw new RuntimeException("from to invalid");
+        }
+        if (from < 0) {
+            from = 0;
+        }
+        if (to < 0) {
+            to = 0;
         }
         int length = text.length();
-        if (to < 0) {
+        if (to > length) {
             to = length;
         }
         char[] target = new char[length * 2];
@@ -54,7 +60,7 @@ public class StringRemoveUtils {
             return new String(target, 0, total);
         }
 
-        return text;
+        return "";
     }
     
     /**
