@@ -157,13 +157,13 @@ public class FileUtils {
         }
     }
 
-    public static File download(String fileUrl, String savePath, String fileName) {
-        if (StringUtils.isEmpty(fileUrl) || StringUtils.isEmpty(savePath) || StringUtils.isEmpty(fileName)) {
+    public static File download(String fileUrl, String saveDir, String fileName) {
+        if (StringUtils.isEmpty(fileUrl) || StringUtils.isEmpty(saveDir) || StringUtils.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
-        isExistDir(savePath);
-        LOG.debug("download savePath:{}, fileName:{}", savePath, fileName);
-        File file = new File(savePath + fileName);
+        isExistDir(saveDir);
+        LOG.debug("download saveDir:{}, fileName:{}", saveDir, fileName);
+        File file = new File(saveDir + fileName);
         // 获取连接
         InputStream in = null;
         OutputStream out = null;
