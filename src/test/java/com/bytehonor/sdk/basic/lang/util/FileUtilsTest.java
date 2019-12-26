@@ -7,11 +7,18 @@ import java.io.File;
 import org.junit.Test;
 
 public class FileUtilsTest {
-    
+
+    @Test
+    public void testGetFileSubfixNoDot() {
+        String url = "http://f.video.weibocdn.com/004mshS7lx07z4oHvPUk01041200FWUO0E010.mp4?label=mp4_720p&template=1280x720.25.0&trans_finger=1f0da16358befad33323e3a1b7f95fc9&Expires=1576037951&ssig=Tut2Nr0831&KID=unistore,video";
+        String subfix = FileUtils.getFileSubfixNoDot(url);
+        assertTrue("*testGetFileSubfixWithDot*", "mp4".equals(subfix));
+    }
+
     @Test
     public void testGetFileSubfixWithDot() {
         String url = "http://f.video.weibocdn.com/004mshS7lx07z4oHvPUk01041200FWUO0E010.mp4?label=mp4_720p&template=1280x720.25.0&trans_finger=1f0da16358befad33323e3a1b7f95fc9&Expires=1576037951&ssig=Tut2Nr0831&KID=unistore,video";
-        String subfix = FileUtils.getFileSubfixWithDot(url );
+        String subfix = FileUtils.getFileSubfixWithDot(url);
         assertTrue("*testGetFileSubfixWithDot*", ".mp4".equals(subfix));
     }
 

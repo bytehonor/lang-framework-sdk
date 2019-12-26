@@ -22,6 +22,15 @@ public class FileUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
 
+    public static String getFileSubfixNoDot(String url) {
+        String subfix = getFileSubfixWithDot(url);
+        if (StringUtils.isEmpty(subfix)) {
+            return subfix;
+        }
+
+        return subfix.substring(1, subfix.length());
+    }
+
     public static String getFileSubfixWithDot(String url) {
         Objects.requireNonNull(url, "url");
         int at = url.indexOf('?');
@@ -36,6 +45,28 @@ public class FileUtils {
             return "";
         }
         return url.substring(at);
+    }
+
+    public static String md5Rename(String urlOrPath, String defType) {
+        Objects.requireNonNull(urlOrPath, "urlOrPath");
+        String md5 = MD5Utils.md5(urlOrPath);
+        String subfix = FileUtils.getFileSubfixWithDot(urlOrPath);
+        if (StringUtils.isEmpty(subfix)) {
+            md5 = md5 + formatDefType(defType);
+        } else {
+            md5 = md5 + subfix.toLowerCase();
+        }
+        return md5;
+    }
+
+    private static String formatDefType(String defType) {
+        if (StringUtils.isEmpty(defType)) {
+            return "";
+        }
+        if (defType.startsWith(".") == false) {
+            defType = "." + defType;
+        }
+        return defType;
     }
 
     /**
