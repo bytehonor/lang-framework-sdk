@@ -14,11 +14,11 @@ public class StringSplitUtilsTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(StringSplitUtilsTest.class);
 
-    private static final String TEXT = " 1 a bc def adsfasdfasdf ";
+    private static final String TEXT = " 1 a bc def       adsfasdfasdf ";
     
     @Test
     public void test() {
-        String src = "aaa,bbb ，c cc,ddd，d，，   ，，,,,";
+        String src = "aaa,bbb ，c cc,ddd，d，，   ，，,,,x";
         List<String> words = StringSplitUtils.split(src);
         for (String s : words) {
             LOG.info("0:({})", s);
