@@ -31,12 +31,12 @@ public class FileUtilsTest {
         assertTrue("*testByte2File*", true);
     }
 
-//    @Test
+    @Test
     public void testDownload() {
         String url = "https://huajietaojin.oss-cn-hangzhou.aliyuncs.com/columbus/91d27a04666b49d4be9da5562ae6059a/store/logo/5a5dd285046116257b1d8c97d208b70e.jpg";
         File file = null;
         try {
-            file = FileUtils.download(url, "\\testfile\\", "mylogo.jpg");
+            file = FileUtils.download(url, "D:\\data", "mylogo.jpg");
 
             // byte[] qrcodeBytes = QrcodeUtils.createQrcode("hello world 12313", file);
             // FileUtils.byte2File(qrcodeBytes, "D:\\file\\", System.currentTimeMillis() +

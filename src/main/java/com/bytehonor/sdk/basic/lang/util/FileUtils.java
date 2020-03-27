@@ -113,7 +113,7 @@ public class FileUtils {
      * 根据byte数组，生成文件
      * 
      * @param bfile    文件数组
-     * @param fileDir 文件存放路径
+     * @param fileDir  文件存放路径
      * @param fileName 文件名称
      */
     public static File byte2File(byte[] bfile, String fileDir, String fileName) {
@@ -121,11 +121,7 @@ public class FileUtils {
             throw new RuntimeException("byte2File param is invalid");
         }
         isExistDir(fileDir);// 判断文件目录是否存在
-        String filePath = fileDir;
-        if (filePath.endsWith("/") == false && fileName.startsWith("/") == false) {
-            filePath += "/";
-        }
-        filePath += fileName;
+        String filePath = filePath(fileDir, fileName);
         File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
@@ -193,13 +189,23 @@ public class FileUtils {
         }
     }
 
-    public static File download(String fileUrl, String saveDir, String fileName) {
-        if (StringUtils.isEmpty(fileUrl) || StringUtils.isEmpty(saveDir) || StringUtils.isEmpty(fileName)) {
+    private static String filePath(String fileDir, String fileName) {
+        String filePath = fileDir;
+        if (filePath.endsWith("/") == false && fileName.startsWith("/") == false) {
+            filePath += "/";
+        }
+        filePath += fileName;
+        return filePath;
+    }
+
+    public static File download(String fileUrl, String fileDir, String fileName) {
+        if (StringUtils.isEmpty(fileUrl) || StringUtils.isEmpty(fileDir) || StringUtils.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
-        isExistDir(saveDir);
-        LOG.debug("download saveDir:{}, fileName:{}", saveDir, fileName);
-        File file = new File(saveDir + fileName);
+        isExistDir(fileDir);
+        LOG.debug("download fileDir:{}, fileName:{}", fileDir, fileName);
+        String filePath = filePath(fileDir, fileName);
+        File file = new File(filePath);
         // 获取连接
         InputStream in = null;
         OutputStream out = null;
