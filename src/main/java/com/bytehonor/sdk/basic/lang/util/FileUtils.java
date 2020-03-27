@@ -113,15 +113,20 @@ public class FileUtils {
      * 根据byte数组，生成文件
      * 
      * @param bfile    文件数组
-     * @param filePath 文件存放路径
+     * @param fileDir 文件存放路径
      * @param fileName 文件名称
      */
-    public static File byte2File(byte[] bfile, String filePath, String fileName) {
-        if (StringUtils.isEmpty(filePath) || StringUtils.isEmpty(fileName)) {
+    public static File byte2File(byte[] bfile, String fileDir, String fileName) {
+        if (StringUtils.isEmpty(fileDir) || StringUtils.isEmpty(fileName)) {
             throw new RuntimeException("byte2File param is invalid");
         }
-        isExistDir(filePath);// 判断文件目录是否存在
-        File file = new File(filePath + fileName);
+        isExistDir(fileDir);// 判断文件目录是否存在
+        String filePath = fileDir;
+        if (filePath.endsWith("/") == false && fileName.startsWith("/") == false) {
+            filePath += "/";
+        }
+        filePath += fileName;
+        File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
         try {
