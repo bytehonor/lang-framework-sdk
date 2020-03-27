@@ -50,7 +50,7 @@ public class FileUtils {
     public static String md5Rename(String urlOrPath, String defType) {
         Objects.requireNonNull(urlOrPath, "urlOrPath");
         String md5 = MD5Utils.md5(urlOrPath);
-        String subfix = FileUtils.getFileSubfixWithDot(urlOrPath);
+        String subfix = getFileSubfixWithDot(urlOrPath);
         if (StringUtils.isEmpty(subfix)) {
             md5 = md5 + formatDefType(defType);
         } else {
