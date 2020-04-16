@@ -28,7 +28,7 @@ public class FileUtils {
             return subfix;
         }
 
-        return subfix.substring(1, subfix.length());
+        return subfix.substring(1, subfix.length()).toLowerCase();
     }
 
     public static String getFileSubfixWithDot(String url) {
@@ -44,19 +44,26 @@ public class FileUtils {
         if (url.length() - at > 7) {
             return "";
         }
-        return url.substring(at);
+        return url.substring(at).toLowerCase();
+    }
+
+    public static String md5Rename(String urlOrPath) {
+        return md5Rename(urlOrPath, null);
     }
 
     public static String md5Rename(String urlOrPath, String defType) {
         Objects.requireNonNull(urlOrPath, "urlOrPath");
-        String md5 = MD5Utils.md5(urlOrPath);
         String subfix = getFileSubfixWithDot(urlOrPath);
         if (StringUtils.isEmpty(subfix)) {
-            md5 = md5 + formatDefType(defType);
-        } else {
-            md5 = md5 + subfix.toLowerCase();
+            subfix = formatDefType(defType); // 没后缀的用指定的后缀
         }
-        return md5;
+        StringBuilder raw = new StringBuilder(subfix).append(urlOrPath);
+        String md5 = MD5Utils.md5(raw.toString());
+        StringBuilder url = new StringBuilder(md5);
+        if (StringUtils.isEmpty(subfix) == false) {
+            url.append(subfix);
+        }
+        return url.toString();
     }
 
     private static String formatDefType(String defType) {

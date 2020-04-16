@@ -5,8 +5,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileUtilsTest {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(FileUtilsTest.class);
 
     @Test
     public void testGetFileSubfixNoDot() {
@@ -31,7 +35,7 @@ public class FileUtilsTest {
         assertTrue("*testByte2File*", true);
     }
 
-    @Test
+//    @Test
     public void testDownload() {
         String url = "https://huajietaojin.oss-cn-hangzhou.aliyuncs.com/columbus/91d27a04666b49d4be9da5562ae6059a/store/logo/5a5dd285046116257b1d8c97d208b70e.jpg";
         File file = null;
@@ -53,6 +57,14 @@ public class FileUtilsTest {
         FileUtils.isExistDir("\\testfile\\2018\\");
 
         assertTrue("*testIsExistDir*", true);
+    }
+    
+    @Test
+    public void testMd5Rename() {
+        String url = "https://huajietaojin.oss-cn-hangzhou.aliyuncs.com/columbus/91d27a04666b49d4be9da5562ae6059a/store/logo/5a5dd285046116257b1d8c97d208b70e.jpg";
+        String name = FileUtils.md5Rename(url);
+        LOG.info("md5Rename:{}", name);
+        assertTrue("*testIsExistDir*", "6e086e9e3811573716842ce363527e74.jpg".equals(name));
     }
 
 }
