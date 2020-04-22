@@ -4,13 +4,17 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.bytehonor.sdk.basic.lang.constant.CharConstants;
 import com.bytehonor.sdk.basic.lang.regex.PatternUtils;
 
 public class StringRemoveUtils {
-    
+
+    private static Logger LOG = LoggerFactory.getLogger(StringRemoveUtils.class);
+
     /**
      * 大写 P 表示 Unicode 字符集七个字符属性之一：标点字符。
      * 
@@ -25,7 +29,7 @@ public class StringRemoveUtils {
 
     private static final String PSZ = "\\pP|\\pS|\\pZ";
     private static final Pattern PSZ_PATTERN = Pattern.compile(PSZ);
-    
+
     /**
      * 移除指定范围内的字串，左闭右闭
      * 
@@ -62,7 +66,7 @@ public class StringRemoveUtils {
 
         return "";
     }
-    
+
     /**
      * 清除标点符号
      * 
@@ -99,10 +103,15 @@ public class StringRemoveUtils {
      * 
      * @param text
      * @return
-     * @throws UnsupportedEncodingException
      */
-    public static String removeUtf8Mb4(String text) throws UnsupportedEncodingException {
-        byte[] bytes = text.getBytes("utf-8");
+    public static String removeUtf8Mb4(String text) {
+        byte[] bytes = new byte[] {};
+        try {
+            bytes = text.getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            LOG.error("UnsupportedEncodingException", e);
+            throw new RuntimeException(e.getMessage());
+        }
         ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
         int i = 0;
         while (i < bytes.length) {
@@ -129,15 +138,20 @@ public class StringRemoveUtils {
             }
         }
         buffer.flip();
-        return new String(buffer.array(), 0, buffer.limit(), "utf-8"); 
+        try {
+            return new String(buffer.array(), 0, buffer.limit(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            LOG.error("new String failed", e);
+            throw new RuntimeException(e.getMessage());
+        }
     }
-    
+
 //    public static void main(String[] args) throws UnsupportedEncodingException {
 //        String src = "🧠工作联系VX:z111x333 赠送一条：157cm 80斤《》：“{}+——）*&……%￥#@ф";
 //        System.out.println(src);
 //        System.out.println(removeUtf8Mb4(src));
 //    }
-    
+
     /**
      * 替换非中文字符为空格
      * 
