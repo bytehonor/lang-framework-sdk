@@ -28,7 +28,7 @@ public class FileUtils {
             return subfix;
         }
 
-        return subfix.substring(1, subfix.length()).toLowerCase();
+        return subfix.substring(1, subfix.length());
     }
 
     public static String getFileSubfixWithDot(String url) {
@@ -47,10 +47,12 @@ public class FileUtils {
         return url.substring(at).toLowerCase();
     }
 
+    @Deprecated
     public static String md5Rename(String urlOrPath) {
         return md5Rename(urlOrPath, null);
     }
 
+    @Deprecated
     public static String md5Rename(String urlOrPath, String defType) {
         Objects.requireNonNull(urlOrPath, "urlOrPath");
         String subfix = getFileSubfixWithDot(urlOrPath);
