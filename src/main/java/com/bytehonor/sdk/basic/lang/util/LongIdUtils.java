@@ -2,7 +2,7 @@ package com.bytehonor.sdk.basic.lang.util;
 
 public class LongIdUtils {
 
-    public static final long MAX = 999987654321L; // 12bits
+    private static final long BASE = 20180328L;
 
     private static final int SCALE_62 = 62;
 
@@ -12,7 +12,7 @@ public class LongIdUtils {
 
     // 数字转62进制
     public static String encode(long num) {
-        num = MAX - num;
+        num += BASE;
         StringBuilder sb = new StringBuilder();
         int remainder;
         int limit = SCALE_62 - 1;
@@ -43,6 +43,6 @@ public class LongIdUtils {
             // 单字符值在进制规则下表示的值
             value += (long) (tempCharValue * Math.pow(SCALE_62, length - i - 1));
         }
-        return MAX - value;
+        return value - BASE;
     }
 }

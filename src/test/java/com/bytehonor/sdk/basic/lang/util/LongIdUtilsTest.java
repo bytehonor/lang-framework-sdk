@@ -9,7 +9,7 @@ public class LongIdUtilsTest {
     @Test
     public void test() {
         long val = 1234567L;
-        int size = 1000000;
+        int size = 100000;
         int success = 0;
         for (int i = 0; i < size; i++) {
             String src = LongIdUtils.encode(val);
@@ -17,7 +17,7 @@ public class LongIdUtilsTest {
             if (n == val) {
                 success++;
             }
-            val = val + i;
+            val = val + i * i;
         }
         assertTrue("*testDecode*", size == success);
     }
