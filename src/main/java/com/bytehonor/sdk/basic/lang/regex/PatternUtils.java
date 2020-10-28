@@ -91,6 +91,19 @@ public class PatternUtils {
 		}
 		return true;
 	}
+	
+	public static boolean isChinese(String src) {
+        if (StringUtils.isEmpty(src)) {
+            return false;
+        }
+        int len = src.length();
+        for (int i = 0; i < len; i++) {
+            if (isChineseChar(src.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 	/**
 	 * 正常字符，数字、英文、中文
