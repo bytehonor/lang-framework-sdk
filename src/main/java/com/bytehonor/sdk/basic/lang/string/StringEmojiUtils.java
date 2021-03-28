@@ -1,6 +1,13 @@
 package com.bytehonor.sdk.basic.lang.string;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringEmojiUtils {
+
+    private static final String EMOJI = "[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]";
+    private static final Pattern EPATTERN_EMOJI = Pattern.compile(EMOJI,
+            Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
 
     /**
      * 检测是否有emoji字符
@@ -40,6 +47,11 @@ public class StringEmojiUtils {
     public static String removeEmoji(String text) {
         if (StringObject.isEmpty(text)) {
             return text;
+        }
+        // 两重判断
+        Matcher emojiMatcher = EPATTERN_EMOJI.matcher(text);
+        if (emojiMatcher.find()) {
+            text = emojiMatcher.replaceAll("");
         }
         boolean hasEmoji = false;
         int len = text.length();
