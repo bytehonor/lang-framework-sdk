@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.util.StringUtils;
-
 /**
  * <pre>
  * 字符串切割
@@ -46,7 +44,7 @@ public class StringSliceUtils {
      */
     public static Set<String> slice(String text, int limit) {
         Set<String> set = new HashSet<String>();
-        if (StringUtils.isEmpty(text)) {
+        if (StringObject.isEmpty(text)) {
             return set;
         }
         int len = text.length();
@@ -83,7 +81,7 @@ public class StringSliceUtils {
      */
     public static List<String> sliceOrderd(String text, int limit) {
         List<String> list = new ArrayList<String>();
-        if (StringUtils.isEmpty(text)) {
+        if (StringObject.isEmpty(text)) {
             return list;
         }
         int len = text.length();

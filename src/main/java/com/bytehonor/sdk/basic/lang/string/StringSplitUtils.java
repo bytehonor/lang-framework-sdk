@@ -3,8 +3,6 @@ package com.bytehonor.sdk.basic.lang.string;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.lang.constant.CharConstants;
 
 public class StringSplitUtils {
@@ -16,7 +14,7 @@ public class StringSplitUtils {
      * @return
      */
     public static List<String> split(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return new ArrayList<String>();
         }
         int length = src.length();
@@ -37,7 +35,7 @@ public class StringSplitUtils {
     }
 
     public static List<String> split(String src, char sp) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return new ArrayList<String>();
         }
         int length = src.length();

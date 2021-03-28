@@ -1,7 +1,5 @@
 package com.bytehonor.sdk.basic.lang.string;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.lang.regex.PatternUtils;
 
 public class SentenceAlgothrim {
@@ -21,7 +19,7 @@ public class SentenceAlgothrim {
      * @return
      */
     public static boolean isSemanticSimalar(String src1, String src2, int maxCount) {
-        if (StringUtils.isEmpty(src1) || StringUtils.isEmpty(src2)) {
+        if (StringObject.isEmpty(src1) || StringObject.isEmpty(src2)) {
             return false;
         }
         // 统一去掉标点符号

@@ -16,7 +16,8 @@ import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
+
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 
 public class FileUtils {
 
@@ -24,7 +25,7 @@ public class FileUtils {
 
     public static String getFileSubfixNoDot(String url) {
         String subfix = getFileSubfixWithDot(url);
-        if (StringUtils.isEmpty(subfix)) {
+        if (StringObject.isEmpty(subfix)) {
             return subfix;
         }
 
@@ -56,20 +57,20 @@ public class FileUtils {
     public static String md5Rename(String urlOrPath, String defType) {
         Objects.requireNonNull(urlOrPath, "urlOrPath");
         String subfix = getFileSubfixWithDot(urlOrPath);
-        if (StringUtils.isEmpty(subfix)) {
+        if (StringObject.isEmpty(subfix)) {
             subfix = formatDefType(defType); // 没后缀的用指定的后缀
         }
         StringBuilder raw = new StringBuilder(subfix).append(urlOrPath);
         String md5 = MD5Utils.md5(raw.toString());
         StringBuilder url = new StringBuilder(md5);
-        if (StringUtils.isEmpty(subfix) == false) {
+        if (StringObject.isEmpty(subfix) == false) {
             url.append(subfix);
         }
         return url.toString();
     }
 
     private static String formatDefType(String defType) {
-        if (StringUtils.isEmpty(defType)) {
+        if (StringObject.isEmpty(defType)) {
             return "";
         }
         if (defType.startsWith(".") == false) {
@@ -126,7 +127,7 @@ public class FileUtils {
      * @param fileName 文件名称
      */
     public static File byte2File(byte[] bfile, String fileDir, String fileName) {
-        if (StringUtils.isEmpty(fileDir) || StringUtils.isEmpty(fileName)) {
+        if (StringObject.isEmpty(fileDir) || StringObject.isEmpty(fileName)) {
             throw new RuntimeException("byte2File param is invalid");
         }
         isExistDir(fileDir);// 判断文件目录是否存在
@@ -208,7 +209,7 @@ public class FileUtils {
     }
 
     public static File download(String fileUrl, String fileDir, String fileName) {
-        if (StringUtils.isEmpty(fileUrl) || StringUtils.isEmpty(fileDir) || StringUtils.isEmpty(fileName)) {
+        if (StringObject.isEmpty(fileUrl) || StringObject.isEmpty(fileDir) || StringObject.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
         isExistDir(fileDir);

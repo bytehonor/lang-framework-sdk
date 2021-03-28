@@ -3,7 +3,7 @@ package com.bytehonor.sdk.basic.lang.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.springframework.util.StringUtils;
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 
 /**
  * double的计算不精确，会有类似0.0000000000000002的误差，正确的方法是使用BigDecimal或者用整型
@@ -110,7 +110,7 @@ public class DoubleMathUtils {
 	}
 	
 	public static double round(String value, int scale) {
-		if (StringUtils.isEmpty(value)) {
+		if (StringObject.isEmpty(value)) {
 			return 0.00;
 		}
 		Double dou = Double.valueOf(value);

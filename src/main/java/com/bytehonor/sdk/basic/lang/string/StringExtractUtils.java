@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 /**
  * <pre>
@@ -22,7 +21,7 @@ public class StringExtractUtils {
 
     public static String extract(String src, String beginner, String ender) {
         Objects.requireNonNull(src, "src");
-        if (StringUtils.isEmpty(src) || StringUtils.isEmpty(beginner) || StringUtils.isEmpty(ender)) {
+        if (StringObject.isEmpty(src) || StringObject.isEmpty(beginner) || StringObject.isEmpty(ender)) {
             return src;
         }
         final int length = src.length();

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import com.bytehonor.sdk.basic.lang.constant.CharConstants;
 
@@ -41,7 +40,7 @@ public class StringAlgorithm {
      */
     public static List<String> commonSubstrings(String src1, String src2, int minLength) {
         List<String> result = new ArrayList<String>();
-        if (StringUtils.isEmpty(src1) || StringUtils.isEmpty(src1)) {
+        if (StringObject.isEmpty(src1) || StringObject.isEmpty(src1)) {
             return result;
         }
         if (minLength < 1) {
@@ -55,7 +54,7 @@ public class StringAlgorithm {
             result.add(lcs.trim());
             src1 = StringRemoveUtils.removeRegex(src1, lcs);
             src2 = StringRemoveUtils.removeRegex(src2, lcs);
-            if (StringUtils.isEmpty(src1) || StringUtils.isEmpty(src1)) {
+            if (StringObject.isEmpty(src1) || StringObject.isEmpty(src1)) {
                 break;
             }
         }
@@ -250,7 +249,7 @@ public class StringAlgorithm {
     public static int levenshtein(String str1, String str2) {
         int len1 = str1 != null ? str1.length() : 0;
         int len2 = str2 != null ? str2.length() : 0;
-        if (StringUtils.isEmpty(str1) || StringUtils.isEmpty(str2)) {
+        if (StringObject.isEmpty(str1) || StringObject.isEmpty(str2)) {
             return len1 > len2 ? len1 : len2;
         }
 
@@ -296,14 +295,14 @@ public class StringAlgorithm {
      * @return
      */
     public static boolean contains(String src1, String src2) {
-        if (StringUtils.isEmpty(src1) || StringUtils.isEmpty(src2)) {
+        if (StringObject.isEmpty(src1) || StringObject.isEmpty(src2)) {
             return false;
         }
         return src1.length() > src2.length() ? src1.contains(src2) : src2.contains(src1);
     }
 
     public static int lengthIgnoreBlank(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return 0;
         }
         int sum = 0;

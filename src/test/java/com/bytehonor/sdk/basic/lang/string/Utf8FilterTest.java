@@ -36,7 +36,7 @@ public class Utf8FilterTest {
 
     private static final String EMOJIS5 = "🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🍅🍆🌽🍄🌰🍞🍖🍗🍔🍟🍕🍳🍲🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🍡🍦🍧🍨🍩🍪🎂🍰🍫🍬🍭🍮🍯🍼☕🍵🍶🍷🍸🍹🍺🍻🍴";
 
-//	@Test
+	@Test
     public void testFilterOffUtf8Mb4() {
         Map<String, String> texts = new HashMap<String, String>();
         texts.put("TEXT", TEXT);
@@ -53,15 +53,15 @@ public class Utf8FilterTest {
         texts.put("SPECIAL5", SPECIAL5);
 
         for (Entry<String, String> item : texts.entrySet()) {
-            String s1 = StringRemoveUtils.removeUtf8Mb4(item.getValue());
+            String s1 = StringEmojiUtils.removeEmoji(item.getValue());
             LOG.info("U type:{}, old:{}, new:{}, ({})", item.getKey(), item.getValue().length(), s1.length(), s1);
         }
 
-        LOG.info("({}), {}", EMOJIS1, EMOJIS1.length());
+        LOG.info("EMOJIS1 ({}), {}", EMOJIS1, EMOJIS1.length());
         int times = 1000;
         long start = System.nanoTime();
         for (int i = 0; i < times; i++) {
-            StringRemoveUtils.removeUtf8Mb4(EMOJIS1);
+            StringEmojiUtils.removeEmoji(EMOJIS1);
         }
         long cost1 = System.nanoTime() - start;
         LOG.info("cost1:{}", cost1);
@@ -71,7 +71,7 @@ public class Utf8FilterTest {
     @Test
     public void testRemoveEmoji() {
         String src = "🔥讲解 Samsung 第二代折叠机 Galaxy Z Flip 🔥";
-        String clear = StringRemoveUtils.removeUtf8Mb4(src);
+        String clear = StringEmojiUtils.removeEmoji(src);
         LOG.info("clear:({})", clear);
         assertTrue("*testFilterOffUtf8Mb4*", true);
     }

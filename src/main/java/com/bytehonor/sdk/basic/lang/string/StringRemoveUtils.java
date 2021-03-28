@@ -1,19 +1,11 @@
 package com.bytehonor.sdk.basic.lang.string;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import com.bytehonor.sdk.basic.lang.constant.CharConstants;
 import com.bytehonor.sdk.basic.lang.regex.PatternUtils;
 
 public class StringRemoveUtils {
-
-    private static Logger LOG = LoggerFactory.getLogger(StringRemoveUtils.class);
 
     /**
      * 大写 P 表示 Unicode 字符集七个字符属性之一：标点字符。
@@ -29,7 +21,7 @@ public class StringRemoveUtils {
 
     private static final String PSZ = "\\pP|\\pS|\\pZ";
     private static final Pattern PSZ_PATTERN = Pattern.compile(PSZ);
-
+    
     /**
      * 移除指定范围内的字串，左闭右闭
      * 
@@ -74,7 +66,7 @@ public class StringRemoveUtils {
      * @return clear
      */
     public static String cleanPS(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
         // return src.replaceAll(PSZ, "");
@@ -88,69 +80,12 @@ public class StringRemoveUtils {
      * @return clear
      */
     public static String cleanPSZ(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
         // return src.replaceAll(PSZ, "");
         return PSZ_PATTERN.matcher(src).replaceAll("");
     }
-
-    /**
-     * <pre>
-     * Java 过滤非汉字的utf8的字符（包括emoji）
-     * 4字节以上的过滤掉
-     * </pre>
-     * 
-     * @param text
-     * @return
-     */
-    public static String removeUtf8Mb4(String text) {
-        byte[] bytes = new byte[] {};
-        try {
-            bytes = text.getBytes("utf-8");
-        } catch (UnsupportedEncodingException e) {
-            LOG.error("UnsupportedEncodingException", e);
-            throw new RuntimeException(e.getMessage());
-        }
-        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
-        int i = 0;
-        while (i < bytes.length) {
-            short b = bytes[i];
-            if (b > 0) {
-                buffer.put(bytes[i++]);
-                continue;
-            }
-
-            b += 256; // 去掉符号位
-
-            if (((b >> 5) ^ 0x06) == 0) {
-                buffer.put(bytes, i, 2);
-                i += 2;
-            } else if (((b >> 4) ^ 0x0E) == 0) {
-                buffer.put(bytes, i, 3);
-                i += 3;
-            } else if (((b >> 3) ^ 0x1E) == 0) {
-                i += 4;
-            } else if (((b >> 2) ^ 0xBE) == 0) {
-                i += 5;
-            } else {
-                i += 6;
-            }
-        }
-        buffer.flip();
-        try {
-            return new String(buffer.array(), 0, buffer.limit(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            LOG.error("new String failed", e);
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-//    public static void main(String[] args) throws UnsupportedEncodingException {
-//        String src = "🧠工作联系VX:z111x333 赠送一条：157cm 80斤《》：“{}+——）*&……%￥#@ф";
-//        System.out.println(src);
-//        System.out.println(removeUtf8Mb4(src));
-//    }
 
     /**
      * 替换非中文字符为空格
@@ -159,7 +94,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceNonChineseWithBlank(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -194,7 +129,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonChinese(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -218,7 +153,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceNonNormalWithBlank(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -253,7 +188,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonNormal(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -277,10 +212,10 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceRegexWithBlank(String src, String regex) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
-        if (StringUtils.isEmpty(regex)) {
+        if (StringObject.isEmpty(regex)) {
             return src;
         }
         int regLen = regex.length();
@@ -319,10 +254,10 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeRegex(String src, String regex) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return "";
         }
-        if (StringUtils.isEmpty(regex)) {
+        if (StringObject.isEmpty(regex)) {
             return src;
         }
         int regLen = regex.length();
