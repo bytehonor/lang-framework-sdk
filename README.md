@@ -1,2 +1,2 @@
-# lang-basic-sdk
-lang-basic-sdk
+# bytehonor-lang-sdk
+bytehonor-lang-sdk
