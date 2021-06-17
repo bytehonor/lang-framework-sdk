@@ -195,7 +195,7 @@ public class FileUtils {
         try {
             URL url = new URL(fileUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(3 * 1000);
+            connection.setConnectTimeout(8 * 1000);
             // 设置请求头
             // connection.setRequestProperty("User-Agent", "Mozilla/5.0");
             // 获取输入流
