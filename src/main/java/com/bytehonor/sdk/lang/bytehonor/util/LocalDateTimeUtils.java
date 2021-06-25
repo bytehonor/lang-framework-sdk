@@ -53,4 +53,7 @@ public class LocalDateTimeUtils {
         return format(LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault()), formatter);
     }
 
+    public static LocalDateTime fromTimestamp(long time) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
+    }
 }
