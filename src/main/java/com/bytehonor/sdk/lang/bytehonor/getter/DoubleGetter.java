@@ -8,21 +8,21 @@ import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
  * @author lijianqiang
  *
  */
-public class LongGetter {
+public class DoubleGetter {
 
-    public static Long parse(String src) {
+    public static Double parse(String src) {
         try {
-            return Long.valueOf(src);
+            return Double.valueOf(src);
         } catch (Exception e) {
-            throw new ParameterExcption(StringCreator.create().append(src).append(" is not Long").toString());
+            throw new ParameterExcption(StringCreator.create().append(src).append(" is not Double").toString());
         }
     }
 
-    public static Long optional(String src) {
+    public static Double optional(String src) {
         return optional(src, null);
     }
 
-    public static Long optional(String src, Long def) {
+    public static Double optional(String src, Double def) {
         if (StringObject.isEmpty(src)) {
             return def;
         }
@@ -33,7 +33,7 @@ public class LongGetter {
         }
     }
 
-    public static Long optional(Long val, Long def) {
+    public static Double optional(Double val, Double def) {
         return val != null ? val : def;
     }
 }

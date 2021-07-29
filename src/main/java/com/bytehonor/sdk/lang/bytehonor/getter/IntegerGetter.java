@@ -14,7 +14,7 @@ public class IntegerGetter {
         try {
             return Integer.valueOf(src);
         } catch (Exception e) {
-            throw new ParameterExcption(StringCreator.create().append(src).append(" is not number ").toString());
+            throw new ParameterExcption(StringCreator.create().append(src).append(" is not Integer").toString());
         }
     }
 
