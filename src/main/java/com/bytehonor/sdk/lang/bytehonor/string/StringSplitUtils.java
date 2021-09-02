@@ -3,6 +3,7 @@ package com.bytehonor.sdk.lang.bytehonor.string;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.constant.CharConstants;
 
 public class StringSplitUtils {

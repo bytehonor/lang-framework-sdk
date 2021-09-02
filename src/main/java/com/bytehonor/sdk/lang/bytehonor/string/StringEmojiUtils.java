@@ -3,6 +3,8 @@ package com.bytehonor.sdk.lang.bytehonor.string;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+
 public class StringEmojiUtils {
 
     private static final String EMOJI = "[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]";

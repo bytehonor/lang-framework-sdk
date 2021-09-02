@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+
 /**
  * <pre>
  * 字符串切割

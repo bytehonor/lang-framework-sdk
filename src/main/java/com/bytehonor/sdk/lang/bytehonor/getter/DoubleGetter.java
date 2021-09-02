@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.lang.bytehonor.getter;
 
 import com.bytehonor.sdk.define.bytehonor.error.ParameterExcption;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.string.StringCreator;
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
 
 /**
  * @author lijianqiang

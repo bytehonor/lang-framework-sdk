@@ -2,7 +2,7 @@ package com.bytehonor.sdk.lang.bytehonor.regex;
 
 import java.util.regex.Pattern;
 
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 
 public class PatternUtils {
 

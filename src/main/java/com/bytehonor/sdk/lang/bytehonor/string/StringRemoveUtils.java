@@ -2,6 +2,7 @@ package com.bytehonor.sdk.lang.bytehonor.string;
 
 import java.util.regex.Pattern;
 
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.constant.CharConstants;
 import com.bytehonor.sdk.lang.bytehonor.regex.PatternUtils;
 

@@ -2,7 +2,7 @@ package com.bytehonor.sdk.lang.bytehonor.getter;
 
 import java.util.Set;
 
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.google.common.collect.Sets;
 
 /**

@@ -3,7 +3,7 @@ package com.bytehonor.sdk.lang.bytehonor.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 
 /**
  * double的计算不精确，会有类似0.0000000000000002的误差，正确的方法是使用BigDecimal或者用整型

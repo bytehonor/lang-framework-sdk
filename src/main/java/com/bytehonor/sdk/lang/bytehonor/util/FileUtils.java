@@ -17,7 +17,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 
 /**
  * @author lijianqiang

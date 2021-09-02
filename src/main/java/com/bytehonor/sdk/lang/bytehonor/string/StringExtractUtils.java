@@ -5,6 +5,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+
 /**
  * <pre>
  * 字符串提取
