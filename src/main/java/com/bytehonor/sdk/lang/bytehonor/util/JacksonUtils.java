@@ -27,7 +27,6 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readValue(json, valueType);
         } catch (Exception e) {
-            LOG.error("valueType:{}, json:{}", valueType.getSimpleName(), json);
             throw new BytehonorLangException("readValue valueType error", e);
         }
     }
@@ -38,7 +37,6 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readValue(json, valueTypeRef);
         } catch (Exception e) {
-            LOG.error("valueType error, json:{}", json);
             throw new BytehonorLangException("readValue valueTypeRef error", e);
         }
     }
