@@ -23,12 +23,12 @@ import com.bytehonor.sdk.define.bytehonor.util.StringObject;
  * @author lijianqiang
  *
  */
-public class FileUtils {
+public class FileDownloadUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileDownloadUtils.class);
 
-    public static String getFileSubfixNoDot(String url) {
-        String subfix = getFileSubfixWithDot(url);
+    public static String subfixNoDot(String url) {
+        String subfix = subfixWithDot(url);
         if (StringObject.isEmpty(subfix)) {
             return subfix;
         }
@@ -36,7 +36,7 @@ public class FileUtils {
         return subfix.substring(1, subfix.length());
     }
 
-    public static String getFileSubfixWithDot(String url) {
+    public static String subfixWithDot(String url) {
         Objects.requireNonNull(url, "url");
         int at = url.indexOf('?');
         if (at > 1) {
