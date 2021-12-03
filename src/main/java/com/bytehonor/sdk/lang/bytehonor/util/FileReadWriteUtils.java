@@ -8,18 +8,40 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.exception.BytehonorLangException;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 
 public class FileReadWriteUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileReadWriteUtils.class);
 
     private static final String SPL = "/";
+
+    private static int CAPACITY = 1024;
+
+    private static Cache<String, Boolean> CACHE = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
+            .maximumSize(500 * CAPACITY) // 设置缓存的最大容量
+            .expireAfterWrite(1, TimeUnit.HOURS) // 设置缓存在写入一分钟后失效
+            .concurrencyLevel(20) // 设置并发级别为10
+            .build(); // .recordStats() // 开启缓存统计
+
+    private static void put(String key, Boolean value) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(value, "value");
+        CACHE.put(key, value);
+    }
+
+    private static Boolean getIfPresent(String key) {
+        Objects.requireNonNull(key, "key");
+        return CACHE.getIfPresent(key);
+    }
 
     /**
      * 有/结尾
@@ -55,7 +77,7 @@ public class FileReadWriteUtils {
         }
         return dir1 + dir2;
     }
-    
+
     /**
      * <pre>
      * 读取目录下的文件 指定后缀的
@@ -165,6 +187,12 @@ public class FileReadWriteUtils {
      * @param filePath 支持带文件名的Path：如：D:\news\2014\12\abc.text，和不带文件名的Path：如：D:\news\2014\12
      */
     public static void isExistDir(String filePath) {
+        Objects.requireNonNull(filePath, "filePath");
+        if (getIfPresent(filePath) != null) {
+            return;
+        }
+        put(filePath, true);
+
         String paths[] = { "" };
         // 切割路径
         try {
@@ -188,9 +216,16 @@ public class FileReadWriteUtils {
         }
         // 创建文件夹
         String dir = paths[0];
-        for (int i = 0; i < paths.length - (hasType ? 2 : 1); i++) {// 注意此处循环的长度，有后缀的就是文件路径，没有则文件夹路径
+        int end = paths.length - (hasType ? 2 : 1);
+        for (int i = 0; i < end; i++) {// 注意此处循环的长度，有后缀的就是文件路径，没有则文件夹路径
             try {
                 dir = dir + "/" + paths[i + 1];// 采用linux下的标准写法进行拼接，由于windows可以识别这样的路径，所以这里采用警容的写法
+
+                if (getIfPresent(dir) != null) {
+                    continue;
+                }
+                put(dir, true);
+
                 File dirFile = new File(dir);
                 if (!dirFile.exists()) {
                     dirFile.mkdir();
