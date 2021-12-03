@@ -105,6 +105,7 @@ public class FileReadWriteUtils {
     public static void write(String filePath, String content) {
         RandomAccessFile raf = null;
         try {
+            isExistDir(filePath);
             raf = new RandomAccessFile(filePath, "rw");
             raf.write(content.getBytes());// 写入txt文件
         } catch (Exception e) {
@@ -120,7 +121,7 @@ public class FileReadWriteUtils {
             }
         }
     }
-    
+
     /**
      * 判断多级路径是否存在，不存在就创建
      * 
@@ -156,14 +157,14 @@ public class FileReadWriteUtils {
                 File dirFile = new File(dir);
                 if (!dirFile.exists()) {
                     dirFile.mkdir();
-                    LOG.info("成功创建目录：" + dirFile.getCanonicalFile());
+                    LOG.info("成功创建目录：{}", dirFile.getCanonicalFile());
                 }
             } catch (Exception e) {
                 LOG.error("文件夹创建发生异常", e);
             }
         }
     }
-    
+
     public static String subfixNoDot(String url) {
         String subfix = subfixWithDot(url);
         if (StringObject.isEmpty(subfix)) {
