@@ -77,7 +77,7 @@ public class FileDownloadUtils {
             throw new RuntimeException("byte2File param is invalid");
         }
         FileReadWriteUtils.isExistDir(fileDir);// 判断文件目录是否存在
-        String filePath = filePath(fileDir, fileName);
+        String filePath = FileReadWriteUtils.connectPath(fileDir, fileName);
         File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
@@ -102,16 +102,6 @@ public class FileDownloadUtils {
         return file;
     }
 
-    
-
-    private static String filePath(String fileDir, String fileName) {
-        String filePath = fileDir;
-        if (filePath.endsWith("/") == false && fileName.startsWith("/") == false) {
-            filePath += "/";
-        }
-        filePath += fileName;
-        return filePath;
-    }
 
     public static File download(String fileUrl, String fileDir, String fileName) {
         if (StringObject.isEmpty(fileUrl) || StringObject.isEmpty(fileDir) || StringObject.isEmpty(fileName)) {
@@ -119,7 +109,7 @@ public class FileDownloadUtils {
         }
         FileReadWriteUtils.isExistDir(fileDir);
         LOG.debug("download fileDir:{}, fileName:{}", fileDir, fileName);
-        String filePath = filePath(fileDir, fileName);
+        String filePath = FileReadWriteUtils.connectPath(fileDir, fileName);
         File file = new File(filePath);
         // 获取连接
         InputStream in = null;
