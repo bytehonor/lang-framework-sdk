@@ -6,15 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.exception.BytehonorLangException;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 
 public class FileReadWriteUtils {
 
@@ -22,7 +24,24 @@ public class FileReadWriteUtils {
 
     private static final String SPL = "/";
 
-    private static final HashSet<String> CACHE = new HashSet<String>();
+    private static int CAPACITY = 1024;
+
+    private static Cache<String, Boolean> CACHE = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
+            .maximumSize(500 * CAPACITY) // 设置缓存的最大容量
+            .expireAfterWrite(3, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
+            .concurrencyLevel(20) // 设置并发级别为10
+            .build(); // .recordStats() // 开启缓存统计
+
+    private static void put(String key, Boolean value) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(value, "value");
+        CACHE.put(key, value);
+    }
+
+    private static Boolean getIfPresent(String key) {
+        Objects.requireNonNull(key, "key");
+        return CACHE.getIfPresent(key);
+    }
 
     /**
      * 有/结尾
@@ -129,13 +148,14 @@ public class FileReadWriteUtils {
                 sb.append(tmp);
             }
             reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOG.error("read error", e);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e1) {
+                    LOG.error("reader.close error", e1);
                 }
             }
         }
@@ -169,6 +189,10 @@ public class FileReadWriteUtils {
      */
     public static void isExistDir(String filePath) {
         Objects.requireNonNull(filePath, "filePath");
+        if (getIfPresent(filePath) != null) {
+            return;
+        }
+        put(filePath, true);
 
         String paths[] = { "" };
         // 切割路径
@@ -182,35 +206,34 @@ public class FileReadWriteUtils {
             LOG.error("切割路径错误, filePath:{}, error:{}", filePath, e.getMessage());
         }
         // 判断是否有后缀
-        boolean hasDot = false;
+        boolean hasType = false;
         if (paths.length > 0) {
             String tempPath = paths[paths.length - 1];
             if (tempPath.length() > 0) {
                 if (tempPath.indexOf(".") > 0) {
-                    hasDot = true;
+                    hasType = true;
                 }
             }
         }
 
-        if (hasDot == false) {
-            // 纯路径
-            if (CACHE.contains(filePath)) {
+        if (hasType == false) {
+            if (getIfPresent(filePath) != null) {
                 return;
             }
-            CACHE.add(filePath);
+            put(filePath, true);
         }
 
         // 创建文件夹
         String dir = paths[0];
-        int end = paths.length - (hasDot ? 2 : 1);
+        int end = paths.length - (hasType ? 2 : 1);
         for (int i = 0; i < end; i++) {// 注意此处循环的长度，有后缀的就是文件路径，没有则文件夹路径
             try {
                 dir = dir + "/" + paths[i + 1];// 采用linux下的标准写法进行拼接，由于windows可以识别这样的路径，所以这里采用警容的写法
 
-                if (CACHE.contains(dir)) {
+                if (getIfPresent(dir) != null) {
                     continue;
                 }
-                CACHE.add(dir);
+                put(dir, true);
 
                 File dirFile = new File(dir);
                 if (!dirFile.exists()) {
