@@ -189,10 +189,6 @@ public class FileReadWriteUtils {
      */
     public static void isExistDir(String filePath) {
         Objects.requireNonNull(filePath, "filePath");
-        if (getIfPresent(filePath) != null) {
-            return;
-        }
-        put(filePath, true);
 
         String paths[] = { "" };
         // 切割路径
