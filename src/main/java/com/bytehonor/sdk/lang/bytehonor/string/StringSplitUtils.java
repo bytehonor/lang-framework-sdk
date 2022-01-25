@@ -1,7 +1,9 @@
 package com.bytehonor.sdk.lang.bytehonor.string;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.constant.CharConstants;
@@ -42,7 +44,48 @@ public class StringSplitUtils {
             return new ArrayList<String>();
         }
         int length = src.length();
-        List<String> res = new ArrayList<String>(length);
+        List<String> res = new ArrayList<String>(length * 2);
+        int begin = 0;
+        int count = 0;
+        boolean findOne = false;
+        boolean beginNewOne = true;
+        char[] charArray = src.toCharArray();
+        for (int i = 0; i < length; i++) {
+            if (sp != charArray[i]) {
+                if (beginNewOne) {
+                    begin = i;
+                    beginNewOne = false;
+                }
+                count++;
+                findOne = false;
+            } else {
+                findOne = true;
+            }
+
+            if (findOne && count > 0) {
+                res.add(new String(charArray, begin, count));
+                count = 0;
+                beginNewOne = true;
+            }
+        }
+
+        if (count > 0) {
+            res.add(new String(charArray, begin, count));
+        }
+
+        return res;
+    }
+
+    public static Set<String> toSet(String src) {
+        return toSet(src, SPL);
+    }
+
+    public static Set<String> toSet(String src, char sp) {
+        if (StringObject.isEmpty(src)) {
+            return new HashSet<String>();
+        }
+        int length = src.length();
+        Set<String> res = new HashSet<String>(length * 2);
         int begin = 0;
         int count = 0;
         boolean findOne = false;
