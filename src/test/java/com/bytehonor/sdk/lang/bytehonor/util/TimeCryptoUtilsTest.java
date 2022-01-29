@@ -1,0 +1,28 @@
+package com.bytehonor.sdk.lang.bytehonor.util;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class TimeCryptoUtilsTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TimeCryptoUtilsTest.class);
+
+    @Test
+    public void test() {
+        int count = 0;
+        int size = 10000;
+        for (int i = 0; i < size; i++) {
+            String secret = TimeCryptoUtils.encode();
+            boolean isOk = TimeCryptoUtils.decode(secret) != null;
+            LOG.info("{}, {}, {}", isOk, secret.length(), secret);
+            if (isOk) {
+                count++;
+            }
+        }
+        assertTrue("*testMake32*", count == size);
+    }
+
+}
