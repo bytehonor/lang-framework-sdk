@@ -25,4 +25,15 @@ public class TimeCryptoUtilsTest {
         assertTrue("*testMake32*", count == size);
     }
 
+    @Test
+    public void test2() {
+        long time = System.currentTimeMillis();
+        String hex = "";
+        for (int i = 0; i < 200; i++) {
+            time += i;
+            hex = TimeCryptoUtils.toHex(time);
+            LOG.info("time:{}, hex:{}", time, hex);
+        }
+        assertTrue("*test2*", true);
+    }
 }

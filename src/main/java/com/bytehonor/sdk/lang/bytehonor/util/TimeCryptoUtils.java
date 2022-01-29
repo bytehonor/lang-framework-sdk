@@ -21,6 +21,21 @@ public class TimeCryptoUtils {
 
     private static final int YEAR = 2018;
 
+    private static final long DIFF = 20180328L;
+
+    public static String toHex(long timestamp) {
+        return reverse(Long.toHexString(timestamp - DIFF));
+    }
+
+    public static long fromHex(String hex) {
+        return Long.parseLong(reverse(hex), 16) + DIFF;
+    }
+
+    private static String reverse(String src) {
+        StringBuilder sb = new StringBuilder().append(src).reverse();
+        return sb.toString();
+    }
+
     public static String encode() {
         return encode(LocalDateTime.now());
     }
