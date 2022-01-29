@@ -24,11 +24,11 @@ public class TimeCryptoUtils {
     private static final long DIFF = 20180328L;
 
     public static String toHex(long timestamp) {
-        return reverse(Long.toHexString(timestamp - DIFF));
+        return reverse(Long.toString(timestamp - DIFF, 36));
     }
 
     public static long fromHex(String hex) {
-        return Long.parseLong(reverse(hex), 16) + DIFF;
+        return Long.parseLong(reverse(hex), 36) + DIFF;
     }
 
     private static String reverse(String src) {

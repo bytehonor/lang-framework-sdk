@@ -32,7 +32,7 @@ public class TimeCryptoUtilsTest {
         for (int i = 0; i < 200; i++) {
             time += i;
             hex = TimeCryptoUtils.toHex(time);
-            LOG.info("time:{}, hex:{}", time, hex);
+            LOG.info("time:{}, hex:{}, ok:{}", time, hex, time == TimeCryptoUtils.fromHex(hex));
         }
         assertTrue("*test2*", true);
     }
