@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.exception.BytehonorLangException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,8 +28,16 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readValue(json, valueType);
         } catch (Exception e) {
+            LOG.error("error json:{}", cut(json));
             throw new BytehonorLangException("readValue valueType error", e);
         }
+    }
+
+    private static String cut(String text) {
+        if (StringObject.isEmpty(text)) {
+            return "";
+        }
+        return text.length() < 512 ? text : text.substring(0, 510);
     }
 
     public static <T> T fromJson(String json, TypeReference<T> valueTypeRef) {
@@ -37,6 +46,7 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readValue(json, valueTypeRef);
         } catch (Exception e) {
+            LOG.error("error json:{}", cut(json));
             throw new BytehonorLangException("readValue valueTypeRef error", e);
         }
     }
@@ -55,6 +65,7 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readTree(json);
         } catch (Exception e) {
+            LOG.error("error json:{}", cut(json));
             throw new BytehonorLangException("readTree error", e);
         }
     }

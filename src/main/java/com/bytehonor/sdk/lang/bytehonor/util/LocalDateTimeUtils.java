@@ -5,19 +5,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Objects;
 
+import com.bytehonor.sdk.lang.bytehonor.constant.DateConstants;
+
 public class LocalDateTimeUtils {
-
-    public final static DateTimeFormatter FORMATTER_DEFAULT;
-
-    public final static DateTimeFormatter FORMATTER_ZONE;
-
-    static {
-        FORMATTER_ZONE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z", Locale.CHINA);
-        FORMATTER_DEFAULT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-    }
 
     public static long toTimestamp(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
@@ -25,7 +17,7 @@ public class LocalDateTimeUtils {
     }
 
     public static long toTimestamp(String src) {
-        return toTimestamp(src, FORMATTER_DEFAULT);
+        return toTimestamp(src, DateConstants.YYYYMMDD_HHMMSS);
     }
 
     public static long toTimestamp(String src, DateTimeFormatter formatter) {
@@ -36,7 +28,7 @@ public class LocalDateTimeUtils {
     }
 
     public static String format(LocalDateTime ldt) {
-        return format(ldt, FORMATTER_DEFAULT);
+        return format(ldt, DateConstants.YYYYMMDD_HHMMSS);
     }
 
     public static String format(LocalDateTime ldt, DateTimeFormatter formatter) {
@@ -46,7 +38,7 @@ public class LocalDateTimeUtils {
     }
 
     public static String format(long time) {
-        return format(time, FORMATTER_DEFAULT);
+        return format(time, DateConstants.YYYYMMDD_HHMMSS);
     }
 
     public static String format(long time, DateTimeFormatter formatter) {
