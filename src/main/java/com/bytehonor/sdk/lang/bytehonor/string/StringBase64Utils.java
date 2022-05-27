@@ -6,16 +6,24 @@ import org.springframework.util.Base64Utils;
 
 public class StringBase64Utils {
 
-    public static String base64Encode(String src) {
+    public static String encodeSafe(String src) {
         Objects.requireNonNull(src, "src");
-        String base = Base64Utils.encodeToUrlSafeString(src.getBytes());
-        base = base.replaceAll("=", "_");
-        return base;
+        return encode(src).replaceAll("=", "_");
     }
 
-    public static String base64Decode(String base) {
+    public static String decodeSafe(String base) {
         Objects.requireNonNull(base, "base");
         base = base.replaceAll("_", "=");
+        return decode(base);
+    }
+
+    public static String encode(String src) {
+        Objects.requireNonNull(src, "src");
+        return Base64Utils.encodeToUrlSafeString(src.getBytes());
+    }
+
+    public static String decode(String base) {
+        Objects.requireNonNull(base, "base");
         return new String(Base64Utils.decodeFromUrlSafeString(base));
     }
 }
