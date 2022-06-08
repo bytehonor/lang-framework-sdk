@@ -31,7 +31,7 @@ dependencies {
     api('com.fasterxml.jackson.core:jackson-core:2.13.3')
     api('org.springframework:spring-core:5.3.20')
     implementation('org.slf4j:slf4j-api:1.7.36')
-    testImplementation('ch.qos.logback:logback-classic:1.2.11')
+    implementation('ch.qos.logback:logback-classic:1.2.11')
     testImplementation('junit:junit:4.13.2')
 }
 
