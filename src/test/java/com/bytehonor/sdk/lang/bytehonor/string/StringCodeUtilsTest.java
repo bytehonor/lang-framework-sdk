@@ -9,25 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StringCodeUtilsTest {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(StringCodeUtilsTest.class);
 
-
-    @Test
-    public void testDecode() {
-        String src = "bytehonor1234567!@#$%^&*()_+";
-        
-        String enc = StringCodeUtils.base64Encode(src);
-        
-        String dec = StringCodeUtils.base64Decode(enc);
-        
-        LOG.info("src:{}", src);
-        LOG.info("enc:{}", enc);
-        LOG.info("dec:{}", dec);
-        
-        assertTrue("testDecode", src.equals(dec));
-    }
-    
     @Test
     public void testUrlDecode() {
         String src = "https://www.bytehonor.com/index?a=姓名&url=asfasf&^!@#$%^&*()_+{}?><";
