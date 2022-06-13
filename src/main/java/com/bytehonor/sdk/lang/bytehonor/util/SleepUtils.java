@@ -10,6 +10,9 @@ public class SleepUtils {
     private static final Logger LOG = LoggerFactory.getLogger(SleepUtils.class);
 
     public static void sleep(long millis) {
+        if (millis < 1L) {
+            return;
+        }
         try {
             Thread.sleep(millis);
         } catch (Exception e) {
