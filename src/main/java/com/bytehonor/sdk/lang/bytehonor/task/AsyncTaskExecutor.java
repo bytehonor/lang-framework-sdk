@@ -15,7 +15,7 @@ public class AsyncTaskExecutor {
     private ThreadPoolExecutor executor;
 
     private AsyncTaskExecutor() {
-        this.executor = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(10000));
+        this.executor = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(4096));
     }
 
     /**
@@ -26,34 +26,34 @@ public class AsyncTaskExecutor {
         private static AsyncTaskExecutor instance = new AsyncTaskExecutor();
     }
 
-    public static void init(int corePoolSize, int maxPoolSize) {
+    public static void restart(int corePoolSize, int maxPoolSize, int queueSize) {
         shutdown();
-        getInstance().executor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 60, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(10000));
+        self().executor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 60, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(queueSize));
     }
 
-    private static AsyncTaskExecutor getInstance() {
+    private static AsyncTaskExecutor self() {
         return LazyHolder.instance;
     }
 
     public static void execute(Runnable r) {
         Objects.requireNonNull(r, "runnable");
         try {
-            getInstance().executor.execute(r);
+            self().executor.execute(r);
         } catch (Exception e) {
-            LOG.error("AsyncTaskPoolExecutor execute({}) error:{}", r.getClass().getSimpleName(), e);
+            LOG.error("execute({}) error:{}", r.getClass().getSimpleName(), e);
         }
     }
 
     public static void shutdown() {
-        boolean shutdown = getInstance().executor.isShutdown();
+        boolean shutdown = self().executor.isShutdown();
         LOG.info("shutdown:{}", shutdown);
         if (!shutdown) {
-            getInstance().executor.shutdown();
+            self().executor.shutdown();
         }
     }
 
     public static int queueSize() {
-        return getInstance().executor.getQueue().size();
+        return self().executor.getQueue().size();
     }
 }
