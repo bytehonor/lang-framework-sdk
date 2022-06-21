@@ -12,7 +12,7 @@ public class ThreadTaskExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ThreadTaskExecutor.class);
 
-    private ThreadPoolExecutor executor;
+    private final ThreadPoolExecutor executor;
 
     private ThreadTaskExecutor() {
         this.executor = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(4096));
@@ -26,12 +26,6 @@ public class ThreadTaskExecutor {
         private static ThreadTaskExecutor instance = new ThreadTaskExecutor();
     }
 
-    public static void restart(int corePoolSize, int maxPoolSize, int queueSize) {
-        shutdown();
-        self().executor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 60, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(queueSize));
-    }
-
     private static ThreadTaskExecutor self() {
         return LazyHolder.instance;
     }
@@ -43,17 +37,5 @@ public class ThreadTaskExecutor {
         } catch (Exception e) {
             LOG.error("execute({}) error:{}", r.getClass().getSimpleName(), e);
         }
-    }
-
-    public static void shutdown() {
-        boolean shutdown = self().executor.isShutdown();
-        LOG.info("shutdown:{}", shutdown);
-        if (!shutdown) {
-            self().executor.shutdown();
-        }
-    }
-
-    public static int queueSize() {
-        return self().executor.getQueue().size();
     }
 }
