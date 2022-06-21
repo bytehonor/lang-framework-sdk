@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AsyncTaskExecutor {
+public class ThreadTaskExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AsyncTaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ThreadTaskExecutor.class);
 
     private ThreadPoolExecutor executor;
 
-    private AsyncTaskExecutor() {
+    private ThreadTaskExecutor() {
         this.executor = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(4096));
     }
 
@@ -23,7 +23,7 @@ public class AsyncTaskExecutor {
      *
      */
     private static class LazyHolder {
-        private static AsyncTaskExecutor instance = new AsyncTaskExecutor();
+        private static ThreadTaskExecutor instance = new ThreadTaskExecutor();
     }
 
     public static void restart(int corePoolSize, int maxPoolSize, int queueSize) {
@@ -32,7 +32,7 @@ public class AsyncTaskExecutor {
                 new LinkedBlockingQueue<Runnable>(queueSize));
     }
 
-    private static AsyncTaskExecutor self() {
+    private static ThreadTaskExecutor self() {
         return LazyHolder.instance;
     }
 
