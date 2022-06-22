@@ -1,2 +1,2 @@
-# bytehonor-lang-sdk
-bytehonor-lang-sdk
+# lang-beautify-sdk
+lang-beautify-sdk
