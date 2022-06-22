@@ -1,13 +1,13 @@
-package com.bytehonor.sdk.lang.bytehonor.task;
+package com.bytehonor.sdk.lang.bytehonor.thread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.task.SafeTask;
 
-public abstract class WhileSleepTask extends SafeTask {
+public abstract class WhileSleepRunner extends SafeTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WhileSleepTask.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WhileSleepRunner.class);
 
     public abstract long millis();
 

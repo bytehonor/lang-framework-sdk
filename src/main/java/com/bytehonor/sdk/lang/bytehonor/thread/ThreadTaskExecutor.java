@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.bytehonor.task;
+package com.bytehonor.sdk.lang.bytehonor.thread;
 
 import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -23,14 +23,14 @@ public class ThreadTaskExecutor {
      *
      */
     private static class LazyHolder {
-        private static ThreadTaskExecutor instance = new ThreadTaskExecutor();
+        private static ThreadTaskExecutor SINGLE = new ThreadTaskExecutor();
     }
 
     private static ThreadTaskExecutor self() {
-        return LazyHolder.instance;
+        return LazyHolder.SINGLE;
     }
 
-    public static void execute(Runnable r) {
+    public static void put(Runnable r) {
         Objects.requireNonNull(r, "runnable");
         try {
             self().executor.execute(r);

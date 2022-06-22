@@ -1,13 +1,13 @@
-package com.bytehonor.sdk.lang.bytehonor.task;
+package com.bytehonor.sdk.lang.bytehonor.thread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.task.SafeTask;
 
-public abstract class WhileBlockTask extends SafeTask {
+public abstract class WhileBlockRunner extends SafeTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WhileBlockTask.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WhileBlockRunner.class);
 
     public abstract void runThenBlock() throws InterruptedException;
 
