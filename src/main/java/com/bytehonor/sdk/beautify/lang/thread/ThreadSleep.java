@@ -1,13 +1,13 @@
-package com.bytehonor.sdk.beautify.lang.util;
+package com.bytehonor.sdk.beautify.lang.thread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.util.RandomUtils;
 
-public class SleepUtils {
+public class ThreadSleep {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SleepUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ThreadSleep.class);
 
     public static void sleep(long millis) {
         if (millis < 1L) {
@@ -20,6 +20,11 @@ public class SleepUtils {
         }
     }
 
+    /**
+     * 
+     * @param min
+     * @param max
+     */
     public static void rand(int min, int max) {
         int rand = RandomUtils.getInt(min, max);
         sleep(100L * rand);

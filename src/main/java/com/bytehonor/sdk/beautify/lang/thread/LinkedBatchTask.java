@@ -34,6 +34,11 @@ public class LinkedBatchTask<T> extends WhileSleepRunner {
             }
             payloads.add(payload);
         }
+
+        if (payloads.isEmpty()) {
+            return;
+        }
+
         consumer.consume(payloads);
     }
 

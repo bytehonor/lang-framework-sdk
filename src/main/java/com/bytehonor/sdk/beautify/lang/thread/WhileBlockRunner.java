@@ -17,7 +17,7 @@ public abstract class WhileBlockRunner extends SafeTask {
             try {
                 runThenBlock();
             } catch (Exception e) {
-                LOG.error("runInQueue", e);
+                LOG.error("runThenBlock", e);
             }
         }
     }

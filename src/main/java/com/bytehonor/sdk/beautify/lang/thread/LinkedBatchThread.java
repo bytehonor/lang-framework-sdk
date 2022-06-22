@@ -33,7 +33,7 @@ public class LinkedBatchThread<T> {
     }
 
     public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name) {
-        return create(consumer, name, 200L);
+        return create(consumer, name, 500L);
     }
 
     public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name, long millis) {

@@ -33,7 +33,7 @@ public class LinkedThread<T> {
     }
 
     public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name) {
-        return create(consumer, name, 200L);
+        return create(consumer, name, 500L);
     }
 
     public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name, long millis) {
