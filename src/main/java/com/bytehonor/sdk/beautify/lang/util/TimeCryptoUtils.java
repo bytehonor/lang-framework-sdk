@@ -8,7 +8,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.beautify.lang.getter.IntegerGetter;
+import com.bytehonor.sdk.define.bytehonor.getter.IntegerGetter;
 import com.bytehonor.sdk.define.bytehonor.util.RandomUtils;
 
 public class TimeCryptoUtils {
@@ -47,7 +47,7 @@ public class TimeCryptoUtils {
     public static String encode(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
-        int rand = RandomUtils.getInt(111, 678); // 3
+        int rand = RandomUtils.integer(111, 678); // 3
         int year = ldt.getYear() - YEAR; // 1
         int month = ldt.getMonthValue(); // 1
         int day = ldt.getDayOfMonth(); // 1
@@ -63,7 +63,7 @@ public class TimeCryptoUtils {
     }
 
     private static String randstr(int len) {
-        return RandomUtils.getString(4);
+        return RandomUtils.string(4);
     }
 
     private static char toChar(int at) {

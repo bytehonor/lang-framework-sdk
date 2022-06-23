@@ -2,7 +2,7 @@ package com.bytehonor.sdk.beautify.lang.string;
 
 public final class StringCreator {
 
-    private StringBuilder sb;
+    private final StringBuilder sb;
 
     private StringCreator() {
         this.sb = new StringBuilder();

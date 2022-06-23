@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class MapCreator {
 
-    private Map<String, String> map;
+    private final Map<String, String> map;
 
     public MapCreator() {
         this.map = new HashMap<String, String>();

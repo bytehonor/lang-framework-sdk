@@ -30,7 +30,7 @@ public class ThreadSleep {
      * @param max
      */
     public static void rand(int min, int max) {
-        int rand = RandomUtils.getInt(min, max);
+        int rand = RandomUtils.integer(min, max);
         sleep(100L * rand);
     }
 }
