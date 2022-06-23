@@ -2,8 +2,8 @@ package com.bytehonor.sdk.beautify.lang.validate;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.beautify.lang.string.StringCreator;
 import com.bytehonor.sdk.define.bytehonor.exception.ParameterException;
+import com.bytehonor.sdk.define.bytehonor.lang.StringCreator;
 
 public class LongValidate {
 

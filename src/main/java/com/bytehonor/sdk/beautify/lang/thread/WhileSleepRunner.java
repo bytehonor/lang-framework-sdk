@@ -3,9 +3,9 @@ package com.bytehonor.sdk.beautify.lang.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.define.bytehonor.task.SafeTask;
+import com.bytehonor.sdk.define.bytehonor.lang.SafeRunner;
 
-public abstract class WhileSleepRunner extends SafeTask {
+public abstract class WhileSleepRunner extends SafeRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(WhileSleepRunner.class);
 
