@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.file;
+package com.bytehonor.sdk.lang.spring.util;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,7 +12,7 @@ public class FileDownloadUtilsTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileDownloadUtilsTest.class);
 
-    @Test
+    @Test   
     public void testDownload() {
         String url = "https://huajietaojin.oss-cn-hangzhou.aliyuncs.com/columbus/91d27a04666b49d4be9da5562ae6059a/store/logo/5a5dd285046116257b1d8c97d208b70e.jpg";
         File file = null;

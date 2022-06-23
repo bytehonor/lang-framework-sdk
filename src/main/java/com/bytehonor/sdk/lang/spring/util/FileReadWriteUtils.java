@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.file;
+package com.bytehonor.sdk.lang.spring.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.exception.LangSdkException;
-import com.bytehonor.sdk.lang.spring.util.StringObject;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 

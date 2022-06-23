@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.file;
+package com.bytehonor.sdk.lang.spring.util;
 
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +13,7 @@ public class FileReadWriteUtilsTest {
     private static Logger LOG = LoggerFactory.getLogger(FileReadWriteUtilsTest.class);
 
     // @Test
-    public void testRead() {
+    public void testRead() {    
         String dir = "D:/test";
         List<String> list = FileReadWriteUtils.readDir(dir, "zip");
         for (String path : list) {
