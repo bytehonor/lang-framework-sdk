@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.define.spring.util.JoinUtils;
+
 public class ListJoinUtilsTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ListJoinUtilsTest.class);
@@ -18,7 +20,7 @@ public class ListJoinUtilsTest {
         List<String> list = new ArrayList<String>();
         list.add("xxx");
         list.add("yyy");
-        LOG.info("testJoinString:{}", ListJoinUtils.joinStringSafe(list));
+        LOG.info("testJoinString:{}", JoinUtils.joinSafe(list));
         assertTrue("testJoinString", true);
     }
 
@@ -27,7 +29,7 @@ public class ListJoinUtilsTest {
         List<Long> list = new ArrayList<Long>();
         list.add(1L);
         list.add(2L);
-        LOG.info("testJoinLong:{}", ListJoinUtils.joinLong(list));
+        LOG.info("testJoinLong:{}", JoinUtils.longs(list));
         assertTrue("testJoinLong", true);
     }
 
@@ -36,7 +38,7 @@ public class ListJoinUtilsTest {
         List<Integer> list = new ArrayList<Integer>();
         list.add(1);
         list.add(2);
-        LOG.info("testJoinInteger:{}", ListJoinUtils.joinInteger(list));
+        LOG.info("testJoinInteger:{}", JoinUtils.integers(list));
         assertTrue("testJoinInteger", true);
     }
 
