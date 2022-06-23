@@ -3,8 +3,6 @@ package com.bytehonor.sdk.lang.spring.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bytehonor.sdk.define.spring.util.StringObject;
-
 
 /**
  * @author lijianqiang

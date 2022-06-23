@@ -8,8 +8,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.define.spring.getter.IntegerGetter;
-import com.bytehonor.sdk.define.spring.util.RandomUtils;
+import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 
 public class TimeCryptoUtils {
 

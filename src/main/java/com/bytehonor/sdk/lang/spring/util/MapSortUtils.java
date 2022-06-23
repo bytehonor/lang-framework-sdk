@@ -17,7 +17,7 @@ public class MapSortUtils {
      * @param map
      * @return
      */
-    public static Map<String, Integer> sortStringIntegerAsc(Map<String, Integer> oriMap) {
+    public static Map<String, Integer> ascStringInteger(Map<String, Integer> oriMap) {
         if (oriMap == null || oriMap.isEmpty()) {
             return null;
         }
@@ -40,7 +40,7 @@ public class MapSortUtils {
      * @param map
      * @return
      */
-    public static Map<String, Integer> sortStringIntegerDesc(Map<String, Integer> oriMap) {
+    public static Map<String, Integer> descStringInteger(Map<String, Integer> oriMap) {
         if (oriMap == null || oriMap.isEmpty()) {
             return null;
         }
@@ -56,8 +56,8 @@ public class MapSortUtils {
         }
         return sortedMap;
     }
-    
-    public static Map<String, Long> sortStringLongDesc(Map<String, Long> oriMap) {
+
+    public static Map<String, Long> descStringLong(Map<String, Long> oriMap) {
         if (oriMap == null || oriMap.isEmpty()) {
             return null;
         }
@@ -80,7 +80,7 @@ public class MapSortUtils {
      * @param map
      * @return
      */
-    public static Map<Long, Integer> sortLongIntegerDesc(Map<Long, Integer> oriMap) {
+    public static Map<Long, Integer> descLongInteger(Map<Long, Integer> oriMap) {
         if (oriMap == null || oriMap.isEmpty()) {
             return null;
         }
@@ -114,7 +114,7 @@ public class MapSortUtils {
         }
 
     }
-    
+
     static class StringLongDescComparator implements Comparator<Map.Entry<String, Long>> {
 
         @Override

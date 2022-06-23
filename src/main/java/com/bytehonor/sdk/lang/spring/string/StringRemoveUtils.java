@@ -3,8 +3,8 @@ package com.bytehonor.sdk.lang.spring.string;
 import java.util.regex.Pattern;
 
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
-import com.bytehonor.sdk.define.spring.util.StringObject;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
+import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class StringRemoveUtils {
 

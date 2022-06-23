@@ -3,7 +3,7 @@ package com.bytehonor.sdk.lang.spring.string;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bytehonor.sdk.define.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class StringEmojiUtils {
 

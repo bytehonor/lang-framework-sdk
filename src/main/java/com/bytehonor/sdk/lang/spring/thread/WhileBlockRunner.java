@@ -3,8 +3,6 @@ package com.bytehonor.sdk.lang.spring.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.define.spring.lang.SafeRunner;
-
 public abstract class WhileBlockRunner extends SafeRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(WhileBlockRunner.class);

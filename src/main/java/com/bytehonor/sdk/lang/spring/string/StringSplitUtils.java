@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
-import com.bytehonor.sdk.define.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class StringSplitUtils {
 

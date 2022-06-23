@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.define.spring.lang.StringCreator;
+import com.bytehonor.sdk.lang.spring.creator.StringCreator;
 
 public class StringCreatorTest {
 

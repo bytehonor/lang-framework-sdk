@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.lang.spring.string;
 
-import com.bytehonor.sdk.define.spring.util.StringObject;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
+import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class SentenceAlgothrim {
 

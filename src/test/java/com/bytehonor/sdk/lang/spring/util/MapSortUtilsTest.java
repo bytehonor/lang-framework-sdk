@@ -26,13 +26,13 @@ public class MapSortUtilsTest {
 			LOG.info("Before: {} - {}", key, map.get(key));
 		}
 
-		Map<String, Integer> ascMap = MapSortUtils.sortStringIntegerAsc(map);
+		Map<String, Integer> ascMap = MapSortUtils.ascStringInteger(map);
 
 		for (String key : ascMap.keySet()) {
 			LOG.info("ASC: {} - {}", key, ascMap.get(key));
 		}
 
-		Map<String, Integer> descMap = MapSortUtils.sortStringIntegerDesc(map);
+		Map<String, Integer> descMap = MapSortUtils.descStringInteger(map);
 
 		for (String key : descMap.keySet()) {
 			LOG.info("DESC: {} - {}", key, descMap.get(key));
