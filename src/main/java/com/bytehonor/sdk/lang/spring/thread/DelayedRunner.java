@@ -17,7 +17,7 @@ public class DelayedRunner<T extends SafeRunner> implements Delayed {
     /**
      * 任务对象
      */
-    private final T task;
+    private final T runner;
 
     /**
      * 原子类
@@ -26,9 +26,9 @@ public class DelayedRunner<T extends SafeRunner> implements Delayed {
 
     private final long n;
 
-    public DelayedRunner(long timeout, T task) {
+    public DelayedRunner(long timeout, T runner) {
         this.time = System.nanoTime() + timeout;
-        this.task = task;
+        this.runner = runner;
         this.n = atomic.getAndIncrement();
     }
 
@@ -62,13 +62,13 @@ public class DelayedRunner<T extends SafeRunner> implements Delayed {
         return (d == 0) ? 0 : ((d < 0) ? -1 : 1);
     }
 
-    public T getTask() {
-        return this.task;
+    public T getRunner() {
+        return runner;
     }
 
     @Override
     public int hashCode() {
-        return task.hashCode();
+        return runner.hashCode();
     }
 
     @Override
