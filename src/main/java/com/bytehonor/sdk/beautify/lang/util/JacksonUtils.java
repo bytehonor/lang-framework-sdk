@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.beautify.lang.exception.LangBeautifyException;
+import com.bytehonor.sdk.beautify.lang.exception.LangSdkException;
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -29,7 +29,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readValue(json, valueType);
         } catch (Exception e) {
             LOG.error("error json:{}", cut(json));
-            throw new LangBeautifyException("readValue valueType error", e);
+            throw new LangSdkException("readValue valueType error", e);
         }
     }
 
@@ -47,7 +47,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readValue(json, valueTypeRef);
         } catch (Exception e) {
             LOG.error("error json:{}", cut(json));
-            throw new LangBeautifyException("readValue valueTypeRef error", e);
+            throw new LangSdkException("readValue valueTypeRef error", e);
         }
     }
 
@@ -56,7 +56,7 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.writeValueAsString(value);
         } catch (Exception e) {
-            throw new LangBeautifyException("writeValueAsString error", e);
+            throw new LangSdkException("writeValueAsString error", e);
         }
     }
 
@@ -66,7 +66,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readTree(json);
         } catch (Exception e) {
             LOG.error("error json:{}", cut(json));
-            throw new LangBeautifyException("readTree error", e);
+            throw new LangSdkException("readTree error", e);
         }
     }
 
@@ -91,7 +91,7 @@ public class JacksonUtils {
         Objects.requireNonNull(field, "field");
         JsonNode node = jn.get(field);
         if (node == null) {
-            throw new LangBeautifyException("JsonNode null, field:" + field);
+            throw new LangSdkException("JsonNode null, field:" + field);
         }
         return node;
     }

@@ -17,6 +17,8 @@ public class LinkedThread<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedThread.class);
 
+    private static final long SLEEP_MILLIS = 1000L;
+
     private final ConcurrentLinkedQueue<T> queue;
 
     private final Thread thread;
@@ -32,10 +34,23 @@ public class LinkedThread<T> {
         }, consumer, millis));
     }
 
+    /**
+     * @param <T>
+     * @param consumer
+     * @param name
+     * @return
+     */
     public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name) {
-        return create(consumer, name, 500L);
+        return create(consumer, name, SLEEP_MILLIS);
     }
 
+    /**
+     * @param <T>
+     * @param consumer
+     * @param name
+     * @param millis
+     * @return
+     */
     public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name, long millis) {
         Objects.requireNonNull(consumer, "consumer");
         Objects.requireNonNull(name, "name");
@@ -52,7 +67,7 @@ public class LinkedThread<T> {
 
     public void add(T payload) {
         if (payload == null) {
-            LOG.warn("add null");
+            LOG.warn("add payload null");
             return;
         }
         this.queue.add(payload);

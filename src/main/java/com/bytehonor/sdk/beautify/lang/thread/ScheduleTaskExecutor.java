@@ -6,6 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import com.bytehonor.sdk.define.bytehonor.task.SafeTask;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class ScheduleTaskExecutor {
 
     private static final ScheduledExecutorService SERVICE = Executors.newSingleThreadScheduledExecutor();

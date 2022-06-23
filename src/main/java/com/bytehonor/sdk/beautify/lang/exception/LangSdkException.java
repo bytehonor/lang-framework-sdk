@@ -4,19 +4,19 @@ package com.bytehonor.sdk.beautify.lang.exception;
  * @author lijianqiang
  *
  */
-public class LangBeautifyException extends RuntimeException {
+public class LangSdkException extends RuntimeException {
 
     private static final long serialVersionUID = 7031815564816223750L;
 
-    public LangBeautifyException() {
+    public LangSdkException() {
         super();
     }
 
-    public LangBeautifyException(String message) {
+    public LangSdkException(String message) {
         super(message);
     }
 
-    public LangBeautifyException(String message, Throwable cause) {
+    public LangSdkException(String message, Throwable cause) {
         super(message, cause);
     }
 }

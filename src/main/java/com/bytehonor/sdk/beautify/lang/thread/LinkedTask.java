@@ -1,5 +1,9 @@
 package com.bytehonor.sdk.beautify.lang.thread;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class LinkedTask<T> extends WhileSleepRunner {
 
     private final QueueProducer<T> producer;
@@ -7,6 +11,11 @@ public class LinkedTask<T> extends WhileSleepRunner {
 
     private final long millis;
 
+    /**
+     * @param producer
+     * @param consumer
+     * @param millis
+     */
     public LinkedTask(QueueProducer<T> producer, QueueConsumer<T> consumer, long millis) {
         this.producer = producer;
         this.consumer = consumer;

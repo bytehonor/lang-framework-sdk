@@ -1,10 +1,18 @@
 package com.bytehonor.sdk.beautify.lang.thread;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class LinkedBlockingTask<T> extends WhileBlockRunner {
 
     private final QueueBlockingProducer<T> producer;
     private final QueueConsumer<T> consumer;
 
+    /**
+     * @param producer
+     * @param consumer
+     */
     public LinkedBlockingTask(QueueBlockingProducer<T> producer, QueueConsumer<T> consumer) {
         this.producer = producer;
         this.consumer = consumer;

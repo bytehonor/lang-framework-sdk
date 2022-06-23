@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.beautify.lang.exception.LangBeautifyException;
+import com.bytehonor.sdk.beautify.lang.exception.LangSdkException;
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -98,7 +98,7 @@ public class FileReadWriteUtils {
         }
         File file = new File(dir);
         if (file == null || file.isDirectory() == false) {
-            throw new LangBeautifyException("not dir:" + dir);
+            throw new LangSdkException("not dir:" + dir);
         }
         File[] files = file.listFiles();
         int length = files.length;
@@ -170,7 +170,7 @@ public class FileReadWriteUtils {
             raf.write(content.getBytes());// 写入txt文件
         } catch (Exception e) {
             LOG.error("write error, filePath:{}", filePath);
-            throw new LangBeautifyException("write error", e);
+            throw new LangSdkException("write error", e);
         } finally {
             if (raf != null) {
                 try {

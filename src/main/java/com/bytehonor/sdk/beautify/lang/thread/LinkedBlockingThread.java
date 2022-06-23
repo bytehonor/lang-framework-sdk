@@ -17,6 +17,8 @@ public class LinkedBlockingThread<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedBlockingThread.class);
 
+    private static final int QUEUE_SIZE = 1024;
+
     private final LinkedBlockingQueue<T> queue;
 
     private final Thread thread;
@@ -32,10 +34,23 @@ public class LinkedBlockingThread<T> {
         }, consumer));
     }
 
+    /**
+     * @param <T>
+     * @param consumer
+     * @param name
+     * @return
+     */
     public static <T> LinkedBlockingThread<T> create(QueueConsumer<T> consumer, String name) {
-        return create(consumer, name, 1024);
+        return create(consumer, name, QUEUE_SIZE);
     }
 
+    /**
+     * @param <T>
+     * @param consumer
+     * @param name
+     * @param queueSize
+     * @return
+     */
     public static <T> LinkedBlockingThread<T> create(QueueConsumer<T> consumer, String name, int queueSize) {
         Objects.requireNonNull(consumer, "consumer");
         Objects.requireNonNull(name, "name");
@@ -52,7 +67,7 @@ public class LinkedBlockingThread<T> {
 
     public void add(T payload) {
         if (payload == null) {
-            LOG.warn("add null");
+            LOG.warn("add payload null");
             return;
         }
         this.queue.add(payload);

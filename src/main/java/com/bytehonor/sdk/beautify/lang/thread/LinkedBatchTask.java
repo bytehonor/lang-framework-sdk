@@ -17,6 +17,11 @@ public class LinkedBatchTask<T> extends WhileSleepRunner {
 
     private final long millis;
 
+    /**
+     * @param producer
+     * @param consumer
+     * @param millis
+     */
     public LinkedBatchTask(QueueProducer<T> producer, QueueBatchConsumer<T> consumer, long millis) {
         this.producer = producer;
         this.consumer = consumer;

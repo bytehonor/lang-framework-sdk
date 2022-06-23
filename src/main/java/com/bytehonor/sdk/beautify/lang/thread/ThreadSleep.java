@@ -5,6 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.util.RandomUtils;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class ThreadSleep {
 
     private static final Logger LOG = LoggerFactory.getLogger(ThreadSleep.class);
