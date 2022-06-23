@@ -1,2 +1,2 @@
-# lang-beautify-sdk
-lang-beautify-sdk
+# spring-lang-sdk
+spring-lang-sdk
