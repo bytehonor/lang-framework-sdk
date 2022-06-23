@@ -6,9 +6,9 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DelayedThread {
+public class DelayedSingleThread {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DelayedThread.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DelayedSingleThread.class);
 
     /**
      * 创建空的延迟队列
@@ -20,7 +20,7 @@ public class DelayedThread {
      */
     private final Thread thread;
 
-    private DelayedThread() {
+    private DelayedSingleThread() {
         thread = new Thread(new WhileBlockRunner() {
 
             @Override
@@ -35,10 +35,10 @@ public class DelayedThread {
     }
 
     private static class LazyHolder {
-        private static DelayedThread SINGLE = new DelayedThread();
+        private static DelayedSingleThread SINGLE = new DelayedSingleThread();
     }
 
-    private static DelayedThread self() {
+    private static DelayedSingleThread self() {
         return LazyHolder.SINGLE;
     }
 
