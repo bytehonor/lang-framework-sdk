@@ -34,15 +34,11 @@ public class DelayedThread {
         thread.start();
     }
 
-    /**
-     * 延迟加载(线程安全)
-     *
-     */
     private static class LazyHolder {
         private static DelayedThread SINGLE = new DelayedThread();
     }
 
-    public static DelayedThread getInstance() {
+    private static DelayedThread self() {
         return LazyHolder.SINGLE;
     }
 
@@ -60,16 +56,14 @@ public class DelayedThread {
     /**
      * 往队列中添加任务
      * 
-     * @param time     延迟时间
-     * @param runner   任务
-     * @param timeUnit 时间单位
-     * 
+     * @param runner 任务
+     * @param millis 延迟时间
      */
-    public void put(SafeRunner runner, long time, TimeUnit timeUnit) {
+    public static void put(SafeRunner runner, long millis) {
         // 转换成ns
-        long nanoTime = TimeUnit.NANOSECONDS.convert(time, timeUnit);
+        long nanoTime = TimeUnit.NANOSECONDS.convert(millis, TimeUnit.MILLISECONDS);
         DelayedRunner<SafeRunner> delayed = new DelayedRunner<SafeRunner>(nanoTime, runner);
-        queue.put(delayed);
+        self().queue.put(delayed);
     }
 
     /**
@@ -77,7 +71,7 @@ public class DelayedThread {
      * 
      * @param task
      */
-    public boolean finish(DelayedRunner<SafeRunner> task) {
-        return queue.remove(task);
+    public static boolean finish(DelayedRunner<SafeRunner> task) {
+        return self().queue.remove(task);
     }
 }
