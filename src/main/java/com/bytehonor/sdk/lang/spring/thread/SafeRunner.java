@@ -16,7 +16,7 @@ public abstract class SafeRunner implements Runnable {
         try {
             runInSafe();
         } catch (Exception e) {
-            LOG.error("SafeTask error", e);
+            LOG.error("SafeRunner error", e);
         }
     }
 
