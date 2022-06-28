@@ -12,6 +12,8 @@ public class StringSplitUtils {
 
     private static final char SPL = ',';
 
+    private static final char SPL_CN = '，';
+
     /**
      * 逗号分隔，中英逗号均支持
      * 
@@ -22,17 +24,24 @@ public class StringSplitUtils {
         if (StringObject.isEmpty(src)) {
             return new ArrayList<String>();
         }
+        boolean replaced = false;
         int length = src.length();
         char[] chars = src.toCharArray();
         char[] targets = new char[length * 2];
         for (int i = 0; i < length; i++) {
-            if (chars[i] == ',' || chars[i] == '，') {
+            if (chars[i] == SPL || chars[i] == SPL_CN) {
                 targets[i] = SPL;
+                replaced = true;
             } else {
                 targets[i] = chars[i];
             }
         }
-        return split(new String(targets, 0, length), SPL);
+
+        if (replaced) {
+            src = new String(targets, 0, length);
+        }
+
+        return split(src, SPL);
     }
 
     public static List<String> splitWithBlank(String src) {

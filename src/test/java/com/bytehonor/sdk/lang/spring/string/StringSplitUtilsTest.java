@@ -15,7 +15,7 @@ public class StringSplitUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(StringSplitUtilsTest.class);
 
     private static final String TEXT = " 1 a bc def       adsfasdfasdf ";
-    
+
     @Test
     public void test() {
         String src = "aaa,bbb ，c cc,ddd，d，，   ，，,,,x";
@@ -23,7 +23,7 @@ public class StringSplitUtilsTest {
         for (String s : words) {
             LOG.info("0:({})", s);
         }
-        
+
         assertTrue("*test*", true);
     }
 
@@ -53,6 +53,17 @@ public class StringSplitUtilsTest {
 
         LOG.info("cost1:{}, cost2:{}, diff:{}", cost1, cost2, (cost1 - cost2));
         assertTrue("*testSplitString*", true);
+    }
+
+    @Test
+    public void test3() {
+        String src = "aaaaa";
+        List<String> words = StringSplitUtils.split(src);
+        for (String s : words) {
+            LOG.info("test3:({})", s);
+        }
+
+        assertTrue("*test*", true);
     }
 
 }
