@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public class LinkedBatchTask<T> extends WhileSleepRunner {
+public class LinkedBatchTask<T> extends WhileSleepTask {
 
     private final QueueProducer<T> producer;
     private final QueueBatchConsumer<T> consumer;

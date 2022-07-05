@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 任务线程 实现Delayed接口
  */
-public class DelayedRunner<T extends SafeRunner> implements Delayed {
+public class DelayedTask<T extends SafeTask> implements Delayed {
 
     /**
      * 到期时间
@@ -26,7 +26,7 @@ public class DelayedRunner<T extends SafeRunner> implements Delayed {
 
     private final long n;
 
-    public DelayedRunner(long timeout, T runner) {
+    public DelayedTask(long timeout, T runner) {
         this.time = System.nanoTime() + timeout;
         this.runner = runner;
         this.n = atomic.getAndIncrement();
@@ -44,8 +44,8 @@ public class DelayedRunner<T extends SafeRunner> implements Delayed {
     public int compareTo(Delayed other) {
         if (other == this)
             return 0;
-        if (other instanceof DelayedRunner) {
-            DelayedRunner<?> x = (DelayedRunner<?>) other;
+        if (other instanceof DelayedTask) {
+            DelayedTask<?> x = (DelayedTask<?>) other;
             long diff = time - x.time;
             if (diff < 0) {
                 return -1;
@@ -73,7 +73,7 @@ public class DelayedRunner<T extends SafeRunner> implements Delayed {
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof DelayedRunner) {
+        if (object instanceof DelayedTask) {
             return object.hashCode() == hashCode() ? true : false;
         }
         return false;

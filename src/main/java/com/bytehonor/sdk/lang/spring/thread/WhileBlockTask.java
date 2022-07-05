@@ -3,9 +3,9 @@ package com.bytehonor.sdk.lang.spring.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class WhileBlockRunner extends SafeRunner {
+public abstract class WhileBlockTask extends SafeTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WhileBlockRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WhileBlockTask.class);
 
     public abstract void runThenBlock() throws InterruptedException;
 

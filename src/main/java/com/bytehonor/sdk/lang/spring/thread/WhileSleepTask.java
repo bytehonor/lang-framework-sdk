@@ -3,9 +3,9 @@ package com.bytehonor.sdk.lang.spring.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class WhileSleepRunner extends SafeRunner {
+public abstract class WhileSleepTask extends SafeTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WhileSleepRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WhileSleepTask.class);
 
     public abstract long millis();
 

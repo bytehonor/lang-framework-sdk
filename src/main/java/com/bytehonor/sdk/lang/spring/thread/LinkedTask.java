@@ -4,7 +4,7 @@ package com.bytehonor.sdk.lang.spring.thread;
  * @author lijianqiang
  *
  */
-public class LinkedTask<T> extends WhileSleepRunner {
+public class LinkedTask<T> extends WhileSleepTask {
 
     private final QueueProducer<T> producer;
     private final QueueConsumer<T> consumer;

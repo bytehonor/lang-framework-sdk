@@ -7,16 +7,16 @@ import org.slf4j.LoggerFactory;
  * @author lijianqiang
  *
  */
-public abstract class SafeRunner implements Runnable {
+public abstract class SafeTask implements Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SafeRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SafeTask.class);
 
     @Override
     public final void run() {
         try {
             runInSafe();
         } catch (Exception e) {
-            LOG.error("SafeRunner error", e);
+            LOG.error("SafeTask error", e);
         }
     }
 

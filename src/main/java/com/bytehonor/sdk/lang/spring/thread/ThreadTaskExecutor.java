@@ -30,12 +30,12 @@ public class ThreadTaskExecutor {
         return LazyHolder.SINGLE;
     }
 
-    public static void put(Runnable r) {
-        Objects.requireNonNull(r, "runnable");
+    public static void put(Runnable runnable) {
+        Objects.requireNonNull(runnable, "runnable");
         try {
-            self().executor.execute(r);
+            self().executor.execute(runnable);
         } catch (Exception e) {
-            LOG.error("execute({}) error:{}", r.getClass().getSimpleName(), e);
+            LOG.error("execute({}) error:{}", runnable.getClass().getSimpleName(), e);
         }
     }
 }
