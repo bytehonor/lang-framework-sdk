@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ThreadTaskExecutor {
+public class SpringTaskExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ThreadTaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutor.class);
 
     private final ThreadPoolExecutor executor;
 
-    private ThreadTaskExecutor() {
+    private SpringTaskExecutor() {
         this.executor = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(4096));
     }
 
@@ -23,10 +23,10 @@ public class ThreadTaskExecutor {
      *
      */
     private static class LazyHolder {
-        private static ThreadTaskExecutor SINGLE = new ThreadTaskExecutor();
+        private static SpringTaskExecutor SINGLE = new SpringTaskExecutor();
     }
 
-    private static ThreadTaskExecutor self() {
+    private static SpringTaskExecutor self() {
         return LazyHolder.SINGLE;
     }
 
