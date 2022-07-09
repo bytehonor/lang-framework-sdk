@@ -20,7 +20,7 @@ public class SpringScheduleExecutor {
      * @param delayMillis
      * @param periodMillis
      */
-    public static void schedule(SafeTask command, long delayMillis, long periodMillis) {
+    public static void scheduleMillis(SafeTask command, long delayMillis, long periodMillis) {
         Objects.requireNonNull(command, "command");
 
         // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
@@ -34,7 +34,7 @@ public class SpringScheduleExecutor {
      * @param delaySeconds
      * @param periodSeconds
      */
-    public static void scheduleSecond(SafeTask command, long delaySeconds, long periodSeconds) {
+    public static void schedule(SafeTask command, long delaySeconds, long periodSeconds) {
         Objects.requireNonNull(command, "command");
 
         // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
