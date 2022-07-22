@@ -15,14 +15,55 @@ public class StringRemoveUtilsTest {
     private static final String SPECIAL2 = "2018\r\n\t\bb egin€£Ұ₴$₰¢₤¥₳₲₪₵元₣₱฿¤₡₮₭₩ރ円₢₥₫₦zł﷼₠₧₯₨Kčर₹ƒ₸￠end";
 
     @Test
-    public void testRemoveByFromTo() {
+    public void testRemove() {
         String src = "0123456789";
-        LOG.info("1:{}", src);
-        LOG.info("2:{}", StringRemoveUtils.removeByFromTo(src, -1, 13));
-        LOG.info("2:{}", StringRemoveUtils.removeByFromTo(src, 1, 1));
-        LOG.info("2:{}", StringRemoveUtils.removeByFromTo(src, 1, 10));
-        LOG.info("2:{}", StringRemoveUtils.removeByFromTo(src, 11, 11));
-        assertTrue("*testRemoveByFromTo*", true);
+        int length = src.length();
+        LOG.info("testRemove 1:{}, length:{}", src, length);
+
+        boolean isOk1 = false;
+        try {
+            LOG.info("testRemove 1:{}", StringRemoveUtils.remove(src, -1, 5));
+        } catch (Exception e) {
+            isOk1 = true;
+            LOG.info("isOk1:{}, {}", isOk1, e.getMessage());
+        }
+        boolean isOk2 = false;
+        try {
+            LOG.info("testRemove 1:{}", StringRemoveUtils.remove(src, 0, 15));
+        } catch (Exception e) {
+            isOk2 = true;
+            LOG.info("isOk2:{}, {}", isOk2, e.getMessage());
+        }
+        boolean isOk3 = false;
+        try {
+            LOG.info("testRemove 1:{}", StringRemoveUtils.remove(src, 9, 3));
+        } catch (Exception e) {
+            isOk3 = true;
+            LOG.info("isOk3:{}, {}", isOk3, e.getMessage());
+        }
+
+        String remove = StringRemoveUtils.remove(src, 1, 1);
+        boolean isOk4 = remove.equals("023456789");
+        LOG.info("isOk4:{}, remove:{}", isOk4, remove);
+
+        remove = StringRemoveUtils.remove(src, 1, 5);
+        boolean isOk5 = remove.equals("06789");
+        LOG.info("isOk5:{}, remove:{}", isOk5, remove);
+
+        remove = StringRemoveUtils.remove(src, 2, 5);
+        boolean isOk6 = remove.equals("016789");
+        LOG.info("isOk6:{}, remove:{}", isOk6, remove);
+
+        remove = StringRemoveUtils.remove(src, 0, length);
+        boolean isOk7 = remove.equals("");
+        LOG.info("isOk7:{}, remove:{}", isOk7, remove);
+
+        remove = StringRemoveUtils.remove(src, 1, length);
+        boolean isOk8 = remove.equals("0");
+        LOG.info("isOk8:{}, remove:{}", isOk8, remove);
+
+        boolean isOk = isOk1 && isOk2 && isOk3 && isOk4 && isOk5 && isOk6 && isOk7 && isOk8;
+        assertTrue("*testRemove*", isOk);
     }
 
     @Test

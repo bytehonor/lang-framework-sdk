@@ -2,6 +2,8 @@ package com.bytehonor.sdk.lang.spring.util;
 
 import java.util.Collection;
 
+import org.springframework.util.CollectionUtils;
+
 import com.bytehonor.sdk.define.spring.constant.StringConstants;
 
 public class JoinUtils {
@@ -13,7 +15,7 @@ public class JoinUtils {
      * @return
      */
     public static String joinSafe(Collection<?> collection) {
-        if (collection == null || collection.isEmpty()) {
+        if (CollectionUtils.isEmpty(collection)) {
             return StringConstants.EMPTY;
         }
         StringBuilder sb = new StringBuilder();
@@ -25,7 +27,7 @@ public class JoinUtils {
     }
 
     public static String join(Collection<?> collection) {
-        if (collection == null || collection.isEmpty()) {
+        if (CollectionUtils.isEmpty(collection)) {
             return StringConstants.EMPTY;
         }
         StringBuilder sb = new StringBuilder();

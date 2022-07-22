@@ -2,11 +2,17 @@ package com.bytehonor.sdk.lang.spring.string;
 
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
 import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class StringRemoveUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(StringRemoveUtils.class);
 
     /**
      * 大写 P 表示 Unicode 字符集七个字符属性之一：标点字符。
@@ -22,36 +28,32 @@ public class StringRemoveUtils {
 
     private static final String PSZ = "\\pP|\\pS|\\pZ";
     private static final Pattern PSZ_PATTERN = Pattern.compile(PSZ);
-    
+
     /**
      * 移除指定范围内的字串，左闭右闭
      * 
-     * @param text
-     * @param from
-     * @param to
+     * @param src
+     * @param begin
+     * @param end
      * @return
      */
-    public static String removeByFromTo(String text, int from, int to) {
-        if (to < from) {
-            throw new RuntimeException("from to invalid");
+    public static String remove(String src, int begin, int end) {
+        if (begin < 0 || end < 0 || begin > end) {
+            LOG.error("src:{}, begin:{}, end:{}", src, begin, end);
+            throw new SpringLangException("begin end invalid");
         }
-        if (from < 0) {
-            from = 0;
-        }
-        if (to < 0) {
-            to = 0;
-        }
-        int length = text.length();
-        if (to > length) {
-            to = length;
+        int length = src.length();
+        if (end > length) {
+            LOG.error("src:{}, length:{}, begin:{}, end:{}", src, length, begin, end);
+            throw new SpringLangException("end exceed length");
         }
         char[] target = new char[length * 2];
         int total = 0;
         for (int i = 0; i < length; i++) {
-            if (from <= i && i <= to) {
+            if (begin <= i && i <= end) {
                 continue;
             }
-            target[total++] = text.charAt(i);
+            target[total++] = src.charAt(i);
         }
         if (total > 0) {
             return new String(target, 0, total);
