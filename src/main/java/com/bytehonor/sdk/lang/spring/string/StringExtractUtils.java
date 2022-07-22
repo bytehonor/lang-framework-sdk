@@ -25,7 +25,12 @@ public class StringExtractUtils {
     private static final String EMPTY = StringConstants.EMPTY;
 
     /**
+     * <pre>
+     * 截取一段, 一定是从开头到结尾, 即使先查到结尾
+     * 
      * 前后保留 beginner 和 ender
+     * 
+     * </pre>
      * 
      * @param src
      * @param beginner
@@ -37,7 +42,12 @@ public class StringExtractUtils {
     }
 
     /**
-     * 前后不保留 beginner 和 ender
+     * <pre>
+     * 截取一段, 一定是从开头到结尾, 即使先查到结尾
+     * 
+     * 前后剔除 beginner 和 ender
+     * 
+     * </pre>
      * 
      * @param src
      * @param beginner

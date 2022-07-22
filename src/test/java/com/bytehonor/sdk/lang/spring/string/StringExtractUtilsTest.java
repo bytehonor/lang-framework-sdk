@@ -15,7 +15,7 @@ public class StringExtractUtilsTest {
         String text = "昨日全天上海无新增新型冠状病毒肺炎确诊病例";
         String beginner = "<a src=";
         String ender = "/>";
-        String fullText = "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
+        String fullText = ender + "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
                 + "asdfasdfasd/>fas/>dfasdf";
         String res = StringExtractUtils.extract(fullText, beginner, ender);
         LOG.info("testExtract:{}", res);
@@ -27,7 +27,7 @@ public class StringExtractUtilsTest {
         String text = "昨日全天上海无新增新型冠状病毒肺炎确诊病例";
         String beginner = "<";
         String ender = ">";
-        String fullText = "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
+        String fullText = ender + "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
                 + "asdfasdfasd/>fas/>dfasdf";
         String res = StringExtractUtils.extract(fullText, beginner, ender);
         LOG.info("testExtract2:{}", res);
@@ -39,7 +39,7 @@ public class StringExtractUtilsTest {
         String text = "昨日全天上海无新增新型冠状病毒肺炎确诊病例";
         String beginner = "<a src=";
         String ender = "/>";
-        String fullText = "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
+        String fullText = ender + "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
                 + "asdfasdfasd/>fas/>dfasdf";
         String res = StringExtractUtils.extractTrim(fullText, beginner, ender);
         LOG.info("testExtractTrim:{}", res);
@@ -51,7 +51,7 @@ public class StringExtractUtilsTest {
         String text = "昨日全天上海无新增新型冠状病毒肺炎确诊病例";
         String beginner = "<";
         String ender = ">";
-        String fullText = "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
+        String fullText = ender + "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
                 + "asdfasdfasd/>fas/>dfasdf";
         String res = StringExtractUtils.extractTrim(fullText, beginner, ender);
         LOG.info("testExtractTrim2:{}", res);
