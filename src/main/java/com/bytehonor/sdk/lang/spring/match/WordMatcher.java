@@ -33,6 +33,9 @@ public class WordMatcher {
 
         Set<String> matchers = new HashSet<String>();
         for (String word : words) {
+            if (StringObject.isEmpty(word)) {
+                continue;
+            }
             matchers.add(format(word));
         }
 
