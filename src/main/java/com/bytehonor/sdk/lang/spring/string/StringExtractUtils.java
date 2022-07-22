@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.define.spring.constant.StringConstants;
 import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 /**
@@ -21,6 +22,8 @@ public class StringExtractUtils {
 
     public static final char IGNORE_CHAR = '*';
 
+    private static final String EMPTY = StringConstants.EMPTY;
+
     /**
      * 前后保留 beginner 和 ender
      * 
@@ -30,9 +33,32 @@ public class StringExtractUtils {
      * @return
      */
     public static String extract(String src, String beginner, String ender) {
+        return doExtract(src, beginner, ender, false);
+    }
+
+    /**
+     * 前后不保留 beginner 和 ender
+     * 
+     * @param src
+     * @param beginner
+     * @param ender
+     * @return
+     */
+    public static String extractTrim(String src, String beginner, String ender) {
+        return doExtract(src, beginner, ender, true);
+    }
+
+    private static String doExtract(String src, String beginner, String ender, boolean trim) {
         Objects.requireNonNull(src, "src");
-        if (StringObject.isEmpty(src) || StringObject.isEmpty(beginner) || StringObject.isEmpty(ender)) {
-            return src;
+        Objects.requireNonNull(beginner, "beginner");
+        Objects.requireNonNull(ender, "ender");
+
+        if (StringObject.isEmpty(src)) {
+            return EMPTY;
+        }
+        if (StringObject.isEmpty(beginner) || StringObject.isEmpty(ender)) {
+            LOG.warn("beginner:{} or ender:{} empty");
+            return EMPTY;
         }
         final int length = src.length();
         final char[] source = src.toCharArray();
@@ -67,7 +93,7 @@ public class StringExtractUtils {
 
         LOG.debug("findBegin:{}, beginAt:{}, i:{}", findBegin, beginAt, i);
         if (findBegin == false) {
-            return "";
+            return EMPTY;
         }
 
         boolean findEnd = false;
@@ -92,25 +118,13 @@ public class StringExtractUtils {
             }
         }
         if (findBegin && findEnd) {
+            if (trim) {
+                beginAt = beginAt + beginLength;
+                count = count - endLenght - beginLength;
+            }
             // LOG.debug("beginAt:{}, count:{}", beginAt, count);
             return new String(source, beginAt, count);
         }
-        return "";
-    }
-
-    /**
-     * 前后不保留 beginner 和 ender
-     * 
-     * @param src
-     * @param beginner
-     * @param ender
-     * @return
-     */
-    public static String extractTrim(String src, String beginner, String ender) {
-        String extract = extract(src, beginner, ender);
-        if (StringObject.isEmpty(extract)) {
-            return "";
-        }
-        return extract.substring(beginner.length(), extract.length() - ender.length());
+        return EMPTY;
     }
 }
