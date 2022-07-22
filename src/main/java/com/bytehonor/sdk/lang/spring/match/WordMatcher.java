@@ -49,7 +49,7 @@ public class WordMatcher {
         return val.toLowerCase();
     }
 
-    public boolean isHit(Set<String> words) {
+    public boolean match(Set<String> words) {
         if (CollectionUtils.isEmpty(words)) {
             return false;
         }

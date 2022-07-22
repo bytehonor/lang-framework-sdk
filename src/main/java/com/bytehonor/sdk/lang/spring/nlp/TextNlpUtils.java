@@ -6,8 +6,6 @@ import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class TextNlpUtils {
 
-    private static final String HTTP = "http";
-
     private static final String HTTP_PRE = "http://";
 
     private static final String HTTPS_PRE = "https://";
@@ -16,11 +14,7 @@ public class TextNlpUtils {
         if (StringObject.isEmpty(src)) {
             return "";
         }
-        int begin = src.indexOf(HTTP);
-        if (begin < 0) {
-            return src;
-        }
-        begin = src.indexOf(HTTP_PRE);
+        int begin = src.indexOf(HTTP_PRE);
         if (begin < 0) {
             begin = src.indexOf(HTTPS_PRE);
         }

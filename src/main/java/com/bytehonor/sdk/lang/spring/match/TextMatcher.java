@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
@@ -15,11 +13,13 @@ import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
 import com.bytehonor.sdk.lang.spring.util.StringObject;
 
+/**
+ * 优先排除, 其次满足. 排除或满足都只需要命中一组即可
+ * 
+ * @author lijianqiang
+ *
+ */
 public class TextMatcher {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TextMatcher.class);
-
-    private static final char BLANK = CharConstants.BLANK;
 
     /**
      * 排除的条件, 满足一组就排除 or
@@ -41,7 +41,7 @@ public class TextMatcher {
             return false;
         }
 
-        Set<String> words = StringSplitUtils.toSet(prepare(text), BLANK);
+        Set<String> words = StringSplitUtils.toSet(prepare(text), CharConstants.BLANK);
         if (contains(words, this.excluders)) {
             return false;
         }
@@ -69,7 +69,7 @@ public class TextMatcher {
      * @param text
      * @return
      */
-    public static String prepare(String text) {
+    private static String prepare(String text) {
         if (StringObject.isEmpty(text)) {
             return "";
         }
@@ -80,12 +80,11 @@ public class TextMatcher {
 
     public static boolean contains(Set<String> words, List<WordMatcher> matchers) {
         if (CollectionUtils.isEmpty(words) || CollectionUtils.isEmpty(matchers)) {
-            LOG.warn("words or matchers empty");
             return false;
         }
+
         for (WordMatcher matcher : matchers) {
-            if (matcher.isHit(words)) {
-                LOG.debug("matcher:{}", matcher);
+            if (matcher.match(words)) {
                 return true;
             }
         }

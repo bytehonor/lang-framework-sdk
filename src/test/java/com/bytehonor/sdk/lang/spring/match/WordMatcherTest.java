@@ -17,11 +17,11 @@ public class WordMatcherTest {
         WordMatcher matcher = WordMatcher.of("one    ", "     two");
         LOG.info("matcher:{}", matcher);
 
-        boolean isOk1 = matcher.isHit(Sets.newHashSet("one", "two"));
-        boolean isOk2 = matcher.isHit(Sets.newHashSet("one")) == false;
-        boolean isOk3 = matcher.isHit(Sets.newHashSet("two")) == false;
-        boolean isOk4 = matcher.isHit(Sets.newHashSet("one", "two", "three"));
-        boolean isOk5 = matcher.isHit(Sets.newHashSet("one1", "two", "three")) == false;
+        boolean isOk1 = matcher.match(Sets.newHashSet("one", "two"));
+        boolean isOk2 = matcher.match(Sets.newHashSet("one")) == false;
+        boolean isOk3 = matcher.match(Sets.newHashSet("two")) == false;
+        boolean isOk4 = matcher.match(Sets.newHashSet("one", "two", "three"));
+        boolean isOk5 = matcher.match(Sets.newHashSet("one1", "two", "three")) == false;
 
         LOG.info("test1 {}, {}, {}, {}, {}", isOk1, isOk2, isOk3, isOk4, isOk5);
         assertTrue("test1", isOk1 && isOk2 && isOk3 && isOk4 && isOk5);
