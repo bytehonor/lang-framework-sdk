@@ -18,8 +18,19 @@ public class StringExtractUtilsTest {
         String fullText = "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
                 + "asdfasdfasd/>fas/>dfasdf";
         String res = StringExtractUtils.extract(fullText, beginner, ender);
-        LOG.info("order:{}", res);
+        LOG.info("testExtract:{}", res);
         assertTrue("*testExtract*", res.equals(beginner + text + ender));
     }
 
+    @Test
+    public void testExtractTrim() {
+        String text = "昨日全天上海无新增新型冠状病毒肺炎确诊病例";
+        String beginner = "<a src=";
+        String ender = "/>";
+        String fullText = "asdfasdfasdfasdfasdf[][][][][][*(77asdf" + beginner + text + ender
+                + "asdfasdfasd/>fas/>dfasdf";
+        String res = StringExtractUtils.extractTrim(fullText, beginner, ender);
+        LOG.info("testExtractTrim:{}", res);
+        assertTrue("*testExtractTrim*", res.equals(text));
+    }
 }

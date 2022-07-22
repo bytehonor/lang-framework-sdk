@@ -21,6 +21,14 @@ public class StringExtractUtils {
 
     public static final char IGNORE_CHAR = '*';
 
+    /**
+     * 前后保留 beginner 和 ender
+     * 
+     * @param src
+     * @param beginner
+     * @param ender
+     * @return
+     */
     public static String extract(String src, String beginner, String ender) {
         Objects.requireNonNull(src, "src");
         if (StringObject.isEmpty(src) || StringObject.isEmpty(beginner) || StringObject.isEmpty(ender)) {
@@ -88,5 +96,21 @@ public class StringExtractUtils {
             return new String(source, beginAt, count);
         }
         return "";
+    }
+
+    /**
+     * 前后不保留 beginner 和 ender
+     * 
+     * @param src
+     * @param beginner
+     * @param ender
+     * @return
+     */
+    public static String extractTrim(String src, String beginner, String ender) {
+        String extract = extract(src, beginner, ender);
+        if (StringObject.isEmpty(extract)) {
+            return "";
+        }
+        return extract.substring(beginner.length(), extract.length() - ender.length());
     }
 }

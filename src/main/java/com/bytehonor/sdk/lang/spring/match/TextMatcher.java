@@ -8,7 +8,6 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
-import com.bytehonor.sdk.lang.spring.nlp.TextNlpUtils;
 import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
 import com.bytehonor.sdk.lang.spring.util.StringObject;
@@ -74,7 +73,6 @@ public class TextMatcher {
             return "";
         }
 
-        text = TextNlpUtils.removeHttp(text);
         return StringRemoveUtils.replaceNonNormalWithBlank(text).toLowerCase();
     }
 
