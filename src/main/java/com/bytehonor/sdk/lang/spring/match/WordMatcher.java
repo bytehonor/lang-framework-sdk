@@ -28,6 +28,12 @@ public class WordMatcher {
         this.matchers = matchers;
     }
 
+    /**
+     * 统一转换成小写
+     * 
+     * @param words
+     * @return
+     */
     public static WordMatcher of(String... words) {
         Objects.requireNonNull(words, "wirds");
 
