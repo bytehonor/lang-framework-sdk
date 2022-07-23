@@ -11,14 +11,18 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
 import com.bytehonor.sdk.lang.spring.nlp.TextNlpUtils;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
+import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSliceUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
 import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 /**
+ * <pre>
  * 支持中文,英文,数字
  * 
  * 优先排除, 其次满足. 排除或满足都只需要命中一组即可
+ * 
+ * </pre>
  * 
  * @author lijianqiang
  *
@@ -49,8 +53,7 @@ public class TextMatcher {
             return false;
         }
 
-        // 按空格分割处字块, 支持英文句子, 但中文句子则要继续分割
-        Set<String> words = words(text);
+        Set<String> words = words(text); // 分词
         if (contains(words, this.excluders)) {
             return false;
         }
@@ -131,6 +134,7 @@ public class TextMatcher {
      */
     public static String prepare(String text) {
         text = TextNlpUtils.removeHttp(text);
+        text = StringRemoveUtils.replaceNonNormalWithBlank(text);
         if (StringObject.isEmpty(text)) {
             return "";
         }

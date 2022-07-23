@@ -116,4 +116,13 @@ public class TextMatcherTest {
         LOG.info("test7 words:({})", words);
         assertTrue("test7", words.contains("english") && words.contains("123456789"));
     }
+
+    @Test
+    public void test8() {
+        String text = "🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨4,500,000,00 #USDT transferred from Tether Treasury to #Bitfinex";
+        String prepare = TextMatcher.prepare(text);
+        LOG.info("test8 prepare:({})", prepare);
+
+        assertTrue("test8", "4 500 000 00 USDT transferred from Tether Treasury to Bitfinex".equals(prepare));
+    }
 }
