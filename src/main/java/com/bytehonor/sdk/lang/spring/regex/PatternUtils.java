@@ -44,19 +44,24 @@ public class PatternUtils {
         return true;
     }
 
-    public static boolean isNumber(String str) {
+    public static boolean isNumber(String src) {
+        if (StringObject.isEmpty(src)) {
+            return false;
+        }
+        int len = src.length();
+        for (int i = 0; i < len; i++) {
+            if (isNumberChar(src.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isNumberValue(String str) {
         // 采用正则表达式的方式来判断一个字符串是否为数字，这种方式判断面比较全
         // 可以判断正负、整数小数
 
         return INTEGER_PT.matcher(str).find() || DOUBLE_PT.matcher(str).find();
-    }
-
-    public static boolean isNumberStart(String src) {
-        if (StringObject.isEmpty(src)) {
-            return false;
-        }
-
-        return isNumberChar(src.charAt(0));
     }
 
     public static boolean isLetter(String src) {
