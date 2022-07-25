@@ -48,7 +48,7 @@ public class WordMatcher {
         return new WordMatcher(matchers);
     }
 
-    private static String format(String word) {
+    public static String format(String word) {
         Objects.requireNonNull(word, "word");
 
         String val = word.trim();
