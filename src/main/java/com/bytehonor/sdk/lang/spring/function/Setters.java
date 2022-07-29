@@ -13,7 +13,7 @@ import com.bytehonor.sdk.lang.spring.function.setter.SetString;
 
 public class Setters {
 
-    public static <T> String fieldName(ClassSetter<T, ?> setter) {
+    public static <T> String field(ClassSetter<T, ?> setter) {
         return SerializedLambdaUtils.getFieldName(setter);
     }
 

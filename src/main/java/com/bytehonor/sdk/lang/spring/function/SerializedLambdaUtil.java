@@ -14,10 +14,11 @@ public class SerializedLambdaUtil {
 
     public static FieldNameParser defaultFieldNameParser = new FieldNameParser() {
     };
-    
+
     public static <T> String getFieldName(ClassSetter<T, ?> classGetter) {
         return getFieldName(classGetter, defaultFieldNameParser);
     }
+
     /**
      * 获取字段名称
      */
@@ -48,13 +49,9 @@ public class SerializedLambdaUtil {
      * </pre>
      */
     public static String getFieldName(SerializedLambda serializedLambda, FieldNameParser fieldNameParser) {
-        String implClassLongName = getImplClassLongName(serializedLambda);
+        // String implClassLongName = getImplClassLongName(serializedLambda);
         String implMethodName = getImplMethodName(serializedLambda);
-        try {
-            return fieldNameParser.parseFieldName(Class.forName(implClassLongName), implMethodName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return fieldNameParser.parseFieldName(implMethodName);
     }
 
     /**
@@ -83,7 +80,7 @@ public class SerializedLambdaUtil {
      * @return 实现方法的类的全类名 <br />
      *         形如：com.example.lambda.test.Person
      */
-    private static String getImplClassLongName(SerializedLambda serializedLambda) {
+    public static String getImplClassLongName(SerializedLambda serializedLambda) {
         return serializedLambda.getImplClass().replace("/", ".");
     }
 
@@ -93,7 +90,7 @@ public class SerializedLambdaUtil {
      * @param potentialLambda lambda实例
      * @return SerializedLambda实例
      */
-    private static <T extends Serializable> SerializedLambda getSerializedLambda(T potentialLambda) {
+    public static <T extends Serializable> SerializedLambda getSerializedLambda(T potentialLambda) {
         try {
             Class<?> potentialLambdaClass = potentialLambda.getClass();
             // lambda类属于合成类
@@ -113,60 +110,4 @@ public class SerializedLambdaUtil {
             throw new IllegalArgumentException("potentialLambda must be lambda-class", e);
         }
     }
-
-    /**
-     * 字段名解析器
-     *
-     * @author JustryDeng
-     * @since 2022/4/9 11:31
-     */
-    public interface FieldNameParser {
-
-        /**
-         * <pre>
-         * 解析字段名
-         * 
-         * 假设你的lambda表达式部分是这样写的：<code>Person::getFirstName</code>，
-         * 那么，
-         * clazz就对应Person类
-         * methodName就对应getFirstName
-         * </pre>
-         *
-         * @param clazz      字段所在的类
-         * @param methodName 与字段相关的方法（如：该字段的getter方法）
-         * @return 解析字段名
-         */
-        default String parseFieldName(Class<?> clazz, String methodName) {
-            return uncapitalize(methodName.substring("get".length()));
-        }
-    }
-
-    public static String uncapitalize(final String str) {
-        final int strLen = length(str);
-        if (strLen == 0) {
-            return str;
-        }
-
-        final int firstCodepoint = str.codePointAt(0);
-        final int newCodePoint = Character.toLowerCase(firstCodepoint);
-        if (firstCodepoint == newCodePoint) {
-            // already capitalized
-            return str;
-        }
-
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
-        int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
-        for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen;) {
-            final int codepoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codepoint; // copy the remaining ones
-            inOffset += Character.charCount(codepoint);
-        }
-        return new String(newCodePoints, 0, outOffset);
-    }
-
-    public static int length(final CharSequence cs) {
-        return cs == null ? 0 : cs.length();
-    }
-
 }

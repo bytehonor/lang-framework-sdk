@@ -26,7 +26,7 @@ public class SettersTest {
         LOG.info("test {}, {}, {}, {}, {}", student.getId(), student.getNickname(), student.getAge(),
                 student.getUpdateAt(), student.getCreateAt());
 
-        LOG.info("{}", Setters.fieldName(setter));
+        LOG.info("{}", Setters.field(setter));
 
         assertTrue("test", age == student.getAge());
     }

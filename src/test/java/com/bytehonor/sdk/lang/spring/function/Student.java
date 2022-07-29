@@ -17,7 +17,7 @@ public class Student {
 
     private Long createAt;
 
-    private boolean rich;
+    private boolean veryRich;
 
     public static String hello(String msg) {
         LOG.info("hello {}", msg);
@@ -68,12 +68,12 @@ public class Student {
         this.createAt = createAt;
     }
 
-    public boolean isRich() {
-        return rich;
+    public boolean isVeryRich() {
+        return veryRich;
     }
 
-    public void setRich(boolean rich) {
-        this.rich = rich;
+    public void setVeryRich(boolean veryRich) {
+        this.veryRich = veryRich;
     }
 
 }

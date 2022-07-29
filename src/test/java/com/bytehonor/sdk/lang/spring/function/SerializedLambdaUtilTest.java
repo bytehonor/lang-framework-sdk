@@ -18,11 +18,11 @@ public class SerializedLambdaUtilTest {
         assertTrue("test", "updateAt".equals(name));
     }
 
-    
     @Test
     public void test2() {
-        String name = SerializedLambdaUtil.getFieldName(Student::isRich);
+        String name = SerializedLambdaUtil.getFieldName(Student::isVeryRich);
         LOG.info("test2:{}", name);
 
+        assertTrue("test", "veryRich".equals(name));
     }
 }

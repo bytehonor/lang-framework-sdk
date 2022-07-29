@@ -12,7 +12,7 @@ import com.bytehonor.sdk.lang.spring.function.supplier.SupplyString;
 
 public class Getters {
 
-    public static <T> String fieldName(ClassGetter<T, ?> getter) {
+    public static <T> String field(ClassGetter<T, ?> getter) {
         return SerializedLambdaUtils.getFieldName(getter);
     }
 
