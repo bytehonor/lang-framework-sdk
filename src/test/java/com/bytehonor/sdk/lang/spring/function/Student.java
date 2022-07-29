@@ -17,11 +17,13 @@ public class Student {
 
     private Long createAt;
 
+    private boolean rich;
+
     public static String hello(String msg) {
         LOG.info("hello {}", msg);
         return "hello" + msg;
     }
-    
+
     public String repeat(String msg) {
         return nickname + "repeat" + msg;
     }
@@ -64,6 +66,14 @@ public class Student {
 
     public void setCreateAt(Long createAt) {
         this.createAt = createAt;
+    }
+
+    public boolean isRich() {
+        return rich;
+    }
+
+    public void setRich(boolean rich) {
+        this.rich = rich;
     }
 
 }
