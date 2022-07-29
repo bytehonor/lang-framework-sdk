@@ -8,28 +8,28 @@ import java.lang.reflect.Method;
 /**
  * {@link SerializedLambda}工具类
  *
+ * https://blog.csdn.net/justry_deng/article/details/124059375
  */
-public class SerializedLambdaUtils {
+public class SerializedLambdaUtil {
 
-    private static FieldNameParser DEFAULT_FIELD_NAME_PARSER = new FieldNameParser() {
+    public static FieldNameParser defaultFieldNameParser = new FieldNameParser() {
     };
-
-    public static <T> String getFieldName(ClassSetter<T, ?> classSetter) {
-        return getFieldName(classSetter, DEFAULT_FIELD_NAME_PARSER);
+    
+    public static <T> String getFieldName(ClassSetter<T, ?> classGetter) {
+        return getFieldName(classGetter, defaultFieldNameParser);
     }
-
     /**
      * 获取字段名称
      */
-    public static <T> String getFieldName(ClassSetter<T, ?> classSetter, FieldNameParser fieldNameParser) {
-        return getFieldName(getSerializedLambda(classSetter), fieldNameParser);
+    public static <T> String getFieldName(ClassSetter<T, ?> ClassGetter, FieldNameParser fieldNameParser) {
+        return getFieldName(getSerializedLambda(ClassGetter), fieldNameParser);
     }
 
     /**
-     * @see SerializedLambdaUtils#getFieldName(ClassGetter)
+     * @see SerializedLambdaUtil#getFieldName(ClassGetter)
      */
     public static <T> String getFieldName(ClassGetter<T, ?> classGetter) {
-        return getFieldName(classGetter, DEFAULT_FIELD_NAME_PARSER);
+        return getFieldName(classGetter, defaultFieldNameParser);
     }
 
     /**
@@ -43,24 +43,30 @@ public class SerializedLambdaUtils {
      * 
      * <pre>
      * 获取lambda表达式字段名称
-     * 假设你的lambda表达式部分是这样写的：Person::getFirstName
+     * 假设你的lambda表达式部分是这样写的：<code>Person::getFirstName</code>，
      * 那么，此方法的目的就是获取到getFirstName方法对应的（Person类中的对应字段的）字段名
      * </pre>
      */
-    private static String getFieldName(SerializedLambda serializedLambda, FieldNameParser fieldNameParser) {
+    public static String getFieldName(SerializedLambda serializedLambda, FieldNameParser fieldNameParser) {
+        String implClassLongName = getImplClassLongName(serializedLambda);
         String implMethodName = getImplMethodName(serializedLambda);
-        return fieldNameParser.parseFieldName(implMethodName);
+        try {
+            return fieldNameParser.parseFieldName(Class.forName(implClassLongName), implMethodName);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * <pre>
      * 获取lambda表达式中，实现方法的方法名
-     * 说明： 假设你的lambda表达式部分是这样写的：Person::getFirstName
+     * 说明： 假设你的lambda表达式部分是这样写的：<code>Person::getFirstName</code>，
      * 那么这里获取到的就是Person.getFirstName()的方法名getFirstName
      * </pre>
      *
      * @param serializedLambda serializedLambda对象
-     * @return 实现方法的方法名 形如：getFirstName
+     * @return 实现方法的方法名 <br />
+     *         形如：getFirstName
      */
     private static String getImplMethodName(SerializedLambda serializedLambda) {
         return serializedLambda.getImplMethodName();
@@ -69,14 +75,15 @@ public class SerializedLambdaUtils {
     /**
      * <pre>
      * 获取lambda表达式中，实现方法的类的全类名 说明：
-     * 假设你的lambda表达式部分是这样写的：Person::getFirstName，
-     * 那么这里获取到的就是Person的全类名，形如：com.example.lambda.test.Person
+     * 假设你的lambda表达式部分是这样写的：<code>Person::getFirstName</code>，
+     * 那么这里获取到的就是Person的全类名，形如：<code>com.example.lambda.test.Person</code>
      * </pre>
      *
      * @param serializedLambda serializedLambda对象
-     * @return 实现方法的类的全类名 形如：com.example.lambda.test.Person
+     * @return 实现方法的类的全类名 <br />
+     *         形如：com.example.lambda.test.Person
      */
-    public static String getImplClassLongName(SerializedLambda serializedLambda) {
+    private static String getImplClassLongName(SerializedLambda serializedLambda) {
         return serializedLambda.getImplClass().replace("/", ".");
     }
 
@@ -110,6 +117,8 @@ public class SerializedLambdaUtils {
     /**
      * 字段名解析器
      *
+     * @author JustryDeng
+     * @since 2022/4/9 11:31
      */
     public interface FieldNameParser {
 
@@ -117,19 +126,17 @@ public class SerializedLambdaUtils {
          * <pre>
          * 解析字段名
          * 
-         * 假设你的lambda表达式部分是这样写的：Person::getFirstName，
+         * 假设你的lambda表达式部分是这样写的：<code>Person::getFirstName</code>，
          * 那么，
          * clazz就对应Person类
          * methodName就对应getFirstName
          * </pre>
          *
+         * @param clazz      字段所在的类
          * @param methodName 与字段相关的方法（如：该字段的getter方法）
          * @return 解析字段名
          */
-        default String parseFieldName(String methodName) {
-            if (methodName.startsWith("is")) {
-                return uncapitalize(methodName.substring("is".length()));
-            }
+        default String parseFieldName(Class<?> clazz, String methodName) {
             return uncapitalize(methodName.substring("get".length()));
         }
     }

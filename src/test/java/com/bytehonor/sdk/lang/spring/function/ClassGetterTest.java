@@ -28,4 +28,22 @@ public class ClassGetterTest {
         assertTrue("test", student.getNickname().equals(res));
     }
 
+    @Test
+    public void test2() {
+        long now = System.currentTimeMillis();
+        Student student = new Student();
+        student.setAge(1);
+        student.setNickname("test2");
+        student.setId(123L);
+        student.setCreateAt(now);
+        student.setUpdateAt(now);
+
+        String nickname = Getters.get(Student::getNickname, student);
+
+        LOG.info("test2 {}", Getters.get(Student::getId, student));
+        LOG.info("test2 {}", Getters.get(Student::getAge, student));
+        LOG.info("test2 {}", Getters.get(Student::getNickname, student));
+
+        assertTrue("test2", student.getNickname().equals(nickname));
+    }
 }

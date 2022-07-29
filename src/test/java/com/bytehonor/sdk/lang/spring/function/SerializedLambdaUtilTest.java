@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SerializedLambdaUtilsTest {
+public class SerializedLambdaUtilTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SerializedLambdaUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SerializedLambdaUtilTest.class);
 
     @Test
     public void test() {
-        String name = SerializedLambdaUtils.getFieldName(Student::getUpdateAt);
+        String name = SerializedLambdaUtil.getFieldName(Student::getUpdateAt);
         LOG.info("test:{}", name);
 
         assertTrue("test", "updateAt".equals(name));
@@ -21,7 +21,7 @@ public class SerializedLambdaUtilsTest {
     
     @Test
     public void test2() {
-        String name = SerializedLambdaUtils.getFieldName(Student::isRich);
+        String name = SerializedLambdaUtil.getFieldName(Student::isRich);
         LOG.info("test2:{}", name);
 
     }
