@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.lang.spring.function;
 
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.bytehonor.sdk.lang.spring.util.StringObject;
 
@@ -8,7 +9,9 @@ import com.bytehonor.sdk.lang.spring.util.StringObject;
  * 字段名解析器
  *
  */
-public interface FieldNameParser {
+public class FieldNameParser {
+
+    private static final ConcurrentHashMap<String, String> NAMES = new ConcurrentHashMap<String, String>();
 
     /**
      * <pre>
@@ -23,12 +26,21 @@ public interface FieldNameParser {
      * @param methodName 与字段相关的方法（如：该字段的getter方法）
      * @return 解析字段名
      */
-    default String parseFieldName(String methodName) {
+    public static String parseFieldName(String methodName) {
         Objects.requireNonNull(methodName, methodName);
-
-        if (methodName.startsWith("is")) {
-            return StringObject.uncapitalize(methodName.substring("is".length()));
+        if (methodName.length() < 3) {
+            return methodName;
         }
-        return StringObject.uncapitalize(methodName.substring("get".length()));
+        String fieldName = NAMES.get(methodName);
+        if (fieldName != null) {
+            return fieldName;
+        }
+        if (methodName.startsWith("is")) {
+            fieldName = StringObject.uncapitalize(methodName.substring("is".length()));
+        } else {
+            fieldName = StringObject.uncapitalize(methodName.substring("get".length()));
+        }
+        NAMES.put(methodName, fieldName);
+        return fieldName;
     }
 }

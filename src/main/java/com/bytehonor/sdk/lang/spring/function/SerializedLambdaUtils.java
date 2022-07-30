@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * {@link SerializedLambda}工具类
@@ -11,32 +13,20 @@ import java.lang.reflect.Method;
  */
 public class SerializedLambdaUtils {
 
-    private static FieldNameParser DEFAULT_FIELD_NAME_PARSER = new FieldNameParser() {
-    };
+    private static final ConcurrentHashMap<String, SerializedLambda> CACHE = new ConcurrentHashMap<String, SerializedLambda>();
 
+    /**
+     * 获取字段名称
+     */
     public static <T> String getFieldName(ClassSetter<T, ?> classSetter) {
-        return getFieldName(classSetter, DEFAULT_FIELD_NAME_PARSER);
+        return getFieldName(getSerializedLambda(classSetter));
     }
 
     /**
      * 获取字段名称
      */
-    public static <T> String getFieldName(ClassSetter<T, ?> classSetter, FieldNameParser fieldNameParser) {
-        return getFieldName(getSerializedLambda(classSetter), fieldNameParser);
-    }
-
-    /**
-     * @see SerializedLambdaUtils#getFieldName(ClassGetter)
-     */
-    public static <T> String getFieldName(ClassGetter<T, ?> classGetter) {
-        return getFieldName(classGetter, DEFAULT_FIELD_NAME_PARSER);
-    }
-
-    /**
-     * 获取字段名称
-     */
-    public static <T> String getFieldName(ClassGetter<T, ?> ClassGetter, FieldNameParser fieldNameParser) {
-        return getFieldName(getSerializedLambda(ClassGetter), fieldNameParser);
+    public static <T> String getFieldName(ClassGetter<T, ?> ClassGetter) {
+        return getFieldName(getSerializedLambda(ClassGetter));
     }
 
     /**
@@ -47,9 +37,9 @@ public class SerializedLambdaUtils {
      * 那么，此方法的目的就是获取到getFirstName方法对应的（Person类中的对应字段的）字段名
      * </pre>
      */
-    private static String getFieldName(SerializedLambda serializedLambda, FieldNameParser fieldNameParser) {
+    private static String getFieldName(SerializedLambda serializedLambda) {
         String implMethodName = getImplMethodName(serializedLambda);
-        return fieldNameParser.parseFieldName(implMethodName);
+        return FieldNameParser.parseFieldName(implMethodName);
     }
 
     /**
@@ -87,8 +77,14 @@ public class SerializedLambdaUtils {
      * @return SerializedLambda实例
      */
     private static <T extends Serializable> SerializedLambda getSerializedLambda(T potentialLambda) {
+        Objects.requireNonNull(potentialLambda, "potentialLambda");
+        Class<?> potentialLambdaClass = potentialLambda.getClass();
+        String name = potentialLambdaClass.getName();
+        SerializedLambda result = CACHE.get(name);
+        if (result != null) {
+            return result;
+        }
         try {
-            Class<?> potentialLambdaClass = potentialLambda.getClass();
             // lambda类属于合成类
             if (!potentialLambdaClass.isSynthetic()) {
                 throw new IllegalArgumentException("potentialLambda must be lambda-class");
@@ -101,9 +97,12 @@ public class SerializedLambdaUtils {
             if (writeReplaceObject == null || !SerializedLambda.class.isAssignableFrom(writeReplaceObject.getClass())) {
                 throw new IllegalArgumentException("writeReplaceObject should not be " + writeReplaceObject);
             }
-            return (SerializedLambda) writeReplaceObject;
+            result = (SerializedLambda) writeReplaceObject;
+            CACHE.put(name, result);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new IllegalArgumentException("potentialLambda must be lambda-class", e);
         }
+
+        return result;
     }
 }

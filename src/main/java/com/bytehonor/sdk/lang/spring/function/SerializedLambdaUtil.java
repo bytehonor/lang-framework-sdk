@@ -12,32 +12,18 @@ import java.lang.reflect.Method;
  */
 public class SerializedLambdaUtil {
 
-    public static FieldNameParser defaultFieldNameParser = new FieldNameParser() {
-    };
-
-    public static <T> String getFieldName(ClassSetter<T, ?> classGetter) {
-        return getFieldName(classGetter, defaultFieldNameParser);
+    /**
+     * 获取字段名称
+     */
+    public static <T> String getFieldName(ClassSetter<T, ?> ClassGetter) {
+        return getFieldName(getSerializedLambda(ClassGetter));
     }
 
     /**
      * 获取字段名称
      */
-    public static <T> String getFieldName(ClassSetter<T, ?> ClassGetter, FieldNameParser fieldNameParser) {
-        return getFieldName(getSerializedLambda(ClassGetter), fieldNameParser);
-    }
-
-    /**
-     * @see SerializedLambdaUtil#getFieldName(ClassGetter)
-     */
-    public static <T> String getFieldName(ClassGetter<T, ?> classGetter) {
-        return getFieldName(classGetter, defaultFieldNameParser);
-    }
-
-    /**
-     * 获取字段名称
-     */
-    public static <T> String getFieldName(ClassGetter<T, ?> ClassGetter, FieldNameParser fieldNameParser) {
-        return getFieldName(getSerializedLambda(ClassGetter), fieldNameParser);
+    public static <T> String getFieldName(ClassGetter<T, ?> getter) {
+        return getFieldName(getSerializedLambda(getter));
     }
 
     /**
@@ -48,10 +34,10 @@ public class SerializedLambdaUtil {
      * 那么，此方法的目的就是获取到getFirstName方法对应的（Person类中的对应字段的）字段名
      * </pre>
      */
-    public static String getFieldName(SerializedLambda serializedLambda, FieldNameParser fieldNameParser) {
+    public static String getFieldName(SerializedLambda serializedLambda) {
         // String implClassLongName = getImplClassLongName(serializedLambda);
         String implMethodName = getImplMethodName(serializedLambda);
-        return fieldNameParser.parseFieldName(implMethodName);
+        return FieldNameParser.parseFieldName(implMethodName);
     }
 
     /**
