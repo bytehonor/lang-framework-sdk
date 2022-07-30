@@ -1,5 +1,6 @@
 package com.bytehonor.sdk.lang.spring.function;
 
+import com.bytehonor.sdk.lang.spring.function.getter.GetBoolean;
 import com.bytehonor.sdk.lang.spring.function.getter.GetDouble;
 import com.bytehonor.sdk.lang.spring.function.getter.GetInteger;
 import com.bytehonor.sdk.lang.spring.function.getter.GetLong;
@@ -29,6 +30,10 @@ public class Getters {
     }
 
     public static <T> Double get(GetDouble<T> getter, T t) {
+        return getter.apply(t);
+    }
+    
+    public static <T> Boolean get(GetBoolean<T> getter, T t) {
         return getter.apply(t);
     }
 
