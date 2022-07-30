@@ -17,24 +17,24 @@ public class Getters {
         return SerializedLambdaUtils.getFieldName(getter);
     }
 
-    public static <T> String get(GetString<T> getter, T t) {
-        return getter.apply(t);
+    public static <T> String get(GetString<T> getter, T model) {
+        return getter.apply(model);
     }
 
-    public static <T> Long get(GetLong<T> getter, T t) {
-        return getter.apply(t);
+    public static <T> Long get(GetLong<T> getter, T model) {
+        return getter.apply(model);
     }
 
-    public static <T> Integer get(GetInteger<T> getter, T t) {
-        return getter.apply(t);
+    public static <T> Integer get(GetInteger<T> getter, T model) {
+        return getter.apply(model);
     }
 
-    public static <T> Double get(GetDouble<T> getter, T t) {
-        return getter.apply(t);
+    public static <T> Double get(GetDouble<T> getter, T model) {
+        return getter.apply(model);
     }
     
-    public static <T> Boolean get(GetBoolean<T> getter, T t) {
-        return getter.apply(t);
+    public static <T> Boolean get(GetBoolean<T> getter, T model) {
+        return getter.apply(model);
     }
 
     public static String get(SupplyString supplier) {

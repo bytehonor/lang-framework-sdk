@@ -17,24 +17,24 @@ public class Setters {
         return SerializedLambdaUtils.getFieldName(setter);
     }
 
-    public static <T> void set(SetString<T> setter, T t, String val) {
-        setter.accept(t, val);
+    public static <T> void set(SetString<T> setter, T model, String val) {
+        setter.accept(model, val);
     }
 
-    public static <T> void set(SetLong<T> setter, T t, Long val) {
-        setter.accept(t, val);
+    public static <T> void set(SetLong<T> setter, T model, Long val) {
+        setter.accept(model, val);
     }
 
-    public static <T> void set(SetInteger<T> setter, T t, Integer val) {
-        setter.accept(t, val);
+    public static <T> void set(SetInteger<T> setter, T model, Integer val) {
+        setter.accept(model, val);
     }
 
-    public static <T> void set(SetBoolean<T> setter, T t, Boolean val) {
-        setter.accept(t, val);
+    public static <T> void set(SetBoolean<T> setter, T model, Boolean val) {
+        setter.accept(model, val);
     }
 
-    public static <T> void set(SetDouble<T> setter, T t, Double val) {
-        setter.accept(t, val);
+    public static <T> void set(SetDouble<T> setter, T model, Double val) {
+        setter.accept(model, val);
     }
 
     public static void set(ConsumeString consumer, String val) {

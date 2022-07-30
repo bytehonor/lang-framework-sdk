@@ -13,6 +13,10 @@ public class FieldNameParser {
 
     private static final ConcurrentHashMap<String, String> NAMES = new ConcurrentHashMap<String, String>();
 
+    private static final String IS = "is";
+    private static final String GET = "get";
+    private static final String SET = "set";
+
     /**
      * <pre>
      * 解析字段名
@@ -35,12 +39,19 @@ public class FieldNameParser {
         if (fieldName != null) {
             return fieldName;
         }
-        if (methodName.startsWith("is")) {
-            fieldName = StringObject.uncapitalize(methodName.substring("is".length()));
+
+        if (methodName.startsWith(IS)) {
+            fieldName = StringObject.uncapitalize(methodName.substring(IS.length()));
+        } else if (methodName.startsWith(GET)) {
+            fieldName = StringObject.uncapitalize(methodName.substring(GET.length()));
+        } else if (methodName.startsWith(SET)) {
+            fieldName = StringObject.uncapitalize(methodName.substring(SET.length()));
         } else {
-            fieldName = StringObject.uncapitalize(methodName.substring("get".length()));
+            fieldName = methodName;
         }
+
         NAMES.put(methodName, fieldName);
         return fieldName;
     }
+
 }
