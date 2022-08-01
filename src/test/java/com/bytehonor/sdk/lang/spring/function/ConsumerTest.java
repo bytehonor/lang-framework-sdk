@@ -19,8 +19,9 @@ public class ConsumerTest {
         SetterModel model = new SetterModel();
         model.setName("test1");
         LOG.info("name:{}", model.getName());
-        SetString<SetterModel> setName = SetterModel::setName;
-        setName.accept(model, "test1test1");
+
+        SetString<SetterModel> setter = SetterModel::setName;
+        setter.accept(model, "test1test1");
         LOG.info("name:{}", model.getName());
     }
 
@@ -30,10 +31,11 @@ public class ConsumerTest {
         SetterModel model = new SetterModel();
         model.setName("test2");
         LOG.info("name:{}", model.getName());
+
         model.print("first");
 
-        SetString<SetterModel> setName = SetterModel::print;
-        setName.accept(model, "second");
+        SetString<SetterModel> setter = SetterModel::print; // setName 和 print 一样单参
+        setter.accept(model, "second");
 
         ConsumeString consumer = model::print;
         consumer.accept("third");
