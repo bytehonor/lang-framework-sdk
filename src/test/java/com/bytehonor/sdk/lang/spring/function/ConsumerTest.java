@@ -32,10 +32,13 @@ public class ConsumerTest {
         model.setName("test2");
         LOG.info("name:{}", model.getName());
 
-        model.print("first");
+        model.print("00000");
 
-        SetString<SetterModel> setter = SetterModel::print; // setName 和 print 一样单参
-        setter.accept(model, "second");
+        BiConsumer<SetterModel, String> setter1 = SetterModel::print; // setName 和 print 一样单参
+        setter1.accept(model, "first");
+
+        SetString<SetterModel> setter2 = SetterModel::print; // setName 和 print 一样单参
+        setter2.accept(model, "second");
 
         ConsumeString consumer = model::print;
         consumer.accept("third");
