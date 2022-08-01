@@ -20,15 +20,8 @@ public class NumberFormatUtils {
 
     public static String cn(Long val) {
         if (val == null) {
-            return "0";
+            return "未知";
         }
-        /**
-         * 1 11 123
-         * 
-         * 1234 12345 123456 1234567 万
-         * 
-         * 12345678 123456789 亿
-         */
 
         // 万以下不处理
         if (val < WANG_VAL) {
@@ -48,6 +41,14 @@ public class NumberFormatUtils {
             src = src.substring(0, src.length() - 2);
         }
         return new StringBuilder().append(src).append(unit).toString();
+    }
+
+    public static String cn(Integer val) {
+        if (val == null) {
+            return "未知";
+        }
+
+        return cn((long) val);
     }
 
     public static String en(String val) {
