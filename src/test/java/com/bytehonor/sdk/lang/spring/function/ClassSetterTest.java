@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.function.setter.SetString;
+
 public class ClassSetterTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassSetterTest.class);
@@ -37,10 +39,12 @@ public class ClassSetterTest {
         consumers.add(student::setId);
 
         ClassSetter<Student, Long> setter2 = Student::setCreateAt;
-        setter2.accept(student, 1L);
+        setter2.accept(student, 555L);
+        LOG.info("{}:{}", SerializedLambdaUtil.getFieldName(setter2), student.getCreateAt());
 
-        ClassSetter<Student, String> setter3 = Student::setNickname;
-        setter3.accept(student, "test");
+        SetString<Student> setter3 = Student::setNickname;
+        setter3.accept(student, "testsetNickname");
+        LOG.info("{}:{}", SerializedLambdaUtil.getFieldName(setter3), student.getNickname());
 
         List<ClassSetter<Student, ?>> setters = new ArrayList<ClassSetter<Student, ?>>();
         setters.add(setter2);
