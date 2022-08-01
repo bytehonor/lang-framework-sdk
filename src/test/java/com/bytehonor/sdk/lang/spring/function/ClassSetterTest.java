@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
 
@@ -95,5 +96,20 @@ public class ClassSetterTest {
         LOG.info("test3 {}, {}", student.getAge(), student.getNickname());
 
         assertTrue("test3", age == student.getAge());
+    }
+
+    @Test
+    public void test4() {
+        BiConsumer<String, String> consumer = Student::testTwo;
+
+        consumer.accept("v1", "v2");
+
+        SetString<String> consumer2 = Student::testTwo;
+        consumer2.accept("v11", "v22");
+
+        SetString<Student> consumer3 = Student::print;
+        Student student = new Student();
+        student.setNickname("test4");
+        consumer3.accept(student, "xxxx");
     }
 }

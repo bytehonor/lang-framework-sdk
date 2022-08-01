@@ -28,6 +28,14 @@ public class Student {
         return nickname + "repeat" + msg;
     }
 
+    public static void testTwo(String val1, String val2) {
+        LOG.info("testTwo val1:{}, val2:{}", val1, val2);
+    }
+    
+    public void print(String val) {
+        LOG.info("nickname:{}, print:{}", nickname, val);
+    }
+
     public Long getId() {
         return id;
     }
