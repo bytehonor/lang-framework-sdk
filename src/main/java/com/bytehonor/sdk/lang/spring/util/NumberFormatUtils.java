@@ -10,7 +10,47 @@ public class NumberFormatUtils {
 
     private static final String ZERO = "0.0";
 
-    public static String format(String val) {
+    private static final String YI = "亿";
+
+    private static final String WANG = "万";
+
+    private static final long WANG_VAL = 10000L;
+
+    private static final long YI_VAL = 100000000L;
+
+    public static String cn(Long val) {
+        if (val == null) {
+            return "0";
+        }
+        /**
+         * 1 11 123
+         * 
+         * 1234 12345 123456 1234567 万
+         * 
+         * 12345678 123456789 亿
+         */
+
+        // 万以下不处理
+        if (val < WANG_VAL) {
+            return String.valueOf(val);
+        }
+        Double dou = 0.0;
+        String unit = "";
+        if (val < YI_VAL) {
+            dou = DoubleMathUtils.divide(Double.valueOf(val), 10000.0, 2);
+            unit = WANG;
+        } else {
+            dou = DoubleMathUtils.divide(Double.valueOf(val), 100000000.0, 2);
+            unit = YI;
+        }
+        String src = String.valueOf(dou);
+        if (src.endsWith(".0")) {
+            src = src.substring(0, src.length() - 2);
+        }
+        return new StringBuilder().append(src).append(unit).toString();
+    }
+
+    public static String en(String val) {
         if (StringObject.isEmpty(val)) {
             return ZERO;
         }
@@ -21,21 +61,21 @@ public class NumberFormatUtils {
         return DF.format(dou);
     }
 
-    public static String format(Double val) {
+    public static String en(Double val) {
         if (val == null) {
             return ZERO;
         }
         return DF.format(val);
     }
 
-    public static String format(Long val) {
+    public static String en(Long val) {
         if (val == null) {
             return ZERO;
         }
         return DF.format(val);
     }
 
-    public static String format(Integer val) {
+    public static String en(Integer val) {
         if (val == null) {
             return ZERO;
         }

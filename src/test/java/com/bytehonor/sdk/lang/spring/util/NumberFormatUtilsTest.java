@@ -9,27 +9,43 @@ public class NumberFormatUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(NumberFormatUtilsTest.class);
 
     @Test
-    public void testDot2String() {
-        String dot2 = NumberFormatUtils.format("123456789.987654321");
-        LOG.info("testDot2String :{}", dot2);
+    public void testEnString() {
+        String en = NumberFormatUtils.en("123456789.987654321");
+        LOG.info("testEnString :{}", en);
     }
 
     @Test
-    public void testDot2Double() {
-        String dot2 = NumberFormatUtils.format(123456789.987654321);
-        LOG.info("testDot2Double :{}", dot2);
+    public void testEnDouble() {
+        String en = NumberFormatUtils.en(123456789.987654321);
+        LOG.info("testEnDouble :{}", en);
     }
 
     @Test
-    public void testDot2Long() {
-        String dot2 = NumberFormatUtils.format(123456789L);
-        LOG.info("testDot2Long :{}", dot2);
+    public void testEnLong() {
+        String en = NumberFormatUtils.en(123456789L);
+        LOG.info("testEnLong :{}", en);
     }
 
     @Test
-    public void testDot2Integer() {
-        String dot2 = NumberFormatUtils.format(123456789);
-        LOG.info("testDot2Integer :{}", dot2);
+    public void testEnInteger() {
+        String en = NumberFormatUtils.en(123456789);
+        LOG.info("testEnInteger :{}", en);
+    }
+
+    @Test
+    public void testCn() {
+        long small = 100L;
+        long middle = 240L;
+        long big = 999L;
+        for (int i = 0; i < 9; i++) {
+            String s = NumberFormatUtils.cn(small);
+            String m = NumberFormatUtils.cn(middle);
+            String b = NumberFormatUtils.cn(big);
+            LOG.info("{}={}, {}={}, {}={}", small, s, middle, m, big, b);
+            small *= 10;
+            middle *= 10;
+            big *= 10;
+        }
     }
 
 }
