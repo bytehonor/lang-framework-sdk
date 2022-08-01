@@ -51,7 +51,5 @@ public class ConsumerTest {
 
         BiConsumer<SetterModel, String> setName = SetterModel::hello;
         setName.accept(model, "222");
-
-        // 类的对象方法静态化，BiConsumer 的首个参数就是该类的实例对象
     }
 }
