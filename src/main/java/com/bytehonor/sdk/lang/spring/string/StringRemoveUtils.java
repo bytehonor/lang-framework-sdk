@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
-import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class StringRemoveUtils {
 

@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.util;
+package com.bytehonor.sdk.lang.spring.core;
 
 import java.util.Random;
 
@@ -8,7 +8,7 @@ import java.util.Random;
  * @author lijianqiang
  *
  */
-public class RandomUtils {
+public class Randomizer {
 
     /** 数字与字母字典 */
     private static final char[] LETTER_AND_DIGIT = ("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")

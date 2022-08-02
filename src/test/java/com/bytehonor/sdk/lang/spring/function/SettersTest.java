@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.lang.spring.function;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.slf4j.Logger;

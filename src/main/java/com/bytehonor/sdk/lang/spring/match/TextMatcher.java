@@ -11,10 +11,10 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
 import com.bytehonor.sdk.lang.spring.nlp.TextNlpUtils;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSliceUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
-import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 /**
  * <pre>

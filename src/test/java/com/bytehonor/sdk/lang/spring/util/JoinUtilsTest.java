@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ListJoinUtilsTest {
+public class JoinUtilsTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ListJoinUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JoinUtilsTest.class);
 
     @Test
     public void testJoinStringSafe() {

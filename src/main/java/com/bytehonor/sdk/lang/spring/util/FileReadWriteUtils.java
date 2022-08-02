@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 

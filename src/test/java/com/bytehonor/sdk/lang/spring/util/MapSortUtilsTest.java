@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.core.MapSorter;
+
 public class MapSortUtilsTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MapSortUtilsTest.class);
@@ -26,13 +28,13 @@ public class MapSortUtilsTest {
 			LOG.info("Before: {} - {}", key, map.get(key));
 		}
 
-		Map<String, Integer> ascMap = MapSortUtils.ascStringInteger(map);
+		Map<String, Integer> ascMap = MapSorter.ascStringInteger(map);
 
 		for (String key : ascMap.keySet()) {
 			LOG.info("ASC: {} - {}", key, ascMap.get(key));
 		}
 
-		Map<String, Integer> descMap = MapSortUtils.descStringInteger(map);
+		Map<String, Integer> descMap = MapSorter.descStringInteger(map);
 
 		for (String key : descMap.keySet()) {
 			LOG.info("DESC: {} - {}", key, descMap.get(key));

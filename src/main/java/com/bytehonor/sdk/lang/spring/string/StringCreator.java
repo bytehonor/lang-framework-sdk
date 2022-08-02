@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.creator;
+package com.bytehonor.sdk.lang.spring.string;
 
 public final class StringCreator {
 

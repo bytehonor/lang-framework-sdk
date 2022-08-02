@@ -3,7 +3,7 @@ package com.bytehonor.sdk.lang.spring.function;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.bytehonor.sdk.lang.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 
 /**
  * 字段名解析器

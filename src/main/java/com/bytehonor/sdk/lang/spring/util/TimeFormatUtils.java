@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.define.spring.constant.DateConstants;
 
-public class LocalDateTimeUtils {
+public class TimeFormatUtils {
 
     public static long toTimestamp(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");

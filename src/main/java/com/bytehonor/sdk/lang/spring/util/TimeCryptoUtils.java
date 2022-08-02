@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.core.Randomizer;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 
 public class TimeCryptoUtils {
@@ -40,13 +41,13 @@ public class TimeCryptoUtils {
     }
 
     public static String encode(long timestamp) {
-        return encode(LocalDateTimeUtils.fromTimestamp(timestamp));
+        return encode(TimeFormatUtils.fromTimestamp(timestamp));
     }
 
     public static String encode(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
-        int rand = RandomUtils.integer(111, 678); // 3
+        int rand = Randomizer.integer(111, 678); // 3
         int year = ldt.getYear() - YEAR; // 1
         int month = ldt.getMonthValue(); // 1
         int day = ldt.getDayOfMonth(); // 1
@@ -62,7 +63,7 @@ public class TimeCryptoUtils {
     }
 
     private static String randstr(int len) {
-        return RandomUtils.string(4);
+        return Randomizer.string(4);
     }
 
     private static char toChar(int at) {

@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.lang.spring.nlp;
 
 import com.bytehonor.sdk.define.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
-import com.bytehonor.sdk.lang.spring.util.StringObject;
 
 public class TextNlpUtils {
 

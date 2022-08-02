@@ -3,6 +3,7 @@ package com.bytehonor.sdk.lang.spring.util;
 import java.text.DecimalFormat;
 
 import com.bytehonor.sdk.lang.spring.getter.DoubleGetter;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 
 public class NumberFormatUtils {
 

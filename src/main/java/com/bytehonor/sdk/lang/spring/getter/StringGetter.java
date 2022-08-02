@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
-import com.bytehonor.sdk.lang.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 
 /**
  * @author lijianqiang

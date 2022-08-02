@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.util;
+package com.bytehonor.sdk.lang.spring.core;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MapSortUtils {
+public class MapSorter {
 
     /**
      * 使用 Map按value进行排序，生序

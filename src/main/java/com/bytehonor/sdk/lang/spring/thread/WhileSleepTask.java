@@ -19,7 +19,7 @@ public abstract class WhileSleepTask extends SafeTask {
             } catch (Exception e) {
                 LOG.error("runInWhile", e);
             }
-            ThreadSleep.sleep(millis());
+            Sleeping.millis(millis());
         }
     }
 }
