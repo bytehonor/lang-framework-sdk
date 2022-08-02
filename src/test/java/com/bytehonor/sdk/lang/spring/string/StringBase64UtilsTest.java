@@ -2,6 +2,9 @@ package com.bytehonor.sdk.lang.spring.string;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,4 +23,33 @@ public class StringBase64UtilsTest {
         assertTrue("test", target.equals(dec));
     }
 
+    @Test
+    public void test2() {
+        String word = "佩洛西";// "5L2p5rSb6KW_"
+        String base = StringBase64Utils.encodeSafe(word);
+        String word1 = StringBase64Utils.decodeSafe(base);
+        LOG.info("test2: {}, {}, {}", word, base, word1);
+        assertTrue("test2", word.equals(word1));
+    }
+
+    @Test
+    public void test3() {
+        List<String> words = new ArrayList<String>();
+        words.add("中文");
+        words.add("中文abc");
+        words.add("中文abc_+");
+        words.add("abced");
+        
+        int success = 0;
+        for (String word : words) {
+            String base = StringBase64Utils.encodeSafe(word);
+            String word1 = StringBase64Utils.decodeSafe(base);
+            LOG.info("test3 {}, {}, {}", word, base, word1);
+            if (word.equals(word1)) {
+                success++;
+            }
+        }
+
+        assertTrue("test", words.size() == success);
+    }
 }

@@ -8,12 +8,12 @@ public class StringBase64Utils {
 
     public static String encodeSafe(String src) {
         Objects.requireNonNull(src, "src");
-        return encode(src).replaceAll("=", "_");
+        return encode(src).replaceAll("=", "-");
     }
 
     public static String decodeSafe(String base) {
         Objects.requireNonNull(base, "base");
-        base = base.replaceAll("_", "=");
+        base = base.replaceAll("-", "=");
         return decode(base);
     }
 
