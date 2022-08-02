@@ -24,13 +24,13 @@ public class LinkedBlockingThreadTest {
             thread.add(i);
         }
 
-        Sleeping.millis(10000L);
+        Sleeping.sleep(10000L);
 
         for (int i = 100; i < 137; i++) {
             thread.add(i);
         }
 
-        Sleeping.millis(30000L);
+        Sleeping.sleep(30000L);
 
         LOG.info("main end");
     }
