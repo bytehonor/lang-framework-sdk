@@ -33,9 +33,4 @@ public class HttpConstants {
     public static final String PAGE_KEY = "page";
 
     public static final int PAGE_DEF = 1;
-
-    public static final String TOKEN_KEY = "token";
-
-    public static final String NO_AUTH = ".do";
-
 }
