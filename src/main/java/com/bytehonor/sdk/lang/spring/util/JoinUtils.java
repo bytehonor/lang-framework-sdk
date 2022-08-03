@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import org.springframework.util.CollectionUtils;
 
-import com.bytehonor.sdk.define.spring.constant.StringConstants;
+import com.bytehonor.sdk.lang.spring.constant.StringConstants;
 
 public class JoinUtils {
 

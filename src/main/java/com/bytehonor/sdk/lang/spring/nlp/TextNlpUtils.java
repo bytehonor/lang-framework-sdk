@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.lang.spring.nlp;
 
-import com.bytehonor.sdk.define.spring.constant.CharConstants;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
 
 public class TextNlpUtils {
@@ -11,7 +11,7 @@ public class TextNlpUtils {
     private static final String HTTPS_PRE = "https://";
 
     public static String removeHttp(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         int begin = src.indexOf(HTTP_PRE);

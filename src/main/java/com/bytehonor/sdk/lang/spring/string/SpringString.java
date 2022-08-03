@@ -1,13 +1,13 @@
 package com.bytehonor.sdk.lang.spring.string;
 
-import com.bytehonor.sdk.define.spring.constant.CharConstants;
-import com.bytehonor.sdk.define.spring.constant.StringConstants;
+import com.bytehonor.sdk.lang.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.constant.StringConstants;
 
 /**
  * @author lijianqiang
  *
  */
-public class StringObject {
+public class SpringString {
 
     public static boolean isEmpty(String str) {
         return (str == null || str.isEmpty());
@@ -27,7 +27,7 @@ public class StringObject {
      * @return 转换好的字符串
      */
     public static String camelToUnderline(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return StringConstants.EMPTY;
         }
         int len = src.length();
@@ -49,7 +49,7 @@ public class StringObject {
      * @return 转换好的字符串
      */
     public static String underlineToCamel(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return StringConstants.EMPTY;
         }
         String temp = src.toLowerCase();

@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -13,7 +13,7 @@ public class StringGetter {
     }
 
     public static String getOrNull(String src) {
-        return StringObject.isEmpty(src) ? null : src;
+        return SpringString.isEmpty(src) ? null : src;
     }
 
 }

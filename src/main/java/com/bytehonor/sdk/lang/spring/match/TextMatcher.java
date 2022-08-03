@@ -8,10 +8,10 @@ import java.util.Set;
 
 import org.springframework.util.CollectionUtils;
 
-import com.bytehonor.sdk.define.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.constant.CharConstants;
 import com.bytehonor.sdk.lang.spring.nlp.TextNlpUtils;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSliceUtils;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
@@ -49,7 +49,7 @@ public class TextMatcher {
     }
 
     public boolean match(String text) {
-        if (StringObject.isEmpty(text)) {
+        if (SpringString.isEmpty(text)) {
             return false;
         }
 
@@ -84,7 +84,7 @@ public class TextMatcher {
     public static Set<String> words(String text) {
         // 只保留 英文,数字,汉字,空格
         text = prepare(text);
-        if (StringObject.isEmpty(text)) {
+        if (SpringString.isEmpty(text)) {
             return new HashSet<String>();
         }
         Set<String> raws = StringSplitUtils.toSet(text, CharConstants.BLANK);
@@ -135,7 +135,7 @@ public class TextMatcher {
     public static String prepare(String text) {
         text = TextNlpUtils.removeHttp(text);
         text = StringRemoveUtils.replaceNonNormalWithBlank(text);
-        if (StringObject.isEmpty(text)) {
+        if (SpringString.isEmpty(text)) {
             return "";
         }
         int length = text.length();

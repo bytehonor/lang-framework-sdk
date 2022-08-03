@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.define.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.constant.CharConstants;
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
 
@@ -68,7 +68,7 @@ public class StringRemoveUtils {
      * @return clear
      */
     public static String cleanPS(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         // return src.replaceAll(PSZ, "");
@@ -82,7 +82,7 @@ public class StringRemoveUtils {
      * @return clear
      */
     public static String cleanPSZ(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         // return src.replaceAll(PSZ, "");
@@ -96,7 +96,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceNonChineseWithBlank(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -131,7 +131,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonChinese(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -155,7 +155,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceNonNormalWithBlank(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -190,7 +190,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonNormal(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -214,10 +214,10 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceRegexWithBlank(String src, String regex) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
-        if (StringObject.isEmpty(regex)) {
+        if (SpringString.isEmpty(regex)) {
             return src;
         }
         int regLen = regex.length();
@@ -256,10 +256,10 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeRegex(String src, String regex) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return "";
         }
-        if (StringObject.isEmpty(regex)) {
+        if (SpringString.isEmpty(regex)) {
             return src;
         }
         int regLen = regex.length();

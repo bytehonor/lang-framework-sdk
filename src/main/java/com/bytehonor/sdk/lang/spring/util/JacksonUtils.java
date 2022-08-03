@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,7 +34,7 @@ public class JacksonUtils {
     }
 
     private static String cut(String text) {
-        if (StringObject.isEmpty(text)) {
+        if (SpringString.isEmpty(text)) {
             return "";
         }
         return text.length() < 512 ? text : text.substring(0, 510);

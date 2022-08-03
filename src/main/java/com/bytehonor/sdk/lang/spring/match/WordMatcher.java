@@ -7,7 +7,7 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.util.JoinUtils;
 
 /**
@@ -39,7 +39,7 @@ public class WordMatcher {
 
         Set<String> matchers = new HashSet<String>();
         for (String word : words) {
-            if (StringObject.isEmpty(word)) {
+            if (SpringString.isEmpty(word)) {
                 continue;
             }
             matchers.add(format(word));
@@ -52,7 +52,7 @@ public class WordMatcher {
         Objects.requireNonNull(word, "word");
 
         String val = word.trim();
-        if (StringObject.isEmpty(val)) {
+        if (SpringString.isEmpty(val)) {
             throw new SpringLangException("word cannt be empty");
         }
         return val.toLowerCase();

@@ -7,7 +7,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import com.bytehonor.sdk.define.spring.constant.DateConstants;
+import com.bytehonor.sdk.lang.spring.constant.DateConstants;
 
 public class TimeFormatUtils {
 

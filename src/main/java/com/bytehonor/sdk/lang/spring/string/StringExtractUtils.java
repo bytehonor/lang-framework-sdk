@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.define.spring.constant.StringConstants;
+import com.bytehonor.sdk.lang.spring.constant.StringConstants;
 
 /**
  * <pre>
@@ -60,10 +60,10 @@ public class StringExtractUtils {
         Objects.requireNonNull(header, "header");
         Objects.requireNonNull(footer, "footer");
 
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return EMPTY;
         }
-        if (StringObject.isEmpty(header) || StringObject.isEmpty(footer)) {
+        if (SpringString.isEmpty(header) || SpringString.isEmpty(footer)) {
             LOG.warn("header:{} or footer:{} empty");
             return EMPTY;
         }

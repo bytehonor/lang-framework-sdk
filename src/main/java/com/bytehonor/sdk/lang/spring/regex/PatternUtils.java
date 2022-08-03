@@ -2,7 +2,7 @@ package com.bytehonor.sdk.lang.spring.regex;
 
 import java.util.regex.Pattern;
 
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class PatternUtils {
 
@@ -24,7 +24,7 @@ public class PatternUtils {
     // private static final Pattern CHINESE_PT = Pattern.compile(CHINESE_REG);
 
     public static boolean isInteger(String str) {
-        if (StringObject.isEmpty(str)) {
+        if (SpringString.isEmpty(str)) {
             return false;
         }
         int len = str.length();
@@ -45,7 +45,7 @@ public class PatternUtils {
     }
 
     public static boolean isNumber(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -65,7 +65,7 @@ public class PatternUtils {
     }
 
     public static boolean isLetter(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -99,7 +99,7 @@ public class PatternUtils {
     }
 
     public static boolean isChinese(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -122,7 +122,7 @@ public class PatternUtils {
     }
 
     public static boolean isLetterStart(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return true;
         }
 
@@ -130,7 +130,7 @@ public class PatternUtils {
     }
 
     public static boolean isSpecial(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return true;
         }
         char c = src.charAt(0);

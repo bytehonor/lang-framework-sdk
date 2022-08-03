@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import com.bytehonor.sdk.define.spring.constant.HttpConstants;
-import com.bytehonor.sdk.define.spring.constant.QueryLogic;
+import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
+import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 
 /**

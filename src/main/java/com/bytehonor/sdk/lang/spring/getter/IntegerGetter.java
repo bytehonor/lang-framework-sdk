@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
-import com.bytehonor.sdk.define.spring.exception.ParameterException;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -13,7 +13,7 @@ public class IntegerGetter {
         try {
             return Integer.valueOf(src);
         } catch (Exception e) {
-            throw new ParameterException("not Integer, src:" + src);
+            throw new SpringLangException("not Integer, src:" + src);
         }
     }
 
@@ -22,7 +22,7 @@ public class IntegerGetter {
     }
 
     public static Integer optional(String src, Integer def) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return def;
         }
         try {

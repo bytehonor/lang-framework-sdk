@@ -3,7 +3,7 @@ package com.bytehonor.sdk.lang.spring.util;
 import java.text.DecimalFormat;
 
 import com.bytehonor.sdk.lang.spring.getter.DoubleGetter;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class NumberFormatUtils {
 
@@ -53,7 +53,7 @@ public class NumberFormatUtils {
     }
 
     public static String en(String val) {
-        if (StringObject.isEmpty(val)) {
+        if (SpringString.isEmpty(val)) {
             return ZERO;
         }
         Double dou = DoubleGetter.optional(val);

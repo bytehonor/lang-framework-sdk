@@ -3,7 +3,7 @@ package com.bytehonor.sdk.lang.spring.function;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * 字段名解析器
@@ -41,11 +41,11 @@ public class FieldNameParser {
         }
 
         if (methodName.startsWith(IS)) {
-            fieldName = StringObject.uncapitalize(methodName.substring(IS.length()));
+            fieldName = SpringString.uncapitalize(methodName.substring(IS.length()));
         } else if (methodName.startsWith(GET)) {
-            fieldName = StringObject.uncapitalize(methodName.substring(GET.length()));
+            fieldName = SpringString.uncapitalize(methodName.substring(GET.length()));
         } else if (methodName.startsWith(SET)) {
-            fieldName = StringObject.uncapitalize(methodName.substring(SET.length()));
+            fieldName = SpringString.uncapitalize(methodName.substring(SET.length()));
         } else {
             fieldName = methodName;
         }

@@ -45,7 +45,7 @@ public class StringEmojiUtils {
      * @return
      */
     public static String removeEmoji(String text) {
-        if (StringObject.isEmpty(text)) {
+        if (SpringString.isEmpty(text)) {
             return text;
         }
         // 两重判断

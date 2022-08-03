@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.bytehonor.sdk.define.spring.constant.CharConstants;
+import com.bytehonor.sdk.lang.spring.constant.CharConstants;
 
 public class StringSplitUtils {
 
@@ -20,7 +20,7 @@ public class StringSplitUtils {
      * @return
      */
     public static List<String> split(String src) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return new ArrayList<String>();
         }
         boolean replaced = false;
@@ -48,7 +48,7 @@ public class StringSplitUtils {
     }
 
     public static List<String> split(String src, char sp) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return new ArrayList<String>();
         }
         int length = src.length();
@@ -89,7 +89,7 @@ public class StringSplitUtils {
     }
 
     public static Set<String> toSet(String src, char sp) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return new HashSet<String>();
         }
         int length = src.length();

@@ -15,7 +15,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -73,7 +73,7 @@ public class FileDownloadUtils {
      * @param fileName 文件名称
      */
     public static File byte2File(byte[] bfile, String fileDir, String fileName) {
-        if (StringObject.isEmpty(fileDir) || StringObject.isEmpty(fileName)) {
+        if (SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
             throw new RuntimeException("byte2File param is invalid");
         }
         FileReadWriteUtils.isExistDir(fileDir);// 判断文件目录是否存在
@@ -104,7 +104,7 @@ public class FileDownloadUtils {
 
 
     public static File download(String fileUrl, String fileDir, String fileName) {
-        if (StringObject.isEmpty(fileUrl) || StringObject.isEmpty(fileDir) || StringObject.isEmpty(fileName)) {
+        if (SpringString.isEmpty(fileUrl) || SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
         FileReadWriteUtils.isExistDir(fileDir);

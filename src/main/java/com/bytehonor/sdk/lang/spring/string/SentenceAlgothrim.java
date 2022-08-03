@@ -19,7 +19,7 @@ public class SentenceAlgothrim {
      * @return
      */
     public static boolean isSemanticSimalar(String src1, String src2, int maxCount) {
-        if (StringObject.isEmpty(src1) || StringObject.isEmpty(src2)) {
+        if (SpringString.isEmpty(src1) || SpringString.isEmpty(src2)) {
             return false;
         }
         // 统一去掉标点符号

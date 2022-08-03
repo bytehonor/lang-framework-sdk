@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -92,7 +92,7 @@ public class FileReadWriteUtils {
         Objects.requireNonNull(dir, "dir");
 
         List<String> list = new ArrayList<String>();
-        if (StringObject.isEmpty(dir)) {
+        if (SpringString.isEmpty(dir)) {
             LOG.error("filesFromDir dir null");
             return list;
         }
@@ -105,7 +105,7 @@ public class FileReadWriteUtils {
         if (length < 1) {
             return list;
         }
-        boolean filter = StringObject.isEmpty(type) == false;
+        boolean filter = SpringString.isEmpty(type) == false;
         for (int i = 0; i < length; i++) {
             if (files[i].isDirectory()) {
                 continue;
@@ -244,7 +244,7 @@ public class FileReadWriteUtils {
 
     public static String subfixNoDot(String url) {
         String subfix = subfixWithDot(url);
-        if (StringObject.isEmpty(subfix)) {
+        if (SpringString.isEmpty(subfix)) {
             return subfix;
         }
 

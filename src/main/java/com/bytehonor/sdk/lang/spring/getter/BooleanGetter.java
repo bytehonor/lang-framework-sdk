@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -17,7 +17,7 @@ public class BooleanGetter {
     }
 
     public static Boolean optional(String src, Boolean defVal) {
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return defVal;
         }
         String lc = src.toLowerCase();

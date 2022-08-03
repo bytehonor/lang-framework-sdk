@@ -2,8 +2,8 @@ package com.bytehonor.sdk.lang.spring.match;
 
 import java.util.Collection;
 
-import com.bytehonor.sdk.define.spring.constant.JavaValueTypes;
-import com.bytehonor.sdk.define.spring.constant.SqlOperator;
+import com.bytehonor.sdk.lang.spring.constant.JavaValueTypes;
+import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 
 /**
  * @author lijianqiang
