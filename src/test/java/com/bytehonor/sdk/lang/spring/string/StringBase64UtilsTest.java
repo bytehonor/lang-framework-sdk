@@ -39,6 +39,7 @@ public class StringBase64UtilsTest {
         words.add("中文abc");
         words.add("中文abc_+");
         words.add("abced");
+        words.add("比特币");
         
         int success = 0;
         for (String word : words) {
