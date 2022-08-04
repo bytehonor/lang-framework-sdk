@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.core.Randomizer;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class TimeCryptoUtils {
 
@@ -24,16 +25,11 @@ public class TimeCryptoUtils {
     private static final long DIFF = 20180328L;
 
     public static String toHex(long timestamp) {
-        return reverse(Long.toString(timestamp - DIFF, 36));
+        return SpringString.reverse(Long.toString(timestamp - DIFF, 36));
     }
 
     public static long fromHex(String hex) {
-        return Long.parseLong(reverse(hex), 36) + DIFF;
-    }
-
-    private static String reverse(String src) {
-        StringBuilder sb = new StringBuilder().append(src).reverse();
-        return sb.toString();
+        return Long.parseLong(SpringString.reverse(hex), 36) + DIFF;
     }
 
     public static String encode() {

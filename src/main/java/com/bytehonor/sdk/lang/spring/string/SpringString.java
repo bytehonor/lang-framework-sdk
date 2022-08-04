@@ -20,6 +20,14 @@ public class SpringString {
         return src1.equals(src2);
     }
 
+    public static String reverse(String src) {
+        if (SpringString.isEmpty(src)) {
+            return StringConstants.EMPTY;
+        }
+        StringBuilder sb = new StringBuilder().append(src).reverse();
+        return sb.toString();
+    }
+
     /**
      * 字符串驼峰转下划线格式
      *
