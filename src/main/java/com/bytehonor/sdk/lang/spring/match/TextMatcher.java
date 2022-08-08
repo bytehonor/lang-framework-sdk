@@ -53,11 +53,18 @@ public class TextMatcher {
             return false;
         }
 
-        Set<String> words = words(text); // 分词
-        if (contains(words, this.excluders)) {
+        return match(words(text));
+    }
+
+    public boolean match(Set<String> words) {
+        if (CollectionUtils.isEmpty(words)) {
             return false;
         }
-        return contains(words, this.includers);
+
+        if (doMatch(words, this.excluders)) {
+            return false;
+        }
+        return doMatch(words, this.includers);
     }
 
     public List<WordMatcher> getExcluders() {
@@ -172,7 +179,7 @@ public class TextMatcher {
         return false;
     }
 
-    public static boolean contains(Set<String> words, List<WordMatcher> matchers) {
+    private static boolean doMatch(Set<String> words, List<WordMatcher> matchers) {
         if (CollectionUtils.isEmpty(words) || CollectionUtils.isEmpty(matchers)) {
             return false;
         }
