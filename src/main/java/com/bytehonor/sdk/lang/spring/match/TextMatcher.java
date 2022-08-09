@@ -22,6 +22,8 @@ import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
  * 
  * 优先排除, 其次满足. 排除或满足都只需要命中一组即可
  * 
+ * 长度最小2，最大4
+ * 
  * </pre>
  * 
  * @author lijianqiang
@@ -53,10 +55,7 @@ public class TextMatcher {
             return false;
         }
 
-        return match(words(text));
-    }
-
-    public boolean match(Set<String> words) {
+        Set<String> words = words(text);
         if (CollectionUtils.isEmpty(words)) {
             return false;
         }
