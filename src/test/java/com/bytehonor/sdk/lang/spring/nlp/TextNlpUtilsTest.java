@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
+
 public class TextNlpUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(TextNlpUtilsTest.class);
 
@@ -20,7 +22,7 @@ public class TextNlpUtilsTest {
         list.add("【香港街头，只有他的镜头对准暴徒】http://t.cn/Ai8LbJIv .");
 
         for (String src : list) {
-            LOG.info("remove:({})", TextNlpUtils.removeHttp(src));
+            LOG.info("remove:({})", StringRemoveUtils.removeHttp(src));
         }
     }
 

@@ -9,7 +9,6 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.constant.CharConstants;
-import com.bytehonor.sdk.lang.spring.nlp.TextNlpUtils;
 import com.bytehonor.sdk.lang.spring.regex.PatternUtils;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.string.StringRemoveUtils;
@@ -139,7 +138,7 @@ public class TextMatcher {
      * @return
      */
     public static String prepare(String text) {
-        text = TextNlpUtils.removeHttp(text);
+        text = StringRemoveUtils.removeHttp(text);
         text = StringRemoveUtils.replaceNonNormalWithBlank(text);
         if (SpringString.isEmpty(text)) {
             return "";

@@ -28,6 +28,38 @@ public class StringRemoveUtils {
     private static final String PSZ = "\\pP|\\pS|\\pZ";
     private static final Pattern PSZ_PATTERN = Pattern.compile(PSZ);
 
+    private static final String HTTP_PRE = "http://";
+
+    private static final String HTTPS_PRE = "https://";
+
+    public static String removeHttp(String src) {
+        if (SpringString.isEmpty(src)) {
+            return "";
+        }
+        int begin = src.indexOf(HTTP_PRE);
+        if (begin < 0) {
+            begin = src.indexOf(HTTPS_PRE);
+        }
+        if (begin < 0) {
+            return src;
+        }
+        int end = src.indexOf(CharConstants.BLANK, begin);
+        if (end < 0) {
+            end = src.length();
+        }
+
+        String res = StringRemoveUtils.remove(src, begin, end);
+
+        begin = res.indexOf(HTTP_PRE);
+        if (begin < 0) {
+            begin = res.indexOf(HTTPS_PRE);
+        }
+        if (begin < 0) {
+            return res;
+        }
+        return removeHttp(res);
+    }
+
     /**
      * 移除指定范围内的字串，左闭右闭
      * 
