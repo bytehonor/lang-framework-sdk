@@ -18,6 +18,8 @@ public final class QueryCondition {
 
     private static final int LIMIT_DEF = HttpConstants.LIMIT_DEF;
 
+    private static final int LIMIT_ALL = -1;
+
     private final QueryLogic logic;
 
     private final QueryPage page;
@@ -39,6 +41,10 @@ public final class QueryCondition {
 
     public static QueryCondition and() {
         return and(0, LIMIT_DEF);
+    }
+
+    public static QueryCondition all() {
+        return and(0, LIMIT_ALL);
     }
 
     public static QueryCondition and(int offset, int limit) {
