@@ -10,6 +10,8 @@ public class HttpConstants {
 
     public static final String LIMIT_KEY = "limit";
 
+    public static final int LIMIT_NON = -1;
+
     public static final int LIMIT_DEF = 20;
 
     public static final int LIMIT_MAX = 200;

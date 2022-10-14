@@ -4,15 +4,13 @@ import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 
 public class QueryPage {
 
-    private static int LIMIT_DEF = HttpConstants.LIMIT_DEF;
-
     private int offset;
 
     private int limit;
 
     public QueryPage() {
         this.offset = 0;
-        this.limit = LIMIT_DEF;
+        this.limit = HttpConstants.LIMIT_DEF;
     }
 
     public static QueryPage create() {

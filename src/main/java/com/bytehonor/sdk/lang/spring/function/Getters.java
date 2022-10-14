@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.lang.spring.function;
 
+import java.util.Objects;
+
 import com.bytehonor.sdk.lang.spring.function.getter.GetBoolean;
 import com.bytehonor.sdk.lang.spring.function.getter.GetDouble;
 import com.bytehonor.sdk.lang.spring.function.getter.GetInteger;
@@ -13,7 +15,16 @@ import com.bytehonor.sdk.lang.spring.function.supplier.SupplyString;
 
 public class Getters {
 
+    /**
+     * 获取getter的属性名称，getUserName: userName
+     * 
+     * @param <T>
+     * @param getter
+     * @return
+     */
     public static <T> String field(ClassGetter<T, ?> getter) {
+        Objects.requireNonNull(getter, "getter");
+
         return SerializedLambdaUtils.getFieldName(getter);
     }
 
@@ -32,7 +43,7 @@ public class Getters {
     public static <T> Double get(GetDouble<T> getter, T model) {
         return getter.apply(model);
     }
-    
+
     public static <T> Boolean get(GetBoolean<T> getter, T model) {
         return getter.apply(model);
     }
