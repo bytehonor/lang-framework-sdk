@@ -14,6 +14,7 @@ import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
  * @author lijianqiang
  *
  */
+@Deprecated
 public final class QueryCondition {
 
     private static final int LIMIT_DEF = HttpConstants.LIMIT_DEF;
