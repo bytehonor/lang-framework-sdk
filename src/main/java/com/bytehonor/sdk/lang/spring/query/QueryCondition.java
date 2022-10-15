@@ -275,12 +275,12 @@ public final class QueryCondition {
         return this.doSafeAdd(KeyMatcher.integers(Getters.field(getter), value));
     }
 
-    public <T> QueryCondition descBy(ClassGetter<T, ?> getter) {
+    public <T> QueryCondition desc(ClassGetter<T, ?> getter) {
         this.order = QueryOrder.descOf(Getters.field(getter));
         return this;
     }
 
-    public <T> QueryCondition ascBy(ClassGetter<T, ?> getter) {
+    public <T> QueryCondition asc(ClassGetter<T, ?> getter) {
         this.order = QueryOrder.ascOf(Getters.field(getter));
         return this;
     }
