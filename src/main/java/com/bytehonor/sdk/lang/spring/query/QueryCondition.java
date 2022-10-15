@@ -285,11 +285,11 @@ public final class QueryCondition {
         return this;
     }
 
-    public void setOffset(int offset) {
+    public void offset(int offset) {
         this.page.setOffset(offset);
     }
 
-    public void setLimit(int limit) {
+    public void limit(int limit) {
         this.page.setLimit(limit);
     }
 

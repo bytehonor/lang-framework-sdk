@@ -273,21 +273,21 @@ public final class SimpleQueryCondition {
         return this.safeAdd(KeyMatcher.integers(key, value));
     }
 
-    public SimpleQueryCondition descBy(String key) {
+    public SimpleQueryCondition desc(String key) {
         this.order = QueryOrder.descOf(key);
         return this;
     }
 
-    public SimpleQueryCondition ascBy(String key) {
+    public SimpleQueryCondition asc(String key) {
         this.order = QueryOrder.ascOf(key);
         return this;
     }
 
-    public void setOffset(int offset) {
+    public void offset(int offset) {
         this.page.setOffset(offset);
     }
 
-    public void setLimit(int limit) {
+    public void limit(int limit) {
         this.page.setLimit(limit);
     }
 
