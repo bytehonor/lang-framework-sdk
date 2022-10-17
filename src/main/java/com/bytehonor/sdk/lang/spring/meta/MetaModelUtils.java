@@ -41,6 +41,8 @@ public class MetaModelUtils {
             modelFields.add(modelField);
         }
         model.setFields(modelFields);
+        
+        model.check();
 
         CACHES.put(name, model);
         return model;

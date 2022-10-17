@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.util.CollectionUtils;
+
+import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
+
 /**
  * @author lijianqiang
  *
@@ -57,4 +61,21 @@ public class MetaModel {
         this.columns = columns;
     }
 
+    public void check() {
+        if (CollectionUtils.isEmpty(fields)) {
+            throw new SpringLangException("no fields");
+        }
+        for (MetaModelField field : fields) {
+            this.keys.add(field.getKey());
+            this.columns.add(field.getColumn());
+        }
+    }
+
+    public boolean hasKey(String key) {
+        return keys.contains(key);
+    }
+
+    public boolean hasColumn(String column) {
+        return columns.contains(column);
+    }
 }
