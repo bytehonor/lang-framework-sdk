@@ -263,15 +263,15 @@ public final class QueryCondition {
         return this.doSafeAdd(KeyMatcher.likeRight(Getters.field(getter), value));
     }
 
-    public <T> QueryCondition strings(ClassGetter<T, ?> getter, Collection<String> value) {
+    public <T> QueryCondition ins(ClassGetter<T, ?> getter, Collection<String> value) {
         return this.doSafeAdd(KeyMatcher.strings(Getters.field(getter), value));
     }
 
-    public <T> QueryCondition longs(ClassGetter<T, ?> getter, Collection<Long> value) {
+    public <T> QueryCondition inl(ClassGetter<T, ?> getter, Collection<Long> value) {
         return this.doSafeAdd(KeyMatcher.longs(Getters.field(getter), value));
     }
 
-    public <T> QueryCondition integers(ClassGetter<T, ?> getter, Collection<Integer> value) {
+    public <T> QueryCondition ini(ClassGetter<T, ?> getter, Collection<Integer> value) {
         return this.doSafeAdd(KeyMatcher.integers(Getters.field(getter), value));
     }
 
