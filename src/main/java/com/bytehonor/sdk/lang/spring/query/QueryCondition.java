@@ -68,7 +68,7 @@ public final class QueryCondition {
         return new QueryCondition(logic, page);
     }
 
-    private QueryCondition doSafeAdd(KeyMatcher matcher) {
+    public QueryCondition add(KeyMatcher matcher) {
         if (KeyMatcher.accept(matcher)) {
             this.matchers.add(matcher);
         }
@@ -83,7 +83,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(ClassGetter<T, ?> getter, String value) {
-        return this.doSafeAdd(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(KeyMatcher.eq(Getters.field(getter), value));
     }
 
     /**
@@ -94,7 +94,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(ClassGetter<T, ?> getter, Long value) {
-        return this.doSafeAdd(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(KeyMatcher.eq(Getters.field(getter), value));
     }
 
     /**
@@ -105,7 +105,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(ClassGetter<T, ?> getter, Integer value) {
-        return this.doSafeAdd(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(KeyMatcher.eq(Getters.field(getter), value));
     }
 
     /**
@@ -116,7 +116,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(ClassGetter<T, ?> getter, Boolean value) {
-        return this.doSafeAdd(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(KeyMatcher.eq(Getters.field(getter), value));
     }
 
     /**
@@ -127,7 +127,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(ClassGetter<T, ?> getter, String value) {
-        return this.doSafeAdd(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(KeyMatcher.neq(Getters.field(getter), value));
     }
 
     /**
@@ -138,7 +138,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(ClassGetter<T, ?> getter, Long value) {
-        return this.doSafeAdd(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(KeyMatcher.neq(Getters.field(getter), value));
     }
 
     /**
@@ -149,7 +149,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(ClassGetter<T, ?> getter, Integer value) {
-        return this.doSafeAdd(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(KeyMatcher.neq(Getters.field(getter), value));
     }
 
     /**
@@ -160,7 +160,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(ClassGetter<T, ?> getter, Boolean value) {
-        return this.doSafeAdd(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(KeyMatcher.neq(Getters.field(getter), value));
     }
 
     /**
@@ -171,7 +171,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(ClassGetter<T, ?> getter, Long value) {
-        return this.doSafeAdd(KeyMatcher.gt(Getters.field(getter), value));
+        return this.add(KeyMatcher.gt(Getters.field(getter), value));
     }
 
     /**
@@ -182,7 +182,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(ClassGetter<T, ?> getter, Integer value) {
-        return this.doSafeAdd(KeyMatcher.gt(Getters.field(getter), value));
+        return this.add(KeyMatcher.gt(Getters.field(getter), value));
     }
 
     /**
@@ -193,7 +193,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition egt(ClassGetter<T, ?> getter, Long value) {
-        return this.doSafeAdd(KeyMatcher.egt(Getters.field(getter), value));
+        return this.add(KeyMatcher.egt(Getters.field(getter), value));
     }
 
     /**
@@ -204,7 +204,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition egt(ClassGetter<T, ?> getter, Integer value) {
-        return this.doSafeAdd(KeyMatcher.egt(Getters.field(getter), value));
+        return this.add(KeyMatcher.egt(Getters.field(getter), value));
     }
 
     /**
@@ -215,7 +215,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(ClassGetter<T, ?> getter, Long value) {
-        return this.doSafeAdd(KeyMatcher.lt(Getters.field(getter), value));
+        return this.add(KeyMatcher.lt(Getters.field(getter), value));
     }
 
     /**
@@ -226,7 +226,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(ClassGetter<T, ?> getter, Integer value) {
-        return this.doSafeAdd(KeyMatcher.lt(Getters.field(getter), value));
+        return this.add(KeyMatcher.lt(Getters.field(getter), value));
     }
 
     /**
@@ -237,7 +237,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition elt(ClassGetter<T, ?> getter, Long value) {
-        return this.doSafeAdd(KeyMatcher.elt(Getters.field(getter), value));
+        return this.add(KeyMatcher.elt(Getters.field(getter), value));
     }
 
     /**
@@ -248,31 +248,31 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition elt(ClassGetter<T, ?> getter, Integer value) {
-        return this.doSafeAdd(KeyMatcher.elt(Getters.field(getter), value));
+        return this.add(KeyMatcher.elt(Getters.field(getter), value));
     }
 
     public <T> QueryCondition like(ClassGetter<T, ?> getter, String value) {
-        return this.doSafeAdd(KeyMatcher.like(Getters.field(getter), value));
+        return this.add(KeyMatcher.like(Getters.field(getter), value));
     }
 
     public <T> QueryCondition likeLeft(ClassGetter<T, ?> getter, String value) {
-        return this.doSafeAdd(KeyMatcher.likeLeft(Getters.field(getter), value));
+        return this.add(KeyMatcher.likeLeft(Getters.field(getter), value));
     }
 
     public <T> QueryCondition likeRight(ClassGetter<T, ?> getter, String value) {
-        return this.doSafeAdd(KeyMatcher.likeRight(Getters.field(getter), value));
+        return this.add(KeyMatcher.likeRight(Getters.field(getter), value));
     }
 
     public <T> QueryCondition ins(ClassGetter<T, ?> getter, Collection<String> value) {
-        return this.doSafeAdd(KeyMatcher.strings(Getters.field(getter), value));
+        return this.add(KeyMatcher.strings(Getters.field(getter), value));
     }
 
     public <T> QueryCondition inl(ClassGetter<T, ?> getter, Collection<Long> value) {
-        return this.doSafeAdd(KeyMatcher.longs(Getters.field(getter), value));
+        return this.add(KeyMatcher.longs(Getters.field(getter), value));
     }
 
     public <T> QueryCondition ini(ClassGetter<T, ?> getter, Collection<Integer> value) {
-        return this.doSafeAdd(KeyMatcher.integers(Getters.field(getter), value));
+        return this.add(KeyMatcher.integers(Getters.field(getter), value));
     }
 
     public <T> QueryCondition desc(ClassGetter<T, ?> getter) {
