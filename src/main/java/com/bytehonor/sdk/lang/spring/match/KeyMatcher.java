@@ -278,6 +278,10 @@ public class KeyMatcher {
         return of(key, values, type.getName(), SqlOperator.IN);
     }
 
+    public static KeyMatcher in(String key, Collection<String> values, String type) {
+        return of(key, values, type, SqlOperator.IN);
+    }
+
     public static KeyMatcher ins(String key, Collection<String> value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.IN);
     }

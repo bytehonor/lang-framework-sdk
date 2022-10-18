@@ -268,15 +268,15 @@ public final class QueryCondition {
     }
 
     public <T> QueryCondition in(GetString<T> getter, Collection<String> value) {
-        return this.add(KeyMatcher.ins(Getters.field(getter), value));
+        return this.add(KeyMatcher.in(Getters.field(getter), value, String.class));
     }
 
     public <T> QueryCondition in(GetLong<T> getter, Collection<Long> value) {
-        return this.add(KeyMatcher.inl(Getters.field(getter), value));
+        return this.add(KeyMatcher.in(Getters.field(getter), value, Long.class));
     }
 
     public <T> QueryCondition in(GetInteger<T> getter, Collection<Integer> value) {
-        return this.add(KeyMatcher.ini(Getters.field(getter), value));
+        return this.add(KeyMatcher.in(Getters.field(getter), value, Integer.class));
     }
 
     public <T> QueryCondition desc(ClassGetter<T, ?> getter) {
