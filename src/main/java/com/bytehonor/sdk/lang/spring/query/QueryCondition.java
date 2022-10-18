@@ -297,6 +297,14 @@ public final class QueryCondition {
         this.page.setLimit(limit);
     }
 
+    public void count(boolean counted) {
+        this.page.setCounted(counted);
+    }
+
+    public boolean isCounted() {
+        return this.page.isCounted();
+    }
+
     public QueryPage getPage() {
         return page;
     }

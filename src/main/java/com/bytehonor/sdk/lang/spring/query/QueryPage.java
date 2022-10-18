@@ -4,11 +4,14 @@ import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 
 public class QueryPage {
 
+    private boolean counted;
+
     private int offset;
 
     private int limit;
 
     public QueryPage() {
+        this.counted = false;
         this.offset = 0;
         this.limit = HttpConstants.LIMIT_DEF;
     }
@@ -22,6 +25,14 @@ public class QueryPage {
         model.setOffset(offset > -1 ? offset : HttpConstants.OFFSET_DEF);
         model.setLimit(limit);
         return model;
+    }
+
+    public boolean isCounted() {
+        return counted;
+    }
+
+    public void setCounted(boolean counted) {
+        this.counted = counted;
     }
 
     public int getOffset() {
