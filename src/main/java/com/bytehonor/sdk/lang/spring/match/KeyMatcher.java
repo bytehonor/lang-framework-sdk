@@ -35,18 +35,8 @@ public class KeyMatcher {
         return matcher.getOperator() != null && matcher.getKey() != null && matcher.getValue() != null;
     }
 
-    /**
-     * 
-     * <pre>
-     * 等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher eq(String key, String value) {
-        return new KeyMatcher(key, value, JavaValueTypes.STRING, SqlOperator.EQ);
+    public static String type(Object value) {
+        return value != null ? value.getClass().getName() : "";
     }
 
     /**
@@ -59,36 +49,8 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher eq(String key, Long value) {
-        return new KeyMatcher(key, value, JavaValueTypes.LONG, SqlOperator.EQ);
-    }
-
-    /**
-     * 
-     * <pre>
-     * 等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher eq(String key, Integer value) {
-        return new KeyMatcher(key, value, JavaValueTypes.INTEGER, SqlOperator.EQ);
-    }
-
-    /**
-     * 
-     * <pre>
-     * 等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher eq(String key, Boolean value) {
-        return new KeyMatcher(key, value, JavaValueTypes.BOOLEAN, SqlOperator.EQ);
+    public static KeyMatcher eq(String key, Object value) {
+        return new KeyMatcher(key, value, type(value), SqlOperator.EQ);
     }
 
     /**
@@ -101,50 +63,8 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher neq(String key, String value) {
-        return new KeyMatcher(key, value, JavaValueTypes.STRING, SqlOperator.NEQ);
-    }
-
-    /**
-     * 
-     * <pre>
-     * 不等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher neq(String key, Long value) {
-        return new KeyMatcher(key, value, JavaValueTypes.LONG, SqlOperator.NEQ);
-    }
-
-    /**
-     * 
-     * <pre>
-     * 不等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher neq(String key, Integer value) {
-        return new KeyMatcher(key, value, JavaValueTypes.INTEGER, SqlOperator.NEQ);
-    }
-
-    /**
-     * 
-     * <pre>
-     * 不等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher neq(String key, Boolean value) {
-        return new KeyMatcher(key, value, JavaValueTypes.BOOLEAN, SqlOperator.NEQ);
+    public static KeyMatcher neq(String key, Object value) {
+        return new KeyMatcher(key, value, type(value), SqlOperator.NEQ);
     }
 
     /**
@@ -156,21 +76,8 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher gt(String key, Long value) {
-        return new KeyMatcher(key, value, JavaValueTypes.LONG, SqlOperator.GT);
-    }
-
-    /**
-     * <pre>
-     * 大于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher gt(String key, Integer value) {
-        return new KeyMatcher(key, value, JavaValueTypes.INTEGER, SqlOperator.GT);
+    public static KeyMatcher gt(String key, Object value) {
+        return new KeyMatcher(key, value, type(value), SqlOperator.GT);
     }
 
     /**
@@ -182,21 +89,8 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher egt(String key, Long value) {
-        return new KeyMatcher(key, value, JavaValueTypes.LONG, SqlOperator.EGT);
-    }
-
-    /**
-     * <pre>
-     * 大于等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher egt(String key, Integer value) {
-        return new KeyMatcher(key, value, JavaValueTypes.INTEGER, SqlOperator.EGT);
+    public static KeyMatcher egt(String key, Object value) {
+        return new KeyMatcher(key, value, type(value), SqlOperator.EGT);
     }
 
     /**
@@ -208,21 +102,8 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher lt(String key, Long value) {
-        return new KeyMatcher(key, value, JavaValueTypes.LONG, SqlOperator.LT);
-    }
-
-    /**
-     * <pre>
-     * 小于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher lt(String key, Integer value) {
-        return new KeyMatcher(key, value, JavaValueTypes.INTEGER, SqlOperator.LT);
+    public static KeyMatcher lt(String key, Object value) {
+        return new KeyMatcher(key, value, type(value), SqlOperator.LT);
     }
 
     /**
@@ -234,21 +115,8 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher elt(String key, Long value) {
-        return new KeyMatcher(key, value, JavaValueTypes.LONG, SqlOperator.ELT);
-    }
-
-    /**
-     * <pre>
-     * 小于等于
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static KeyMatcher elt(String key, Integer value) {
-        return new KeyMatcher(key, value, JavaValueTypes.INTEGER, SqlOperator.ELT);
+    public static KeyMatcher elt(String key, Object value) {
+        return new KeyMatcher(key, value, type(value), SqlOperator.ELT);
     }
 
     public static KeyMatcher like(String key, String value) {
