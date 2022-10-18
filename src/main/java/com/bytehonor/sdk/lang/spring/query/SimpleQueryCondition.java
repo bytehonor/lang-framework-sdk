@@ -262,15 +262,15 @@ public final class SimpleQueryCondition {
     }
 
     public SimpleQueryCondition ins(String key, Collection<String> value) {
-        return this.safeAdd(KeyMatcher.strings(key, value));
+        return this.safeAdd(KeyMatcher.ins(key, value));
     }
 
     public SimpleQueryCondition inl(String key, Collection<Long> value) {
-        return this.safeAdd(KeyMatcher.longs(key, value));
+        return this.safeAdd(KeyMatcher.inl(key, value));
     }
 
     public SimpleQueryCondition ini(String key, Collection<Integer> value) {
-        return this.safeAdd(KeyMatcher.integers(key, value));
+        return this.safeAdd(KeyMatcher.ini(key, value));
     }
 
     public SimpleQueryCondition desc(String key) {

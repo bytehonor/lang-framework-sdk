@@ -274,15 +274,15 @@ public class KeyMatcher {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE_RIGHT);
     }
 
-    public static KeyMatcher strings(String key, Collection<String> value) {
+    public static KeyMatcher ins(String key, Collection<String> value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.IN);
     }
 
-    public static KeyMatcher longs(String key, Collection<Long> value) {
+    public static KeyMatcher inl(String key, Collection<Long> value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.IN);
     }
 
-    public static KeyMatcher integers(String key, Collection<Integer> value) {
+    public static KeyMatcher ini(String key, Collection<Integer> value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.IN);
     }
 
