@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.bytehonor.sdk.lang.spring.constant.JavaValueTypes;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
+import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 
 /**
  * @author lijianqiang
@@ -36,6 +37,15 @@ public class KeyMatcher {
     }
 
     public static KeyMatcher of(String key, Object value, String type, SqlOperator operator) {
+        if (SqlOperator.LIKE.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
+            throw new SpringLangException(key + " cannt be like");
+        }
+        if (SqlOperator.LIKE_LEFT.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
+            throw new SpringLangException(key + " cannt be like");
+        }
+        if (SqlOperator.LIKE_RIGHT.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
+            throw new SpringLangException(key + " cannt be like");
+        }
         return new KeyMatcher(key, value, type, operator);
     }
 
