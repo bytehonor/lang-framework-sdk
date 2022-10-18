@@ -278,7 +278,7 @@ public class KeyMatcher {
         return of(key, values, type.getName(), SqlOperator.IN);
     }
 
-    public static KeyMatcher in(String key, Collection<String> values, String type) {
+    public static <T> KeyMatcher in(String key, Collection<T> values, String type) {
         return of(key, values, type, SqlOperator.IN);
     }
 
