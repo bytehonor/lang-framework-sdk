@@ -274,6 +274,10 @@ public class KeyMatcher {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE_RIGHT);
     }
 
+    public static <T> KeyMatcher in(String key, Collection<T> values, Class<T> type) {
+        return of(key, values, type.getName(), SqlOperator.IN);
+    }
+
     public static KeyMatcher ins(String key, Collection<String> value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.IN);
     }
