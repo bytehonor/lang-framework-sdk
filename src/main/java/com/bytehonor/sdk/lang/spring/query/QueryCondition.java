@@ -35,6 +35,9 @@ public final class QueryCondition {
     private final List<KeyMatcher> matchers;
 
     private QueryCondition(QueryLogic logic, QueryPager pager) {
+        Objects.requireNonNull(logic, "logic");
+        Objects.requireNonNull(pager, "pager");
+
         this.logic = logic;
         this.pager = pager;
         this.order = QueryOrder.non();
@@ -65,11 +68,8 @@ public final class QueryCondition {
         return create(QueryLogic.OR, QueryPager.of(offset, limit));
     }
 
-    private static QueryCondition create(QueryLogic logic, QueryPager page) {
-        Objects.requireNonNull(logic, "logic");
-        Objects.requireNonNull(page, "page");
-
-        return new QueryCondition(logic, page);
+    public static QueryCondition create(QueryLogic logic, QueryPager pager) {
+        return new QueryCondition(logic, pager);
     }
 
     public QueryCondition add(KeyMatcher matcher) {
