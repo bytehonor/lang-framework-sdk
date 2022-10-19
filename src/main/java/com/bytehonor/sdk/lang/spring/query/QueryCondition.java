@@ -289,16 +289,27 @@ public final class QueryCondition {
         return this;
     }
 
-    public void offset(int offset) {
+    public QueryCondition offset(int offset) {
         this.pager.setOffset(offset);
+        return this;
     }
 
-    public void limit(int limit) {
+    public QueryCondition limit(int limit) {
         this.pager.setLimit(limit);
+        return this;
     }
 
-    public void count(boolean counted) {
+    public QueryCondition count(boolean counted) {
         this.pager.setCounted(counted);
+        return this;
+    }
+
+    public QueryCondition order(QueryOrder order) {
+        if (order != null) {
+            this.order.setKey(order.getKey());
+            this.order.setDesc(order.isDesc());
+        }
+        return this;
     }
 
     public boolean isCounted() {
