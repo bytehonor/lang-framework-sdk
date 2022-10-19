@@ -16,12 +16,17 @@ public class QueryPager {
         this.limit = HttpConstants.LIMIT_DEF;
     }
 
-    public static QueryPager create() {
+    public static QueryPager def() {
         return new QueryPager();
     }
 
     public static QueryPager of(int offset, int limit) {
+        return of(false, offset, limit);
+    }
+
+    public static QueryPager of(boolean counted, int offset, int limit) {
         QueryPager model = new QueryPager();
+        model.setCounted(counted);
         model.setOffset(offset > -1 ? offset : HttpConstants.OFFSET_DEF);
         model.setLimit(limit);
         return model;
