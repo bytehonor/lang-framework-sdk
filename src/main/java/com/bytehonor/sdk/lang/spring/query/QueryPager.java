@@ -2,7 +2,7 @@ package com.bytehonor.sdk.lang.spring.query;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 
-public class QueryPage {
+public class QueryPager {
 
     private boolean counted;
 
@@ -10,18 +10,18 @@ public class QueryPage {
 
     private int limit;
 
-    public QueryPage() {
+    public QueryPager() {
         this.counted = false;
         this.offset = 0;
         this.limit = HttpConstants.LIMIT_DEF;
     }
 
-    public static QueryPage create() {
-        return new QueryPage();
+    public static QueryPager create() {
+        return new QueryPager();
     }
 
-    public static QueryPage of(int offset, int limit) {
-        QueryPage model = new QueryPage();
+    public static QueryPager of(int offset, int limit) {
+        QueryPager model = new QueryPager();
         model.setOffset(offset > -1 ? offset : HttpConstants.OFFSET_DEF);
         model.setLimit(limit);
         return model;

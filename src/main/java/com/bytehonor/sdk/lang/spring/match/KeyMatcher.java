@@ -292,17 +292,17 @@ public class KeyMatcher {
         return of(key, values, type, SqlOperator.IN);
     }
 
-    public static KeyMatcher ins(String key, Collection<String> value) {
-        return of(key, value, JavaValueTypes.STRING, SqlOperator.IN);
-    }
-
-    public static KeyMatcher inl(String key, Collection<Long> value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.IN);
-    }
-
-    public static KeyMatcher ini(String key, Collection<Integer> value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.IN);
-    }
+//    public static KeyMatcher ins(String key, Collection<String> value) {
+//        return of(key, value, JavaValueTypes.STRING, SqlOperator.IN);
+//    }
+//
+//    public static KeyMatcher inl(String key, Collection<Long> value) {
+//        return of(key, value, JavaValueTypes.LONG, SqlOperator.IN);
+//    }
+//
+//    public static KeyMatcher ini(String key, Collection<Integer> value) {
+//        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.IN);
+//    }
 
     public String getKey() {
         return key;

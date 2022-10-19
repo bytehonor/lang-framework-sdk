@@ -23,8 +23,12 @@ public class QueryOrder {
         return new QueryOrder(key, desc);
     }
 
+    public static QueryOrder non() {
+        return new QueryOrder();
+    }
+
     public QueryOrder() {
-        this("id", false);
+        this("", false);
     }
 
     public QueryOrder(String key, boolean desc) {
@@ -48,4 +52,15 @@ public class QueryOrder {
         this.desc = desc;
     }
 
+    public QueryOrder desc(String key) {
+        this.key = key;
+        this.desc = true;
+        return this;
+    }
+
+    public QueryOrder asc(String key) {
+        this.key = key;
+        this.desc = false;
+        return this;
+    }
 }

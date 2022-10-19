@@ -22,16 +22,16 @@ public final class SimpleQueryCondition {
 
     private final QueryLogic logic;
 
-    private final QueryPage page;
+    private final QueryPager pager;
 
-    private QueryOrder order;
+    private final QueryOrder order;
 
     private final List<KeyMatcher> matchers;
 
-    private SimpleQueryCondition(QueryLogic logic, QueryPage page) {
+    private SimpleQueryCondition(QueryLogic logic, QueryPager pager) {
         this.logic = logic;
-        this.page = page;
-        this.order = null;
+        this.pager = pager;
+        this.order = QueryOrder.non();
         this.matchers = new ArrayList<KeyMatcher>();
     }
 
@@ -48,7 +48,7 @@ public final class SimpleQueryCondition {
     }
 
     public static SimpleQueryCondition and(int offset, int limit) {
-        return create(QueryLogic.AND, QueryPage.of(offset, limit));
+        return create(QueryLogic.AND, QueryPager.of(offset, limit));
     }
 
     public static SimpleQueryCondition or() {
@@ -56,10 +56,10 @@ public final class SimpleQueryCondition {
     }
 
     public static SimpleQueryCondition or(int offset, int limit) {
-        return create(QueryLogic.OR, QueryPage.of(offset, limit));
+        return create(QueryLogic.OR, QueryPager.of(offset, limit));
     }
 
-    public static SimpleQueryCondition create(QueryLogic logic, QueryPage page) {
+    public static SimpleQueryCondition create(QueryLogic logic, QueryPager page) {
         Objects.requireNonNull(logic, "logic");
         Objects.requireNonNull(page, "page");
 
@@ -262,45 +262,41 @@ public final class SimpleQueryCondition {
     }
 
     public SimpleQueryCondition ins(String key, Collection<String> value) {
-        return this.safeAdd(KeyMatcher.ins(key, value));
+        return this.safeAdd(KeyMatcher.in(key, value, String.class));
     }
 
     public SimpleQueryCondition inl(String key, Collection<Long> value) {
-        return this.safeAdd(KeyMatcher.inl(key, value));
+        return this.safeAdd(KeyMatcher.in(key, value, Long.class));
     }
 
     public SimpleQueryCondition ini(String key, Collection<Integer> value) {
-        return this.safeAdd(KeyMatcher.ini(key, value));
+        return this.safeAdd(KeyMatcher.in(key, value, Integer.class));
     }
 
     public SimpleQueryCondition desc(String key) {
-        this.order = QueryOrder.descOf(key);
+        this.order.desc(key);
         return this;
     }
 
     public SimpleQueryCondition asc(String key) {
-        this.order = QueryOrder.ascOf(key);
+        this.order.asc(key);
         return this;
     }
 
     public void offset(int offset) {
-        this.page.setOffset(offset);
+        this.pager.setOffset(offset);
     }
 
     public void limit(int limit) {
-        this.page.setLimit(limit);
+        this.pager.setLimit(limit);
     }
 
-    public QueryPage getPage() {
-        return page;
+    public QueryPager getPager() {
+        return pager;
     }
 
     public QueryOrder getOrder() {
         return order;
-    }
-
-    public void setOrder(QueryOrder order) {
-        this.order = order;
     }
 
     public QueryLogic getLogic() {

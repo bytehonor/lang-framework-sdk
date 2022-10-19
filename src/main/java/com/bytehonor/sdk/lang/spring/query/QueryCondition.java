@@ -28,16 +28,16 @@ public final class QueryCondition {
 
     private final QueryLogic logic;
 
-    private final QueryPage page;
+    private final QueryPager pager;
 
-    private QueryOrder order;
+    private final QueryOrder order;
 
     private final List<KeyMatcher> matchers;
 
-    private QueryCondition(QueryLogic logic, QueryPage page) {
+    private QueryCondition(QueryLogic logic, QueryPager pager) {
         this.logic = logic;
-        this.page = page;
-        this.order = null;
+        this.pager = pager;
+        this.order = QueryOrder.non();
         this.matchers = new ArrayList<KeyMatcher>();
     }
 
@@ -54,7 +54,7 @@ public final class QueryCondition {
     }
 
     public static QueryCondition and(int offset, int limit) {
-        return create(QueryLogic.AND, QueryPage.of(offset, limit));
+        return create(QueryLogic.AND, QueryPager.of(offset, limit));
     }
 
     public static QueryCondition or() {
@@ -62,10 +62,10 @@ public final class QueryCondition {
     }
 
     public static QueryCondition or(int offset, int limit) {
-        return create(QueryLogic.OR, QueryPage.of(offset, limit));
+        return create(QueryLogic.OR, QueryPager.of(offset, limit));
     }
 
-    public static QueryCondition create(QueryLogic logic, QueryPage page) {
+    private static QueryCondition create(QueryLogic logic, QueryPager page) {
         Objects.requireNonNull(logic, "logic");
         Objects.requireNonNull(page, "page");
 
@@ -280,41 +280,37 @@ public final class QueryCondition {
     }
 
     public <T> QueryCondition desc(ClassGetter<T, ?> getter) {
-        this.order = QueryOrder.descOf(Getters.field(getter));
+        this.order.desc(Getters.field(getter));
         return this;
     }
 
     public <T> QueryCondition asc(ClassGetter<T, ?> getter) {
-        this.order = QueryOrder.ascOf(Getters.field(getter));
+        this.order.asc(Getters.field(getter));
         return this;
     }
 
     public void offset(int offset) {
-        this.page.setOffset(offset);
+        this.pager.setOffset(offset);
     }
 
     public void limit(int limit) {
-        this.page.setLimit(limit);
+        this.pager.setLimit(limit);
     }
 
     public void count(boolean counted) {
-        this.page.setCounted(counted);
+        this.pager.setCounted(counted);
     }
 
     public boolean isCounted() {
-        return this.page.isCounted();
+        return this.pager.isCounted();
     }
 
-    public QueryPage getPage() {
-        return page;
+    public QueryPager getPager() {
+        return pager;
     }
 
     public QueryOrder getOrder() {
         return order;
-    }
-
-    public void setOrder(QueryOrder order) {
-        this.order = order;
     }
 
     public QueryLogic getLogic() {
