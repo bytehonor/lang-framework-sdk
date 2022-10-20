@@ -14,6 +14,7 @@ import com.bytehonor.sdk.lang.spring.function.getter.GetInteger;
 import com.bytehonor.sdk.lang.spring.function.getter.GetLong;
 import com.bytehonor.sdk.lang.spring.function.getter.GetString;
 import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * 
@@ -330,6 +331,10 @@ public final class QueryCondition {
 
     public List<KeyMatcher> getMatchers() {
         return matchers;
+    }
+
+    public boolean hasOrder() {
+        return SpringString.isEmpty(order.getKey()) == false;
     }
 
 }
