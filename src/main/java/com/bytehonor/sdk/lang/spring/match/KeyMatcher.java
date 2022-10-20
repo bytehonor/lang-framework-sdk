@@ -320,4 +320,8 @@ public class KeyMatcher {
         return operator;
     }
 
+    public String uuid() {
+        return new StringBuilder().append(key).append("-").append(operator.getKey()).toString();
+    }
+
 }

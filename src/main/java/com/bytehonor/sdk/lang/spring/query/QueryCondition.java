@@ -285,9 +285,27 @@ public final class QueryCondition {
         return this;
     }
 
+    public <T> QueryCondition descIfNon(ClassGetter<T, ?> getter) {
+        if (sorted() == false) {
+            this.order.desc(Getters.field(getter));
+        }
+        return this;
+    }
+
     public <T> QueryCondition asc(ClassGetter<T, ?> getter) {
         this.order.asc(Getters.field(getter));
         return this;
+    }
+
+    public <T> QueryCondition ascIfNon(ClassGetter<T, ?> getter) {
+        if (sorted() == false) {
+            this.order.asc(Getters.field(getter));
+        }
+        return this;
+    }
+
+    public int offset() {
+        return this.pager.getOffset();
     }
 
     public QueryCondition offset(int offset) {
@@ -300,21 +318,31 @@ public final class QueryCondition {
         return this;
     }
 
-    public QueryCondition count(boolean counted) {
+    public int limit() {
+        return this.pager.getLimit();
+    }
+
+    public QueryCondition counted(boolean counted) {
         this.pager.setCounted(counted);
         return this;
     }
 
+    public boolean counted() {
+        return this.pager.isCounted();
+    }
+
     public QueryCondition order(QueryOrder order) {
-        if (order != null) {
+        this.order.setKey(order.getKey());
+        this.order.setDesc(order.isDesc());
+        return this;
+    }
+
+    public QueryCondition orderIfNon(QueryOrder order) {
+        if (sorted() == false) {
             this.order.setKey(order.getKey());
             this.order.setDesc(order.isDesc());
         }
         return this;
-    }
-
-    public boolean isCounted() {
-        return this.pager.isCounted();
     }
 
     public QueryPager getPager() {
@@ -333,7 +361,7 @@ public final class QueryCondition {
         return matchers;
     }
 
-    public boolean hasOrder() {
+    public boolean sorted() {
         return SpringString.isEmpty(order.getKey()) == false;
     }
 
