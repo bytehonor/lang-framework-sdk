@@ -332,17 +332,18 @@ public final class QueryCondition {
     }
 
     public QueryCondition order(QueryOrder order) {
-        this.order.setKey(order.getKey());
-        this.order.setDesc(order.isDesc());
-        return this;
-    }
-
-    public QueryCondition orderIfNon(QueryOrder order) {
-        if (sorted() == false) {
+        if (order != null) {
             this.order.setKey(order.getKey());
             this.order.setDesc(order.isDesc());
         }
         return this;
+    }
+
+    public QueryCondition orderIfNon(QueryOrder order) {
+        if (sorted()) {
+            return this;
+        }
+        return order(order);
     }
 
     public QueryPager getPager() {
