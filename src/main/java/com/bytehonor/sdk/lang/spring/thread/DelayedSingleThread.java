@@ -38,7 +38,7 @@ public class DelayedSingleThread {
         private static DelayedSingleThread SINGLE = new DelayedSingleThread();
     }
 
-    private static DelayedSingleThread self() {
+    private static DelayedSingleThread me() {
         return LazyHolder.SINGLE;
     }
 
@@ -63,7 +63,7 @@ public class DelayedSingleThread {
         // 转换成ns
         long nanoTime = TimeUnit.NANOSECONDS.convert(millis, TimeUnit.MILLISECONDS);
         DelayedTask<SafeTask> delayed = new DelayedTask<SafeTask>(nanoTime, runner);
-        self().queue.put(delayed);
+        me().queue.put(delayed);
     }
 
     /**
@@ -72,6 +72,6 @@ public class DelayedSingleThread {
      * @param task
      */
     public static boolean finish(DelayedTask<SafeTask> task) {
-        return self().queue.remove(task);
+        return me().queue.remove(task);
     }
 }

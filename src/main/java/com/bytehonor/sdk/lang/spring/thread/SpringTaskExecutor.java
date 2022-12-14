@@ -26,14 +26,14 @@ public class SpringTaskExecutor {
         private static SpringTaskExecutor SINGLE = new SpringTaskExecutor();
     }
 
-    private static SpringTaskExecutor self() {
+    private static SpringTaskExecutor me() {
         return LazyHolder.SINGLE;
     }
 
     public static void put(Runnable runnable) {
         Objects.requireNonNull(runnable, "runnable");
         try {
-            self().executor.execute(runnable);
+            me().executor.execute(runnable);
         } catch (Exception e) {
             LOG.error("execute({}) error:{}", runnable.getClass().getSimpleName(), e);
         }
