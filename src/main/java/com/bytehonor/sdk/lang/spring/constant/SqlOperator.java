@@ -57,7 +57,7 @@ public enum SqlOperator {
                 return sc;
             }
         }
-        return null;
+        return EQ;
     }
 
     public String getKey() {
