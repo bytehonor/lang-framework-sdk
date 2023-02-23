@@ -36,4 +36,9 @@ public class LinkedTask<T> extends WhileSleepTask {
         return millis;
     }
 
+    @Override
+    public long delays() {
+        return 0;
+    }
+
 }
