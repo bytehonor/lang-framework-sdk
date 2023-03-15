@@ -64,6 +64,20 @@ public class PatternUtils {
         return INTEGER_PT.matcher(str).find() || DOUBLE_PT.matcher(str).find();
     }
 
+    public static boolean isLetterNumber(String src) {
+        if (SpringString.isEmpty(src)) {
+            return false;
+        }
+        int len = src.length();
+        for (int i = 0; i < len; i++) {
+            char ch = src.charAt(i);
+            if (isLetterChar(ch) == false && isNumberChar(ch) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isLetter(String src) {
         if (SpringString.isEmpty(src)) {
             return false;

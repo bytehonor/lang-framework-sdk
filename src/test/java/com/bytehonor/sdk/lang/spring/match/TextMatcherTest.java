@@ -125,4 +125,25 @@ public class TextMatcherTest {
 
         assertTrue("test8", "4 500 000 00 USDT transferred from Tether Treasury to Bitfinex".equals(prepare));
     }
+
+    @Test
+    public void test9() {
+        TextMatcher matcher = TextMatcher.builder().include("web3").build();
+        LOG.info("test9 matcher:{}", matcher);
+
+        List<Boolean> list = new ArrayList<Boolean>();
+        list.add(matcher.match("one two three four web3"));
+        list.add(matcher.match("one     three four web2") == false);
+        list.add(matcher.match("    two three four Web3"));
+        list.add(matcher.match("        three four five") == false);
+        list.add(matcher.match("        thre  four weB3"));
+        list.add(matcher.match("中文WEB3的新闻"));
+
+        boolean isOk = true;
+        for (Boolean res : list) {
+            isOk = isOk && res;
+            LOG.info("test9 {}", res);
+        }
+        assertTrue("test9", isOk);
+    }
 }

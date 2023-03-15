@@ -81,7 +81,11 @@ public class TextMatcher {
     }
 
     /**
+     * <pre>
+     * 全小写
+     * 
      * 非中文按空格自然分割, 中文超过4个字的重新切割成4字以下的字块
+     * </pre>
      * 
      * @param text
      * @return
@@ -92,6 +96,7 @@ public class TextMatcher {
         if (SpringString.isEmpty(text)) {
             return new HashSet<String>();
         }
+        text = text.toLowerCase(); // 全小写
         Set<String> raws = StringSplitUtils.toSet(text, CharConstants.BLANK);
         int size = raws.size();
         Set<String> result = new HashSet<String>(size * 10);
@@ -102,11 +107,15 @@ public class TextMatcher {
             }
 
             if (PatternUtils.isLetter(raw)) {
-                result.add(raw.toLowerCase()); // 纯英文,直接使用, 且小写
+                result.add(raw); // 纯英文,直接使用, 且小写
                 continue;
             }
             if (PatternUtils.isNumber(raw)) {
                 result.add(raw); // 纯数字,直接使用
+                continue;
+            }
+            if (PatternUtils.isLetterNumber(raw)) {
+                result.add(raw); // 英文数字,直接使用
                 continue;
             }
             if (PatternUtils.isChinese(raw)) {
@@ -138,6 +147,9 @@ public class TextMatcher {
      * @return
      */
     public static String prepare(String text) {
+        if (SpringString.isEmpty(text)) {
+            return "";
+        }
         text = StringRemoveUtils.removeHttp(text);
         text = StringRemoveUtils.replaceNonNormalWithBlank(text);
         if (SpringString.isEmpty(text)) {
