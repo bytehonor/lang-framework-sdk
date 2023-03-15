@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.lang.spring.match;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -220,14 +221,14 @@ public class TextMatcher {
         public Builder exclude(String... words) {
             Objects.requireNonNull(words, "words");
 
-            this.excluders.add(WordMatcher.of(words));
+            this.excluders.add(WordMatcher.of(Arrays.asList(words)));
             return this;
         }
 
         public Builder include(String... words) {
             Objects.requireNonNull(words, "words");
 
-            this.includers.add(WordMatcher.of(words));
+            this.includers.add(WordMatcher.of(Arrays.asList(words)));
             return this;
         }
 

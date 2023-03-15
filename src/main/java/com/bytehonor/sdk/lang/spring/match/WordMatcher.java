@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.lang.spring.match;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,14 +30,21 @@ public class WordMatcher {
         this.matchers = matchers;
     }
 
+    public static WordMatcher of(String... words) {
+        return of(Arrays.asList(words));
+    }
+
     /**
      * 统一转换成小写
      * 
      * @param words
      * @return
      */
-    public static WordMatcher of(String... words) {
-        Objects.requireNonNull(words, "wirds");
+    public static WordMatcher of(List<String> words) {
+        Objects.requireNonNull(words, "words");
+        if (CollectionUtils.isEmpty(words)) {
+            throw new SpringLangException("words cannt be empty");
+        }
 
         Set<String> matchers = new HashSet<String>();
         for (String word : words) {

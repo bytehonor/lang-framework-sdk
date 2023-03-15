@@ -29,11 +29,12 @@ public class WordMatcherTest {
 
     @Test
     public void test2() {
-        boolean isOk = false;
+        boolean isOk = true;
         try {
-            WordMatcher.of("", "asdfasf");
+            WordMatcher matcher = WordMatcher.of("", "asdfasf");
+            LOG.info("test2 matcher:{}", matcher);
         } catch (Exception e) {
-            isOk = true;
+            isOk = false;
             LOG.error("test2", e);
         }
         assertTrue("test2", isOk);
