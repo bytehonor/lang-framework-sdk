@@ -36,6 +36,10 @@ public class KeyMatcher {
         this.operator = operator;
     }
 
+    public static KeyMatcher non() {
+        return new KeyMatcher("", "", JavaValueTypes.STRING, SqlOperator.EQ);
+    }
+
     public static KeyMatcher of(String key, Object value, String type, SqlOperator operator) {
         if (SqlOperator.LIKE.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
             throw new SpringLangException(key + " cannt be like");
