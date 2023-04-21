@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
+import java.util.Objects;
+
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
@@ -8,6 +10,12 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  *
  */
 public class LongGetter {
+    
+    public static Long require(String src) {
+        Long val = optional(src, null);
+        Objects.requireNonNull(val, "Long");
+        return val;
+    }
 
     public static Long parse(String src) {
         try {

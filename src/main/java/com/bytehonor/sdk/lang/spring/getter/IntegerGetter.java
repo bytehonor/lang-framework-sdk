@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
+import java.util.Objects;
+
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
@@ -8,6 +10,12 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  *
  */
 public class IntegerGetter {
+
+    public static Integer require(String src) {
+        Integer val = optional(src, null);
+        Objects.requireNonNull(val, "Integer");
+        return val;
+    }
 
     public static Integer parse(String src) {
         try {

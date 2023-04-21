@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.bytehonor.sdk.lang.spring.constant.JavaValueTypes;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -55,6 +56,9 @@ public class KeyMatcher {
 
     public static boolean accept(KeyMatcher matcher) {
         if (matcher == null) {
+            return false;
+        }
+        if (SpringString.isEmpty(matcher.getKey())) {
             return false;
         }
         return matcher.getOperator() != null && matcher.getKey() != null && matcher.getValue() != null;

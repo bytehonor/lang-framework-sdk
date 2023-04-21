@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.lang.spring.getter;
 
+import java.util.Objects;
+
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
@@ -8,6 +10,12 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  *
  */
 public class DoubleGetter {
+
+    public static Double require(String src) {
+        Double val = optional(src, null);
+        Objects.requireNonNull(val, "Double");
+        return val;
+    }
 
     public static Double parse(String src) {
         try {
