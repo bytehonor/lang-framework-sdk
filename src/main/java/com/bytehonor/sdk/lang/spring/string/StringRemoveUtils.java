@@ -181,6 +181,54 @@ public class StringRemoveUtils {
     }
 
     /**
+     * 除去非数字字符
+     * 
+     * @param src
+     * @return
+     */
+    public static String removeNonNumber(String src) {
+        if (SpringString.isEmpty(src)) {
+            return "";
+        }
+        int length = src.length();
+        char[] target = new char[length];
+        int total = 0;
+        for (int i = 0; i < length; i++) {
+            if (PatternUtils.isNumberChar(src.charAt(i))) {
+                target[total++] = src.charAt(i);
+            }
+        }
+        if (total > 0) {
+            return new String(target, 0, total);
+        }
+        return "";
+    }
+
+    /**
+     * 除去非字母字符
+     * 
+     * @param src
+     * @return
+     */
+    public static String removeNonLetter(String src) {
+        if (SpringString.isEmpty(src)) {
+            return "";
+        }
+        int length = src.length();
+        char[] target = new char[length];
+        int total = 0;
+        for (int i = 0; i < length; i++) {
+            if (PatternUtils.isLetterChar(src.charAt(i))) {
+                target[total++] = src.charAt(i);
+            }
+        }
+        if (total > 0) {
+            return new String(target, 0, total);
+        }
+        return "";
+    }
+
+    /**
      * 替换非Normal字符为空格
      * 
      * @param src
