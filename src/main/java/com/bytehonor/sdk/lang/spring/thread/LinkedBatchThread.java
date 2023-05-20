@@ -76,4 +76,45 @@ public class LinkedBatchThread<T> {
     public T poll() {
         return this.queue.poll();
     }
+
+    public static <T> Builder<T> builder(Class<T> clz) {
+        return new Builder<T>();
+    }
+
+    public static class Builder<T> {
+
+        private QueueBatchConsumer<T> consumer;
+
+        private String name;
+
+        private long millis;
+
+        private Builder() {
+            this.millis = SLEEP_MILLIS;
+            this.name = "unknown";
+        }
+
+        public Builder<T> consumer(QueueBatchConsumer<T> consumer) {
+            Objects.requireNonNull(consumer, "consumer");
+            this.consumer = consumer;
+            return this;
+        }
+
+        public Builder<T> millis(long millis) {
+            this.millis = millis;
+            return this;
+        }
+
+        public Builder<T> name(Class<?> parent) {
+            this.name = parent.getSimpleName();
+            return this;
+        }
+
+        public LinkedBatchThread<T> build() {
+            Objects.requireNonNull(consumer, "consumer");
+            LinkedBatchThread<T> bt = new LinkedBatchThread<T>(consumer, millis);
+            bt.thread.setName(name);
+            return bt;
+        }
+    }
 }
