@@ -204,6 +204,19 @@ public class KeyMatcher {
 
     /**
      * <pre>
+     * 大于
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
+    public static KeyMatcher gt(String key, Double value) {
+        return of(key, value, JavaValueTypes.DOUBLE, SqlOperator.GT);
+    }
+
+    /**
+     * <pre>
      * 大于等于
      * </pre>
      * 
@@ -252,6 +265,19 @@ public class KeyMatcher {
      */
     public static KeyMatcher lt(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.LT);
+    }
+
+    /**
+     * <pre>
+     * 小于
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
+    public static KeyMatcher lt(String key, Double value) {
+        return of(key, value, JavaValueTypes.DOUBLE, SqlOperator.LT);
     }
 
     /**

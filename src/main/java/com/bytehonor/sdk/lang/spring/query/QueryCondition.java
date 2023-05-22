@@ -10,6 +10,7 @@ import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.function.ClassGetter;
 import com.bytehonor.sdk.lang.spring.function.Getters;
 import com.bytehonor.sdk.lang.spring.function.getter.GetBoolean;
+import com.bytehonor.sdk.lang.spring.function.getter.GetDouble;
 import com.bytehonor.sdk.lang.spring.function.getter.GetInteger;
 import com.bytehonor.sdk.lang.spring.function.getter.GetLong;
 import com.bytehonor.sdk.lang.spring.function.getter.GetString;
@@ -191,6 +192,17 @@ public final class QueryCondition {
     }
 
     /**
+     * 大于
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
+    public <T> QueryCondition gt(GetDouble<T> getter, Double value) {
+        return this.add(KeyMatcher.gt(Getters.field(getter), value));
+    }
+
+    /**
      * 大于等于
      * 
      * @param key
@@ -231,6 +243,17 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetInteger<T> getter, Integer value) {
+        return this.add(KeyMatcher.lt(Getters.field(getter), value));
+    }
+
+    /**
+     * 小于
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
+    public <T> QueryCondition lt(GetDouble<T> getter, Double value) {
         return this.add(KeyMatcher.lt(Getters.field(getter), value));
     }
 
