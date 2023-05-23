@@ -23,7 +23,7 @@ public class LinkedBatchThread<T> implements ThreadParent {
 
     private final Thread thread;
 
-    private LinkedBatchThread(long intervals, QueueBatchConsumer<T> consumer) {
+    private LinkedBatchThread(QueueBatchConsumer<T> consumer, long intervals) {
         this.queue = new ConcurrentLinkedQueue<T>();
         this.thread = new Thread(new LinkedBatchTask<T>(new QueueProducer<T>() {
 
@@ -44,7 +44,7 @@ public class LinkedBatchThread<T> implements ThreadParent {
      * @return
      */
     public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer) {
-        return create(INTERVAL_MILLIS, consumer);
+        return create(consumer, INTERVAL_MILLIS);
     }
 
     /**
@@ -53,10 +53,10 @@ public class LinkedBatchThread<T> implements ThreadParent {
      * @param consumer
      * @return
      */
-    public static <T> LinkedBatchThread<T> create(long intervals, QueueBatchConsumer<T> consumer) {
+    public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, long intervals) {
         Objects.requireNonNull(consumer, "consumer");
 
-        return new LinkedBatchThread<T>(intervals, consumer);
+        return new LinkedBatchThread<T>(consumer, intervals);
     }
 
     @Override
@@ -73,10 +73,16 @@ public class LinkedBatchThread<T> implements ThreadParent {
         this.queue.add(payload);
     }
 
+    public LinkedBatchThread<T> name(String name) {
+        Objects.requireNonNull(name, "name");
+
+        thread.setName(name);
+        return this;
+    }
+
     public LinkedBatchThread<T> mount(Class<?> parent) {
         Objects.requireNonNull(parent, "parent");
 
-        thread.setName(parent.getSimpleName());
-        return this;
+        return name(parent.getSimpleName());
     }
 }

@@ -23,7 +23,7 @@ public class LinkedThread<T> implements ThreadParent {
 
     private final Thread thread;
 
-    private LinkedThread(long intervals, QueueConsumer<T> consumer) {
+    private LinkedThread(QueueConsumer<T> consumer, long intervals) {
         this.queue = new ConcurrentLinkedQueue<T>();
         this.thread = new Thread(new LinkedTask<T>(new QueueProducer<T>() {
 
@@ -44,7 +44,7 @@ public class LinkedThread<T> implements ThreadParent {
      * @return
      */
     public static <T> LinkedThread<T> create(QueueConsumer<T> consumer) {
-        return create(INTERVAL_MILLIS, consumer);
+        return create(consumer, INTERVAL_MILLIS);
     }
 
     /**
@@ -53,10 +53,10 @@ public class LinkedThread<T> implements ThreadParent {
      * @param intervals
      * @return
      */
-    public static <T> LinkedThread<T> create(long intervals, QueueConsumer<T> consumer) {
+    public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, long intervals) {
         Objects.requireNonNull(consumer, "consumer");
 
-        return new LinkedThread<T>(intervals, consumer);
+        return new LinkedThread<T>(consumer, intervals);
     }
 
     @Override

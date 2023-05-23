@@ -17,7 +17,7 @@ public class LinkedBlockingThread<T> implements ThreadParent {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedBlockingThread.class);
 
-    private static final int QUEUE_SIZE = 1024;
+    private static final int QUEUE_SIZE = 4096;
 
     private final LinkedBlockingQueue<T> queue;
 
@@ -73,10 +73,16 @@ public class LinkedBlockingThread<T> implements ThreadParent {
         this.queue.add(payload);
     }
 
+    public LinkedBlockingThread<T> name(String name) {
+        Objects.requireNonNull(name, "name");
+
+        thread.setName(name);
+        return this;
+    }
+
     public LinkedBlockingThread<T> mount(Class<?> parent) {
         Objects.requireNonNull(parent, "parent");
 
-        thread.setName(parent.getSimpleName());
-        return this;
+        return name(parent.getSimpleName());
     }
 }
