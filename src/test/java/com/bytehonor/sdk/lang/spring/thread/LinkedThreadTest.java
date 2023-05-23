@@ -16,7 +16,7 @@ public class LinkedThreadTest {
             public void consume(Integer payload) {
                 LOG.info("payload:{}", payload);
             }
-        }, "test");
+        }).mount(getClass());
 
         thread.start();
 

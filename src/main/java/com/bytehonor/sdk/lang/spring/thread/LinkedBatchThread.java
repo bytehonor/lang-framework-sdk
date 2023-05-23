@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  * @param <T>
  */
-public class LinkedBatchThread<T> {
+public class LinkedBatchThread<T> implements ThreadParent {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedBatchThread.class);
 
@@ -23,7 +23,7 @@ public class LinkedBatchThread<T> {
 
     private final Thread thread;
 
-    private LinkedBatchThread(QueueBatchConsumer<T> consumer, long intervals) {
+    private LinkedBatchThread(long intervals, QueueBatchConsumer<T> consumer) {
         this.queue = new ConcurrentLinkedQueue<T>();
         this.thread = new Thread(new LinkedBatchTask<T>(new QueueProducer<T>() {
 
@@ -41,31 +41,25 @@ public class LinkedBatchThread<T> {
     /**
      * @param <T>
      * @param consumer
-     * @param name
      * @return
      */
-    @Deprecated
-    public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name) {
-        return create(consumer, name, INTERVAL_MILLIS);
+    public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer) {
+        return create(INTERVAL_MILLIS, consumer);
     }
 
     /**
      * @param <T>
-     * @param consumer
-     * @param name
      * @param intervals
+     * @param consumer
      * @return
      */
-    @Deprecated
-    public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name, long intervals) {
+    public static <T> LinkedBatchThread<T> create(long intervals, QueueBatchConsumer<T> consumer) {
         Objects.requireNonNull(consumer, "consumer");
-        Objects.requireNonNull(name, "name");
 
-        LinkedBatchThread<T> bt = new LinkedBatchThread<T>(consumer, intervals);
-        bt.thread.setName(name);
-        return bt;
+        return new LinkedBatchThread<T>(intervals, consumer);
     }
 
+    @Override
     public void start() {
         this.thread.start();
         LOG.info("[{}] start", thread.getName());
@@ -79,44 +73,10 @@ public class LinkedBatchThread<T> {
         this.queue.add(payload);
     }
 
-    public static <T> Builder<T> builder(Class<T> clz) {
-        return new Builder<T>();
-    }
+    public LinkedBatchThread<T> mount(Class<?> parent) {
+        Objects.requireNonNull(parent, "parent");
 
-    public static class Builder<T> {
-
-        private QueueBatchConsumer<T> consumer;
-
-        private String name;
-
-        private long intervals;
-
-        private Builder() {
-            this.intervals = INTERVAL_MILLIS;
-            this.name = "unknown";
-        }
-
-        public Builder<T> consumer(QueueBatchConsumer<T> consumer) {
-            Objects.requireNonNull(consumer, "consumer");
-            this.consumer = consumer;
-            return this;
-        }
-
-        public Builder<T> intervals(long intervals) {
-            this.intervals = intervals;
-            return this;
-        }
-
-        public Builder<T> name(Class<?> parent) {
-            this.name = parent.getSimpleName();
-            return this;
-        }
-
-        public LinkedBatchThread<T> build() {
-            Objects.requireNonNull(consumer, "consumer");
-            LinkedBatchThread<T> model = new LinkedBatchThread<T>(consumer, intervals);
-            model.thread.setName(name);
-            return model;
-        }
+        thread.setName(parent.getSimpleName());
+        return this;
     }
 }

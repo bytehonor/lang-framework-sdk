@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  * @param <T>
  */
-public class LinkedBlockingThread<T> {
+public class LinkedBlockingThread<T> implements ThreadParent {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedBlockingThread.class);
 
@@ -23,7 +23,7 @@ public class LinkedBlockingThread<T> {
 
     private final Thread thread;
 
-    private LinkedBlockingThread(QueueConsumer<T> consumer, int queues) {
+    private LinkedBlockingThread(int queues, QueueConsumer<T> consumer) {
         this.queue = new LinkedBlockingQueue<T>(queues);
         this.thread = new Thread(new LinkedBlockingTask<T>(new QueueBlockingProducer<T>() {
 
@@ -41,31 +41,25 @@ public class LinkedBlockingThread<T> {
     /**
      * @param <T>
      * @param consumer
-     * @param name
      * @return
      */
-    @Deprecated
-    public static <T> LinkedBlockingThread<T> create(QueueConsumer<T> consumer, String name) {
-        return create(consumer, name, QUEUE_SIZE);
+    public static <T> LinkedBlockingThread<T> create(QueueConsumer<T> consumer) {
+        return create(QUEUE_SIZE, consumer);
     }
 
     /**
      * @param <T>
-     * @param consumer
-     * @param name
      * @param queues
+     * @param consumer
      * @return
      */
-    @Deprecated
-    public static <T> LinkedBlockingThread<T> create(QueueConsumer<T> consumer, String name, int queues) {
+    public static <T> LinkedBlockingThread<T> create(int queues, QueueConsumer<T> consumer) {
         Objects.requireNonNull(consumer, "consumer");
-        Objects.requireNonNull(name, "name");
 
-        LinkedBlockingThread<T> bt = new LinkedBlockingThread<T>(consumer, queues);
-        bt.thread.setName(name);
-        return bt;
+        return new LinkedBlockingThread<T>(queues, consumer);
     }
 
+    @Override
     public void start() {
         this.thread.start();
         LOG.info("[{}] start", thread.getName());
@@ -79,44 +73,10 @@ public class LinkedBlockingThread<T> {
         this.queue.add(payload);
     }
 
-    public static <T> Builder<T> builder(Class<T> clz) {
-        return new Builder<T>();
-    }
+    public LinkedBlockingThread<T> mount(Class<?> parent) {
+        Objects.requireNonNull(parent, "parent");
 
-    public static class Builder<T> {
-
-        private QueueConsumer<T> consumer;
-
-        private String name;
-
-        private int queues;
-
-        private Builder() {
-            this.queues = QUEUE_SIZE;
-            this.name = "unknown";
-        }
-
-        public Builder<T> consumer(QueueConsumer<T> consumer) {
-            Objects.requireNonNull(consumer, "consumer");
-            this.consumer = consumer;
-            return this;
-        }
-
-        public Builder<T> queues(int queues) {
-            this.queues = queues;
-            return this;
-        }
-
-        public Builder<T> name(Class<?> parent) {
-            this.name = parent.getSimpleName();
-            return this;
-        }
-
-        public LinkedBlockingThread<T> build() {
-            Objects.requireNonNull(consumer, "consumer");
-            LinkedBlockingThread<T> model = new LinkedBlockingThread<T>(consumer, queues);
-            model.thread.setName(name);
-            return model;
-        }
+        thread.setName(parent.getSimpleName());
+        return this;
     }
 }

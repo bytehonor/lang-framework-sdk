@@ -15,17 +15,17 @@ public class LinkedBatchTask<T> extends LoopIntervalTask {
     private final QueueProducer<T> producer;
     private final QueueBatchConsumer<T> consumer;
 
-    private final long millis;
+    private final long intervals;
 
     /**
      * @param producer
      * @param consumer
-     * @param millis
+     * @param intervals
      */
-    public LinkedBatchTask(QueueProducer<T> producer, QueueBatchConsumer<T> consumer, long millis) {
+    public LinkedBatchTask(QueueProducer<T> producer, QueueBatchConsumer<T> consumer, long intervals) {
         this.producer = producer;
         this.consumer = consumer;
-        this.millis = millis;
+        this.intervals = intervals;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class LinkedBatchTask<T> extends LoopIntervalTask {
 
     @Override
     public long intervals() {
-        return millis;
+        return intervals;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.bytehonor.sdk.lang.spring.thread;
 
 import java.util.Objects;
 
-public class LoopIntervalThread {
+public class LoopIntervalThread implements ThreadParent {
 
     private final Thread thread;
 
@@ -13,6 +13,7 @@ public class LoopIntervalThread {
         this.thread.setName(name);
     }
 
+    @Override
     public void start() {
         thread.start();
     }

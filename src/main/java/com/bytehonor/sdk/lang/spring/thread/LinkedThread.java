@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  * @param <T>
  */
-public class LinkedThread<T> {
+public class LinkedThread<T> implements ThreadParent {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedThread.class);
 
@@ -23,7 +23,7 @@ public class LinkedThread<T> {
 
     private final Thread thread;
 
-    private LinkedThread(QueueConsumer<T> consumer, long intervals) {
+    private LinkedThread(long intervals, QueueConsumer<T> consumer) {
         this.queue = new ConcurrentLinkedQueue<T>();
         this.thread = new Thread(new LinkedTask<T>(new QueueProducer<T>() {
 
@@ -34,32 +34,32 @@ public class LinkedThread<T> {
         }, consumer, intervals));
     }
 
-    /**
-     * @param <T>
-     * @param consumer
-     * @param name
-     * @return
-     */
-    public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name) {
-        return create(consumer, name, INTERVAL_MILLIS);
+    private T poll() {
+        return this.queue.poll();
     }
 
     /**
      * @param <T>
      * @param consumer
-     * @param name
+     * @return
+     */
+    public static <T> LinkedThread<T> create(QueueConsumer<T> consumer) {
+        return create(INTERVAL_MILLIS, consumer);
+    }
+
+    /**
+     * @param <T>
+     * @param consumer
      * @param intervals
      * @return
      */
-    public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name, long intervals) {
+    public static <T> LinkedThread<T> create(long intervals, QueueConsumer<T> consumer) {
         Objects.requireNonNull(consumer, "consumer");
-        Objects.requireNonNull(name, "name");
 
-        LinkedThread<T> bt = new LinkedThread<T>(consumer, intervals);
-        bt.thread.setName(name);
-        return bt;
+        return new LinkedThread<T>(intervals, consumer);
     }
 
+    @Override
     public void start() {
         this.thread.start();
         LOG.info("[{}] start", thread.getName());
@@ -73,7 +73,10 @@ public class LinkedThread<T> {
         this.queue.add(payload);
     }
 
-    public T poll() {
-        return this.queue.poll();
+    public LinkedThread<T> mount(Class<?> parent) {
+        Objects.requireNonNull(parent, "parent");
+
+        thread.setName(parent.getSimpleName());
+        return this;
     }
 }
