@@ -4,7 +4,7 @@ package com.bytehonor.sdk.lang.spring.thread;
  * @author lijianqiang
  *
  */
-public class LinkedBlockingTask<T> extends WhileBlockTask {
+public class LinkedBlockingTask<T> extends LoopBlockingTask {
 
     private final QueueBlockingProducer<T> producer;
     private final QueueConsumer<T> consumer;

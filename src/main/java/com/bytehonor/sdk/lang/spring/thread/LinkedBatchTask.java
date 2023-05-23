@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public class LinkedBatchTask<T> extends WhileSleepTask {
+public class LinkedBatchTask<T> extends LoopIntervalTask {
 
     private final QueueProducer<T> producer;
     private final QueueBatchConsumer<T> consumer;
@@ -48,7 +48,7 @@ public class LinkedBatchTask<T> extends WhileSleepTask {
     }
 
     @Override
-    public long millis() {
+    public long intervals() {
         return millis;
     }
 

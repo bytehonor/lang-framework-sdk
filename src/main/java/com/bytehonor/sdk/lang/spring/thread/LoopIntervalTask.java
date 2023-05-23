@@ -3,13 +3,13 @@ package com.bytehonor.sdk.lang.spring.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class WhileSleepTask extends SafeTask {
+public abstract class LoopIntervalTask extends SafeTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WhileSleepTask.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoopIntervalTask.class);
 
     public abstract long delays();
 
-    public abstract long millis();
+    public abstract long intervals();
 
     public abstract void runThenSleep();
 
@@ -25,9 +25,9 @@ public abstract class WhileSleepTask extends SafeTask {
             try {
                 runThenSleep();
             } catch (Exception e) {
-                LOG.error("runInWhile", e);
+                LOG.error("runThenSleep", e);
             }
-            Sleeping.sleep(millis());
+            Sleeping.sleep(intervals());
         }
     }
 }

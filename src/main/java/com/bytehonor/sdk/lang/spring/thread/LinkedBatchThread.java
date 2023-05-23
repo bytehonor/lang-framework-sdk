@@ -17,13 +17,13 @@ public class LinkedBatchThread<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedBatchThread.class);
 
-    private static final long SLEEP_MILLIS = 1000L;
+    private static final long INTERVAL_MILLIS = 1000L;
 
     private final ConcurrentLinkedQueue<T> queue;
 
     private final Thread thread;
 
-    private LinkedBatchThread(QueueBatchConsumer<T> consumer, long millis) {
+    private LinkedBatchThread(QueueBatchConsumer<T> consumer, long intervals) {
         this.queue = new ConcurrentLinkedQueue<T>();
         this.thread = new Thread(new LinkedBatchTask<T>(new QueueProducer<T>() {
 
@@ -31,7 +31,11 @@ public class LinkedBatchThread<T> {
             public T produce() {
                 return poll();
             }
-        }, consumer, millis));
+        }, consumer, intervals));
+    }
+
+    private T poll() {
+        return this.queue.poll();
     }
 
     /**
@@ -40,22 +44,24 @@ public class LinkedBatchThread<T> {
      * @param name
      * @return
      */
+    @Deprecated
     public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name) {
-        return create(consumer, name, SLEEP_MILLIS);
+        return create(consumer, name, INTERVAL_MILLIS);
     }
 
     /**
      * @param <T>
      * @param consumer
      * @param name
-     * @param millis
+     * @param intervals
      * @return
      */
-    public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name, long millis) {
+    @Deprecated
+    public static <T> LinkedBatchThread<T> create(QueueBatchConsumer<T> consumer, String name, long intervals) {
         Objects.requireNonNull(consumer, "consumer");
         Objects.requireNonNull(name, "name");
 
-        LinkedBatchThread<T> bt = new LinkedBatchThread<T>(consumer, millis);
+        LinkedBatchThread<T> bt = new LinkedBatchThread<T>(consumer, intervals);
         bt.thread.setName(name);
         return bt;
     }
@@ -73,10 +79,6 @@ public class LinkedBatchThread<T> {
         this.queue.add(payload);
     }
 
-    public T poll() {
-        return this.queue.poll();
-    }
-
     public static <T> Builder<T> builder(Class<T> clz) {
         return new Builder<T>();
     }
@@ -87,10 +89,10 @@ public class LinkedBatchThread<T> {
 
         private String name;
 
-        private long millis;
+        private long intervals;
 
         private Builder() {
-            this.millis = SLEEP_MILLIS;
+            this.intervals = INTERVAL_MILLIS;
             this.name = "unknown";
         }
 
@@ -100,8 +102,8 @@ public class LinkedBatchThread<T> {
             return this;
         }
 
-        public Builder<T> millis(long millis) {
-            this.millis = millis;
+        public Builder<T> intervals(long intervals) {
+            this.intervals = intervals;
             return this;
         }
 
@@ -112,9 +114,9 @@ public class LinkedBatchThread<T> {
 
         public LinkedBatchThread<T> build() {
             Objects.requireNonNull(consumer, "consumer");
-            LinkedBatchThread<T> bt = new LinkedBatchThread<T>(consumer, millis);
-            bt.thread.setName(name);
-            return bt;
+            LinkedBatchThread<T> model = new LinkedBatchThread<T>(consumer, intervals);
+            model.thread.setName(name);
+            return model;
         }
     }
 }

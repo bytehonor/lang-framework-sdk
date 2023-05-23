@@ -4,22 +4,22 @@ package com.bytehonor.sdk.lang.spring.thread;
  * @author lijianqiang
  *
  */
-public class LinkedTask<T> extends WhileSleepTask {
+public class LinkedTask<T> extends LoopIntervalTask {
 
     private final QueueProducer<T> producer;
     private final QueueConsumer<T> consumer;
 
-    private final long millis;
+    private final long intervals;
 
     /**
      * @param producer
      * @param consumer
-     * @param millis
+     * @param intervals
      */
-    public LinkedTask(QueueProducer<T> producer, QueueConsumer<T> consumer, long millis) {
+    public LinkedTask(QueueProducer<T> producer, QueueConsumer<T> consumer, long intervals) {
         this.producer = producer;
         this.consumer = consumer;
-        this.millis = millis;
+        this.intervals = intervals;
     }
 
     @Override
@@ -32,8 +32,8 @@ public class LinkedTask<T> extends WhileSleepTask {
     }
 
     @Override
-    public long millis() {
-        return millis;
+    public long intervals() {
+        return intervals;
     }
 
     @Override

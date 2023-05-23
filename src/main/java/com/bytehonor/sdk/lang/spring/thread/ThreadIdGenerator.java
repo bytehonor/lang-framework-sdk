@@ -6,7 +6,7 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class ThreadIdGenerator {
 
-    private static final String PREFIX = "SingleThread";
+    private static final String PREFIX = "UndefinedThread";
 
     private static final char SPL = '-';
 

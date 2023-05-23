@@ -2,11 +2,11 @@ package com.bytehonor.sdk.lang.spring.thread;
 
 import java.util.Objects;
 
-public class PeriodThread {
+public class LoopIntervalThread {
 
     private final Thread thread;
 
-    public PeriodThread(String name, WhileSleepTask task) {
+    public LoopIntervalThread(String name, LoopIntervalTask task) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(task, "task");
         this.thread = new Thread(task);

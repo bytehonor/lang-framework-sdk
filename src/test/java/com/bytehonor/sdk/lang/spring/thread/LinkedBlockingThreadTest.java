@@ -10,13 +10,22 @@ public class LinkedBlockingThreadTest {
 
     @Test
     public void test() {
-        LinkedBlockingThread<Integer> thread = LinkedBlockingThread.create(new QueueConsumer<Integer>() {
+//        LinkedBlockingThread<Integer> thread = LinkedBlockingThread.create(new QueueConsumer<Integer>() {
+//
+//            @Override
+//            public void consume(Integer payload) {
+//                LOG.info("payload:{}", payload);
+//            }
+//        }, "test");
 
-            @Override
-            public void consume(Integer payload) {
-                LOG.info("payload:{}", payload);
-            }
-        }, "test");
+        LinkedBlockingThread<Integer> thread = LinkedBlockingThread.builder(Integer.class)
+                .consumer(new QueueConsumer<Integer>() {
+
+                    @Override
+                    public void consume(Integer payload) {
+                        LOG.info("payload:{}", payload);
+                    }
+                }).build();
 
         thread.start();
 

@@ -17,13 +17,13 @@ public class LinkedThread<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedThread.class);
 
-    private static final long SLEEP_MILLIS = 1000L;
+    private static final long INTERVAL_MILLIS = 1000L;
 
     private final ConcurrentLinkedQueue<T> queue;
 
     private final Thread thread;
 
-    private LinkedThread(QueueConsumer<T> consumer, long millis) {
+    private LinkedThread(QueueConsumer<T> consumer, long intervals) {
         this.queue = new ConcurrentLinkedQueue<T>();
         this.thread = new Thread(new LinkedTask<T>(new QueueProducer<T>() {
 
@@ -31,7 +31,7 @@ public class LinkedThread<T> {
             public T produce() {
                 return poll();
             }
-        }, consumer, millis));
+        }, consumer, intervals));
     }
 
     /**
@@ -41,21 +41,21 @@ public class LinkedThread<T> {
      * @return
      */
     public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name) {
-        return create(consumer, name, SLEEP_MILLIS);
+        return create(consumer, name, INTERVAL_MILLIS);
     }
 
     /**
      * @param <T>
      * @param consumer
      * @param name
-     * @param millis
+     * @param intervals
      * @return
      */
-    public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name, long millis) {
+    public static <T> LinkedThread<T> create(QueueConsumer<T> consumer, String name, long intervals) {
         Objects.requireNonNull(consumer, "consumer");
         Objects.requireNonNull(name, "name");
 
-        LinkedThread<T> bt = new LinkedThread<T>(consumer, millis);
+        LinkedThread<T> bt = new LinkedThread<T>(consumer, intervals);
         bt.thread.setName(name);
         return bt;
     }

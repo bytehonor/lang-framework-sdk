@@ -3,12 +3,12 @@ package com.bytehonor.sdk.lang.spring.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PeriodThreadTest {
+public class LoopIntervalThreadTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PeriodThreadTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoopIntervalThreadTest.class);
 
     public static void main(String[] args) {
-        PeriodThread pt = new PeriodThread("test", new WhileSleepTask() {
+        LoopIntervalThread pt = new LoopIntervalThread("test", new LoopIntervalTask() {
 
             private int count = 0;
 
@@ -18,7 +18,7 @@ public class PeriodThreadTest {
             }
 
             @Override
-            public long millis() {
+            public long intervals() {
                 return 500L;
             }
 

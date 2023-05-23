@@ -21,7 +21,7 @@ public class DelayedSingleThread {
     private final Thread thread;
 
     private DelayedSingleThread() {
-        thread = new Thread(new WhileBlockTask() {
+        thread = new Thread(new LoopBlockingTask() {
 
             @Override
             public void runThenBlock() throws InterruptedException {
