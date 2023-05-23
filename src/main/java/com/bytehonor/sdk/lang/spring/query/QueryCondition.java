@@ -355,7 +355,7 @@ public final class QueryCondition {
     }
 
     public QueryCondition order(QueryOrder order) {
-        if (order != null) {
+        if (order != null && SpringString.isEmpty(order.getKey()) == false) {
             this.order.setKey(order.getKey());
             this.order.setDesc(order.isDesc());
         }
