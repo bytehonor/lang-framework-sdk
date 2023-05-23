@@ -59,10 +59,16 @@ public class KeyValueMap {
     }
 
     public String get(String key) {
+        Objects.requireNonNull(key, "key");
         return map.get(key);
     }
 
-    public Map<String, String> toMap() {
+    public boolean has(String key) {
+        Objects.requireNonNull(key, "key");
+        return map.containsKey(key);
+    }
+
+    public Map<String, String> map() {
         return map;
     }
 
