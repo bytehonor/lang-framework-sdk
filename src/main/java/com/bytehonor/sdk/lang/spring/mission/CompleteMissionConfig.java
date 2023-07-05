@@ -1,12 +1,14 @@
 package com.bytehonor.sdk.lang.spring.mission;
 
+import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
+
 public class CompleteMissionConfig {
 
-    private static final long TASK_DELAY_MILLIS = 1000L;
+    private static final long TASK_DELAY_MILLIS = TimeConstants.SECOND;
 
-    private static final long TASK_INTERVAL_MILLIS = 1000L * 60;
+    private static final long TASK_INTERVAL_MILLIS = TimeConstants.SECOND * 60;
 
-    private static final long TASK_LOCK_MILLIS = 1000L * 100;
+    private static final long TASK_LOCK_MILLIS = TimeConstants.SECOND * 100;
 
     private long taskDelayMillis;
 
