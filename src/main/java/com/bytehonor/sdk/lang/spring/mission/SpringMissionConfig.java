@@ -2,7 +2,7 @@ package com.bytehonor.sdk.lang.spring.mission;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 
-public class CompleteMissionConfig {
+public class SpringMissionConfig {
 
     private static final long TASK_DELAY_MILLIS = TimeConstants.SECOND;
 
@@ -16,7 +16,7 @@ public class CompleteMissionConfig {
 
     private long taskLockMillis;
 
-    public CompleteMissionConfig() {
+    public SpringMissionConfig() {
         this.taskDelayMillis = TASK_DELAY_MILLIS;
         this.taskIntervalMillis = TASK_INTERVAL_MILLIS;
         this.taskLockMillis = TASK_LOCK_MILLIS;

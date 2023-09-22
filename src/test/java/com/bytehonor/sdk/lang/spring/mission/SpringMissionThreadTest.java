@@ -10,13 +10,13 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleeping;
 
-public class CompeteMissionThreadTest {
+public class SpringMissionThreadTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CompeteMissionThreadTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringMissionThreadTest.class);
 
     @Test
     public void test() {
-        CompeteMissionLocker locker = new CompeteMissionLocker() {
+        SpringMissionLocker locker = new SpringMissionLocker() {
 
             private Map<String, String> map = new HashMap<String, String>();
 
@@ -37,18 +37,7 @@ public class CompeteMissionThreadTest {
             }
         };
 
-        CompeteMissionGroup group = CompeteMissionGroup.create().add(new CompeteMission() {
-
-            @Override
-            public String target() {
-                return "mission1";
-            }
-
-            @Override
-            public void run() {
-                LOG.info("misssion1 run");
-            }
-        }).add(new CompeteMission() {
+        SpringMission mission1 = new SpringMission() {
 
             @Override
             public String target() {
@@ -56,11 +45,25 @@ public class CompeteMissionThreadTest {
             }
 
             @Override
-            public void run() {
+            public void start() {
                 LOG.info("misssion2 run");
             }
-        });
-        CompeteMissionThread thread = CompeteMissionThread.builder().name("test").locker(locker).group(group).build();
+        };
+        SpringMission mission2 = new SpringMission() {
+
+            @Override
+            public String target() {
+                return "mission1";
+            }
+
+            @Override
+            public void start() {
+                LOG.info("misssion1 run");
+            }
+        };
+
+        SpringMissionThread thread = SpringMissionThread.builder().name("test").locker(locker).mission(mission1)
+                .mission(mission2).build();
         thread.start();
 
         Sleeping.sleep(TimeConstants.MINUTE * 10);

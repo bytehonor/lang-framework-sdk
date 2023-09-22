@@ -16,27 +16,27 @@ import com.google.common.base.Objects;
  * @author lijianqiang
  *
  */
-public class CompeteMissionTask extends LoopIntervalTask {
+public class SpringMissionTask extends LoopIntervalTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CompeteMissionThread.class);
-
-    private final CompeteMissionGroup group;
+    private static final Logger LOG = LoggerFactory.getLogger(SpringMissionThread.class);
 
     private final String name;
 
-    private final CompeteMissionLocker locker;
+    private final SpringMissionLocker locker;
 
-    private final CompleteMissionConfig config;
+    private final SpringMissionConfig config;
+
+    private final List<SpringMission> missions;
 
     private String target;
 
-    public CompeteMissionTask(CompeteMissionGroup group, String name, CompeteMissionLocker locker,
-            CompleteMissionConfig config) {
+    public SpringMissionTask(String name, SpringMissionLocker locker, SpringMissionConfig config,
+            List<SpringMission> missions) {
         this.target = "";
-        this.group = group;
         this.name = name;
         this.locker = locker;
         this.config = config;
+        this.missions = missions;
     }
 
     @Override
@@ -65,19 +65,18 @@ public class CompeteMissionTask extends LoopIntervalTask {
             return;
         }
 
-        List<CompeteMission> missions = group.getMissions();
         if (CollectionUtils.isEmpty(missions)) {
             LOG.info("missions empty");
             return;
         }
 
-        for (CompeteMission mission : missions) {
+        for (SpringMission mission : missions) {
             if (locker.lock(mission.target(), name, config.getTaskLockMillis()) == false) {
                 continue;
             }
 
             target = mission.target();
-            mission.run();
+            mission.start();
             LOG.info("doCompete target:{}, name:{}", target, name);
             break;
         }
@@ -98,12 +97,11 @@ public class CompeteMissionTask extends LoopIntervalTask {
     }
 
     private void doCheck() {
-        List<CompeteMission> missions = group.getMissions();
         if (CollectionUtils.isEmpty(missions)) {
             return;
         }
 
-        for (CompeteMission mission : missions) {
+        for (SpringMission mission : missions) {
             if (SpringString.isEmpty(locker.get(mission.target()))) {
                 LOG.warn("doCheck target:{} no runner", mission.target());
             }

@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.lang.spring.mission;
 
-public interface CompeteMissionLocker {
+public interface SpringMissionLocker {
 
     public boolean lock(String key, String value, long millis);
 

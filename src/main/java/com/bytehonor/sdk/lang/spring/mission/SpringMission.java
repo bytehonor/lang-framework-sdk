@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.lang.spring.mission;
 
-public interface CompeteMission {
+public interface SpringMission {
 
     public String target();
 
-    public void run();
+    public void start();
 }
