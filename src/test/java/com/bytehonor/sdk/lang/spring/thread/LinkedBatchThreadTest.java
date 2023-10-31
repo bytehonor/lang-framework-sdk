@@ -37,13 +37,13 @@ public class LinkedBatchThreadTest {
             thread.add(i);
         }
 
-        Sleeping.sleep(10000L);
+        Sleep.millis(10000L);
 
         for (int i = 100; i < 137; i++) {
             thread.add(i);
         }
 
-        Sleeping.sleep(30000L);
+        Sleep.millis(30000L);
 
         LOG.info("main end");
     }

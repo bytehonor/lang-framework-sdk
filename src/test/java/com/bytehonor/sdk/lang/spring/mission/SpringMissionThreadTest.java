@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
-import com.bytehonor.sdk.lang.spring.thread.Sleeping;
+import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
 public class SpringMissionThreadTest {
 
@@ -66,7 +66,7 @@ public class SpringMissionThreadTest {
                 .mission(mission2).build();
         thread.start();
 
-        Sleeping.sleep(TimeConstants.MINUTE * 10);
+        Sleep.millis(TimeConstants.MINUTE * 10);
     }
 
 }

@@ -18,7 +18,7 @@ public abstract class LoopIntervalTask extends SafeTask {
         long delays = delays();
         if (delays > 0) {
             LOG.info("delays:{}", delays);
-            Sleeping.sleep(delays);
+            Sleep.millis(delays);
         }
 
         while (true) {
@@ -27,7 +27,7 @@ public abstract class LoopIntervalTask extends SafeTask {
             } catch (Exception e) {
                 LOG.error("runThenSleep", e);
             }
-            Sleeping.sleep(intervals());
+            Sleep.millis(intervals());
         }
     }
 }

@@ -9,11 +9,11 @@ import com.bytehonor.sdk.lang.spring.core.Randomizer;
  * @author lijianqiang
  *
  */
-public class Sleeping {
+public class Sleep {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Sleeping.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Sleep.class);
 
-    public static void sleep(long millis) {
+    public static void millis(long millis) {
         if (millis < 1L) {
             return;
         }
@@ -34,6 +34,6 @@ public class Sleeping {
      */
     public static void rand(int min, int max) {
         int rand = Randomizer.integer(min, max);
-        sleep(100L * rand);
+        millis(100L * rand);
     }
 }
