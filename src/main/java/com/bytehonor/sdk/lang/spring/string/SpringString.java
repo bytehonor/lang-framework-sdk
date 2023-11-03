@@ -21,7 +21,7 @@ public class SpringString {
     }
 
     public static String reverse(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (isEmpty(src)) {
             return StringConstants.EMPTY;
         }
         StringBuilder sb = new StringBuilder().append(src).reverse();
@@ -35,7 +35,7 @@ public class SpringString {
      * @return 转换好的字符串
      */
     public static String camelToUnderline(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (isEmpty(src)) {
             return StringConstants.EMPTY;
         }
         int len = src.length();
@@ -57,7 +57,7 @@ public class SpringString {
      * @return 转换好的字符串
      */
     public static String underlineToCamel(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (isEmpty(src)) {
             return StringConstants.EMPTY;
         }
         String temp = src.toLowerCase();
