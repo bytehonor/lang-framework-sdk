@@ -54,14 +54,23 @@ public class KeyMatcher {
         return new KeyMatcher(key, value, type, operator);
     }
 
+    /**
+     * 字符串空值也会被采纳
+     * 
+     * @param matcher
+     * @return
+     */
     public static boolean accept(KeyMatcher matcher) {
         if (matcher == null) {
+            return false;
+        }
+        if (matcher.getOperator() == null) {
             return false;
         }
         if (SpringString.isEmpty(matcher.getKey())) {
             return false;
         }
-        return matcher.getOperator() != null && matcher.getKey() != null && matcher.getValue() != null;
+        return matcher.getValue() != null;
     }
 
     /**
