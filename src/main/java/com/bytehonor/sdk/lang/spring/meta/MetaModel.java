@@ -20,18 +20,18 @@ public class MetaModel {
 
     private String name;
 
-    private List<MetaModelField> fields;
+    private final List<MetaModelField> fields;
 
-    private final Set<String> keys;
+    private final Set<String> camels;
 
-    private final Set<String> columns;
+    private final Set<String> underlines;
 
     private final Map<String, MetaModelField> map;
 
     public MetaModel() {
         fields = new ArrayList<MetaModelField>();
-        keys = new HashSet<String>();
-        columns = new HashSet<String>();
+        camels = new HashSet<String>();
+        underlines = new HashSet<String>();
         map = new HashMap<String, MetaModelField>();
     }
 
@@ -47,50 +47,49 @@ public class MetaModel {
         return fields;
     }
 
-    public void setFields(List<MetaModelField> fields) {
-        this.fields = fields;
+    public Set<String> getCamels() {
+        return camels;
     }
 
-    public Set<String> getKeys() {
-        return keys;
+    public Set<String> getUnderlines() {
+        return underlines;
     }
 
-    public Set<String> getColumns() {
-        return columns;
+    public void add(MetaModelField field) {
+        Objects.requireNonNull(field, "field");
+
+        fields.add(field);
+        camels.add(field.getCamel());
+        underlines.add(field.getUnderline());
+
+        if (map.containsKey(field.getCamel()) == false) {
+            map.put(field.getCamel(), field);
+        }
+
+        if (map.containsKey(field.getUnderline()) == false) {
+            map.put(field.getUnderline(), field);
+        }
     }
 
     public void check() {
         if (CollectionUtils.isEmpty(fields)) {
             throw new SpringLangException("no fields");
         }
-
-        for (MetaModelField field : fields) {
-            keys.add(field.getKey());
-            columns.add(field.getColumn());
-
-            if (map.containsKey(field.getKey()) == false) {
-                map.put(field.getKey(), field);
-            }
-
-            if (map.containsKey(field.getColumn()) == false) {
-                map.put(field.getColumn(), field);
-            }
-        }
     }
 
-    public boolean hasKey(String key) {
-        Objects.requireNonNull(key, "key");
-        return keys.contains(key);
+    public boolean hasCamel(String field) {
+        Objects.requireNonNull(field, "field");
+        return camels.contains(field);
     }
 
-    public boolean hasColumn(String column) {
-        Objects.requireNonNull(column, "column");
-        return columns.contains(column);
+    public boolean hasUnderline(String field) {
+        Objects.requireNonNull(field, "field");
+        return underlines.contains(field);
     }
 
     public boolean contains(String field) {
         Objects.requireNonNull(field, "field");
-        return keys.contains(field) || columns.contains(field);
+        return hasCamel(field) || hasUnderline(field);
     }
 
     public MetaModelField getIfPresent(String field) {

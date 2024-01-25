@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.bytehonor.sdk.lang.spring.constant.JavaValueTypes;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
+import com.bytehonor.sdk.lang.spring.meta.MetaGetter;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
@@ -14,7 +15,7 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
 public class QueryFilter {
 
     /**
-     * 忽略驼峰及下划线风格
+     * 忽略驼峰及下划线风格, 统一转成了下划线
      */
     private final String key;
 
@@ -31,7 +32,7 @@ public class QueryFilter {
     private final SqlOperator operator;
 
     private QueryFilter(String key, Object value, String type, SqlOperator operator) {
-        this.key = key;
+        this.key = MetaGetter.underline(key);
         this.value = value;
         this.type = type;
         this.operator = operator;
@@ -334,18 +335,6 @@ public class QueryFilter {
     public static <T> QueryFilter in(String key, Collection<T> values, String type) {
         return of(key, values, type, SqlOperator.IN);
     }
-
-//    public static KeyMatcher ins(String key, Collection<String> value) {
-//        return of(key, value, JavaValueTypes.STRING, SqlOperator.IN);
-//    }
-//
-//    public static KeyMatcher inl(String key, Collection<Long> value) {
-//        return of(key, value, JavaValueTypes.LONG, SqlOperator.IN);
-//    }
-//
-//    public static KeyMatcher ini(String key, Collection<Integer> value) {
-//        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.IN);
-//    }
 
     public String getKey() {
         return key;

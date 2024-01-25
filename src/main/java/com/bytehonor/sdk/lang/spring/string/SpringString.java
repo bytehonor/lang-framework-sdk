@@ -42,10 +42,14 @@ public class SpringString {
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             char c = src.charAt(i);
-            if (Character.isUpperCase(c) && i > 0) {
-                sb.append(CharConstants.UNDERLINE);
+            if (Character.isUpperCase(c)) {
+                if (i != 0) {
+                    sb.append(CharConstants.UNDERLINE);
+                }
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
             }
-            sb.append(Character.toLowerCase(c));
         }
         return sb.toString();
     }

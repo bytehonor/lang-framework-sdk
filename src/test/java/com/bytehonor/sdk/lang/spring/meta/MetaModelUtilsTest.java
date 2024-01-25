@@ -16,7 +16,7 @@ public class MetaModelUtilsTest {
         LOG.info("name:{}", model.getName());
         List<MetaModelField> fields = model.getFields();
         for (MetaModelField field : fields) {
-            LOG.info("key:{}, column:{}, type:{}", field.getKey(), field.getColumn(), field.getType());
+            LOG.info("camel:{}, underline:{}, type:{}", field.getCamel(), field.getUnderline(), field.getType());
         }
     }
 
