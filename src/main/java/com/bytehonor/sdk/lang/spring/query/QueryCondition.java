@@ -396,6 +396,12 @@ public final class QueryCondition {
         return filters.containsKey(key);
     }
 
+    public <T> String getString(GetString<T> getter) {
+        String key = Getters.field(getter);
+        QueryFilter filter = filters.get(key);
+        return filter != null ? filter.getValue().toString() : null;
+    }
+
     public boolean sorted() {
         return SpringString.isEmpty(order.getKey()) == false;
     }
