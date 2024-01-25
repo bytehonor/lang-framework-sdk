@@ -383,7 +383,7 @@ public final class QueryCondition {
         return logic;
     }
 
-    public List<QueryFilter> lsitFilters() {
+    public List<QueryFilter> listFilters() {
         List<QueryFilter> list = new ArrayList<QueryFilter>();
         for (Entry<String, QueryFilter> item : filters.entrySet()) {
             list.add(item.getValue());
