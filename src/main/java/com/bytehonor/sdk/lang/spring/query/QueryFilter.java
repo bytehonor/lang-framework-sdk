@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.match;
+package com.bytehonor.sdk.lang.spring.query;
 
 import java.util.Collection;
 
@@ -11,7 +11,7 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  * @author lijianqiang
  *
  */
-public class KeyMatcher {
+public class QueryFilter {
 
     /**
      * 忽略驼峰及下划线风格
@@ -30,18 +30,18 @@ public class KeyMatcher {
 
     private final SqlOperator operator;
 
-    private KeyMatcher(String key, Object value, String type, SqlOperator operator) {
+    private QueryFilter(String key, Object value, String type, SqlOperator operator) {
         this.key = key;
         this.value = value;
         this.type = type;
         this.operator = operator;
     }
 
-    public static KeyMatcher non() {
-        return new KeyMatcher("", "", JavaValueTypes.STRING, SqlOperator.EQ);
+    public static QueryFilter non() {
+        return new QueryFilter("", "", JavaValueTypes.STRING, SqlOperator.EQ);
     }
 
-    public static KeyMatcher of(String key, Object value, String type, SqlOperator operator) {
+    public static QueryFilter of(String key, Object value, String type, SqlOperator operator) {
         if (SqlOperator.LIKE.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
             throw new SpringLangException(key + " cannt be like");
         }
@@ -51,26 +51,26 @@ public class KeyMatcher {
         if (SqlOperator.LIKE_RIGHT.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
             throw new SpringLangException(key + " cannt be like");
         }
-        return new KeyMatcher(key, value, type, operator);
+        return new QueryFilter(key, value, type, operator);
     }
 
     /**
      * 字符串空值也会被采纳
      * 
-     * @param matcher
+     * @param filter
      * @return
      */
-    public static boolean accept(KeyMatcher matcher) {
-        if (matcher == null) {
+    public static boolean accept(QueryFilter filter) {
+        if (filter == null) {
             return false;
         }
-        if (matcher.getOperator() == null) {
+        if (filter.getOperator() == null) {
             return false;
         }
-        if (SpringString.isEmpty(matcher.getKey())) {
+        if (SpringString.isEmpty(filter.getKey())) {
             return false;
         }
-        return matcher.getValue() != null;
+        return filter.getValue() != null;
     }
 
     /**
@@ -83,7 +83,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher eq(String key, String value) {
+    public static QueryFilter eq(String key, String value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.EQ);
     }
 
@@ -97,7 +97,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher eq(String key, Long value) {
+    public static QueryFilter eq(String key, Long value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.EQ);
     }
 
@@ -111,7 +111,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher eq(String key, Integer value) {
+    public static QueryFilter eq(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.EQ);
     }
 
@@ -125,7 +125,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher eq(String key, Boolean value) {
+    public static QueryFilter eq(String key, Boolean value) {
         return of(key, value, JavaValueTypes.BOOLEAN, SqlOperator.EQ);
     }
 
@@ -139,7 +139,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher neq(String key, String value) {
+    public static QueryFilter neq(String key, String value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.NEQ);
     }
 
@@ -153,7 +153,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher neq(String key, Long value) {
+    public static QueryFilter neq(String key, Long value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.NEQ);
     }
 
@@ -167,7 +167,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher neq(String key, Integer value) {
+    public static QueryFilter neq(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.NEQ);
     }
 
@@ -181,7 +181,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher neq(String key, Boolean value) {
+    public static QueryFilter neq(String key, Boolean value) {
         return of(key, value, JavaValueTypes.BOOLEAN, SqlOperator.NEQ);
     }
 
@@ -194,7 +194,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher gt(String key, Long value) {
+    public static QueryFilter gt(String key, Long value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.GT);
     }
 
@@ -207,7 +207,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher gt(String key, Integer value) {
+    public static QueryFilter gt(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.GT);
     }
 
@@ -220,7 +220,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher gt(String key, Double value) {
+    public static QueryFilter gt(String key, Double value) {
         return of(key, value, JavaValueTypes.DOUBLE, SqlOperator.GT);
     }
 
@@ -233,7 +233,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher egt(String key, Long value) {
+    public static QueryFilter egt(String key, Long value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.EGT);
     }
 
@@ -246,7 +246,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher egt(String key, Integer value) {
+    public static QueryFilter egt(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.EGT);
     }
 
@@ -259,7 +259,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher lt(String key, Long value) {
+    public static QueryFilter lt(String key, Long value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.LT);
     }
 
@@ -272,7 +272,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher lt(String key, Integer value) {
+    public static QueryFilter lt(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.LT);
     }
 
@@ -285,7 +285,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher lt(String key, Double value) {
+    public static QueryFilter lt(String key, Double value) {
         return of(key, value, JavaValueTypes.DOUBLE, SqlOperator.LT);
     }
 
@@ -298,7 +298,7 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher elt(String key, Long value) {
+    public static QueryFilter elt(String key, Long value) {
         return of(key, value, JavaValueTypes.LONG, SqlOperator.ELT);
     }
 
@@ -311,27 +311,27 @@ public class KeyMatcher {
      * @param value
      * @return
      */
-    public static KeyMatcher elt(String key, Integer value) {
+    public static QueryFilter elt(String key, Integer value) {
         return of(key, value, JavaValueTypes.INTEGER, SqlOperator.ELT);
     }
 
-    public static KeyMatcher like(String key, String value) {
+    public static QueryFilter like(String key, String value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE);
     }
 
-    public static KeyMatcher likeLeft(String key, String value) {
+    public static QueryFilter likeLeft(String key, String value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE_LEFT);
     }
 
-    public static KeyMatcher likeRight(String key, String value) {
+    public static QueryFilter likeRight(String key, String value) {
         return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE_RIGHT);
     }
 
-    public static <T> KeyMatcher in(String key, Collection<T> values, Class<T> type) {
+    public static <T> QueryFilter in(String key, Collection<T> values, Class<T> type) {
         return of(key, values, type.getName(), SqlOperator.IN);
     }
 
-    public static <T> KeyMatcher in(String key, Collection<T> values, String type) {
+    public static <T> QueryFilter in(String key, Collection<T> values, String type) {
         return of(key, values, type, SqlOperator.IN);
     }
 

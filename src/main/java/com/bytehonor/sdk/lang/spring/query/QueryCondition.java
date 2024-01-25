@@ -2,7 +2,10 @@ package com.bytehonor.sdk.lang.spring.query;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
@@ -14,7 +17,6 @@ import com.bytehonor.sdk.lang.spring.function.getter.GetDouble;
 import com.bytehonor.sdk.lang.spring.function.getter.GetInteger;
 import com.bytehonor.sdk.lang.spring.function.getter.GetLong;
 import com.bytehonor.sdk.lang.spring.function.getter.GetString;
-import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
@@ -34,7 +36,7 @@ public final class QueryCondition {
 
     private final QueryOrder order;
 
-    private final List<KeyMatcher> matchers;
+    private final Map<String, QueryFilter> filters;
 
     private QueryCondition(QueryLogic logic, QueryPager pager) {
         Objects.requireNonNull(logic, "logic");
@@ -43,7 +45,7 @@ public final class QueryCondition {
         this.logic = logic;
         this.pager = pager;
         this.order = QueryOrder.non();
-        this.matchers = new ArrayList<KeyMatcher>();
+        this.filters = new HashMap<String, QueryFilter>();
     }
 
     public static QueryCondition one() {
@@ -74,9 +76,9 @@ public final class QueryCondition {
         return new QueryCondition(logic, pager);
     }
 
-    public QueryCondition add(KeyMatcher matcher) {
-        if (KeyMatcher.accept(matcher)) {
-            this.matchers.add(matcher);
+    public QueryCondition add(QueryFilter filter) {
+        if (QueryFilter.accept(filter)) {
+            this.filters.put(filter.getKey(), filter);
         }
         return this;
     }
@@ -89,7 +91,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetString<T> getter, String value) {
-        return this.add(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(QueryFilter.eq(Getters.field(getter), value));
     }
 
     /**
@@ -100,7 +102,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetLong<T> getter, Long value) {
-        return this.add(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(QueryFilter.eq(Getters.field(getter), value));
     }
 
     /**
@@ -111,7 +113,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetInteger<T> getter, Integer value) {
-        return this.add(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(QueryFilter.eq(Getters.field(getter), value));
     }
 
     /**
@@ -122,7 +124,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetBoolean<T> getter, Boolean value) {
-        return this.add(KeyMatcher.eq(Getters.field(getter), value));
+        return this.add(QueryFilter.eq(Getters.field(getter), value));
     }
 
     /**
@@ -133,7 +135,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetString<T> getter, String value) {
-        return this.add(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(QueryFilter.neq(Getters.field(getter), value));
     }
 
     /**
@@ -144,7 +146,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetLong<T> getter, Long value) {
-        return this.add(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(QueryFilter.neq(Getters.field(getter), value));
     }
 
     /**
@@ -155,7 +157,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetInteger<T> getter, Integer value) {
-        return this.add(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(QueryFilter.neq(Getters.field(getter), value));
     }
 
     /**
@@ -166,7 +168,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetBoolean<T> getter, Boolean value) {
-        return this.add(KeyMatcher.neq(Getters.field(getter), value));
+        return this.add(QueryFilter.neq(Getters.field(getter), value));
     }
 
     /**
@@ -177,7 +179,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(GetLong<T> getter, Long value) {
-        return this.add(KeyMatcher.gt(Getters.field(getter), value));
+        return this.add(QueryFilter.gt(Getters.field(getter), value));
     }
 
     /**
@@ -188,7 +190,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(GetInteger<T> getter, Integer value) {
-        return this.add(KeyMatcher.gt(Getters.field(getter), value));
+        return this.add(QueryFilter.gt(Getters.field(getter), value));
     }
 
     /**
@@ -199,7 +201,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(GetDouble<T> getter, Double value) {
-        return this.add(KeyMatcher.gt(Getters.field(getter), value));
+        return this.add(QueryFilter.gt(Getters.field(getter), value));
     }
 
     /**
@@ -210,7 +212,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition egt(GetLong<T> getter, Long value) {
-        return this.add(KeyMatcher.egt(Getters.field(getter), value));
+        return this.add(QueryFilter.egt(Getters.field(getter), value));
     }
 
     /**
@@ -221,7 +223,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition egt(GetInteger<T> getter, Integer value) {
-        return this.add(KeyMatcher.egt(Getters.field(getter), value));
+        return this.add(QueryFilter.egt(Getters.field(getter), value));
     }
 
     /**
@@ -232,7 +234,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetLong<T> getter, Long value) {
-        return this.add(KeyMatcher.lt(Getters.field(getter), value));
+        return this.add(QueryFilter.lt(Getters.field(getter), value));
     }
 
     /**
@@ -243,7 +245,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetInteger<T> getter, Integer value) {
-        return this.add(KeyMatcher.lt(Getters.field(getter), value));
+        return this.add(QueryFilter.lt(Getters.field(getter), value));
     }
 
     /**
@@ -254,7 +256,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetDouble<T> getter, Double value) {
-        return this.add(KeyMatcher.lt(Getters.field(getter), value));
+        return this.add(QueryFilter.lt(Getters.field(getter), value));
     }
 
     /**
@@ -265,7 +267,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition elt(GetLong<T> getter, Long value) {
-        return this.add(KeyMatcher.elt(Getters.field(getter), value));
+        return this.add(QueryFilter.elt(Getters.field(getter), value));
     }
 
     /**
@@ -276,31 +278,31 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition elt(GetInteger<T> getter, Integer value) {
-        return this.add(KeyMatcher.elt(Getters.field(getter), value));
+        return this.add(QueryFilter.elt(Getters.field(getter), value));
     }
 
     public <T> QueryCondition like(GetString<T> getter, String value) {
-        return this.add(KeyMatcher.like(Getters.field(getter), value));
+        return this.add(QueryFilter.like(Getters.field(getter), value));
     }
 
     public <T> QueryCondition likeLeft(GetString<T> getter, String value) {
-        return this.add(KeyMatcher.likeLeft(Getters.field(getter), value));
+        return this.add(QueryFilter.likeLeft(Getters.field(getter), value));
     }
 
     public <T> QueryCondition likeRight(GetString<T> getter, String value) {
-        return this.add(KeyMatcher.likeRight(Getters.field(getter), value));
+        return this.add(QueryFilter.likeRight(Getters.field(getter), value));
     }
 
     public <T> QueryCondition in(GetString<T> getter, Collection<String> value) {
-        return this.add(KeyMatcher.in(Getters.field(getter), value, String.class));
+        return this.add(QueryFilter.in(Getters.field(getter), value, String.class));
     }
 
     public <T> QueryCondition in(GetLong<T> getter, Collection<Long> value) {
-        return this.add(KeyMatcher.in(Getters.field(getter), value, Long.class));
+        return this.add(QueryFilter.in(Getters.field(getter), value, Long.class));
     }
 
     public <T> QueryCondition in(GetInteger<T> getter, Collection<Integer> value) {
-        return this.add(KeyMatcher.in(Getters.field(getter), value, Integer.class));
+        return this.add(QueryFilter.in(Getters.field(getter), value, Integer.class));
     }
 
     public <T> QueryCondition desc(ClassGetter<T, ?> getter) {
@@ -381,8 +383,17 @@ public final class QueryCondition {
         return logic;
     }
 
-    public List<KeyMatcher> getMatchers() {
-        return matchers;
+    public List<QueryFilter> lsitFilters() {
+        List<QueryFilter> list = new ArrayList<QueryFilter>();
+        for (Entry<String, QueryFilter> item : filters.entrySet()) {
+            list.add(item.getValue());
+        }
+        return list;
+    }
+
+    public <T> boolean has(ClassGetter<T, ?> getter) {
+        String key = Getters.field(getter);
+        return filters.containsKey(key);
     }
 
     public boolean sorted() {
