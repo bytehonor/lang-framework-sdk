@@ -3,10 +3,12 @@ package com.bytehonor.sdk.lang.spring.query;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Set;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
@@ -38,9 +40,11 @@ public final class QueryCondition {
     private final QueryOrder order;
 
     /**
-     * key是下划线风格
+     * unique = key + operator, key是下划线风格, 且要拼接操作符, 防止 key gt 同时 key lt 的条件
      */
     private final Map<String, QueryFilter> filters;
+
+    private final Set<String> keys;
 
     private QueryCondition(QueryLogic logic, QueryPager pager) {
         Objects.requireNonNull(logic, "logic");
@@ -50,6 +54,7 @@ public final class QueryCondition {
         this.pager = pager;
         this.order = QueryOrder.non();
         this.filters = new HashMap<String, QueryFilter>();
+        this.keys = new HashSet<String>();
     }
 
     public static QueryCondition one() {
@@ -82,7 +87,8 @@ public final class QueryCondition {
 
     public QueryCondition add(QueryFilter filter) {
         if (QueryFilter.accept(filter)) {
-            this.filters.put(filter.getKey(), filter);
+            this.filters.put(filter.unique(), filter); // 必须用unique
+            this.keys.add(filter.getKey());
         }
         return this;
     }
@@ -397,7 +403,7 @@ public final class QueryCondition {
 
     public <T> boolean has(ClassGetter<T, ?> getter) {
         String key = key(getter);
-        return filters.containsKey(key);
+        return keys.contains(key);
     }
 
     public <T> String getString(GetString<T> getter) {

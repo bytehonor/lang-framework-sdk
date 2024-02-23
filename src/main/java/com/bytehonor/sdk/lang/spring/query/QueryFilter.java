@@ -352,8 +352,12 @@ public class QueryFilter {
         return operator;
     }
 
-    public String uuid() {
-        return new StringBuilder().append(key).append("-").append(operator.getKey()).toString();
+    public String unique() {
+        return unique(key, operator.getKey());
+    }
+
+    public static String unique(String key, String operator) {
+        return new StringBuilder().append(key).append("-").append(operator).toString();
     }
 
 }
