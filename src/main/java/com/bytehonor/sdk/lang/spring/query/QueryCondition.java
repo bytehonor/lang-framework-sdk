@@ -12,6 +12,7 @@ import java.util.Set;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
+import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.function.ClassGetter;
 import com.bytehonor.sdk.lang.spring.function.Getters;
 import com.bytehonor.sdk.lang.spring.function.getter.GetBoolean;
@@ -406,10 +407,19 @@ public final class QueryCondition {
         return keys.contains(key);
     }
 
-    public <T> String getString(GetString<T> getter) {
+    public <T> String getString(GetString<T> getter, String operator) {
         String key = key(getter);
-        QueryFilter filter = filters.get(key);
+        if (keys.contains(key) == false) {
+            return null;
+        }
+
+        String unique = QueryFilter.unique(key, operator);
+        QueryFilter filter = filters.get(unique);
         return filter != null ? filter.getValue().toString() : null;
+    }
+
+    public <T> String getStringEq(GetString<T> getter) {
+        return getString(getter, SqlOperator.EQ.getKey());
     }
 
     public static <T> String key(ClassGetter<T, ?> getter) {
