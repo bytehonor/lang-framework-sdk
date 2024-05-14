@@ -1,10 +1,14 @@
 package com.bytehonor.sdk.lang.spring.string;
 
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 import java.util.Objects;
 
-import org.springframework.util.Base64Utils;
-
 public class StringBase64Utils {
+
+    private static final Encoder ENCODER = Base64.getUrlEncoder();
+    private static final Decoder DECODER = Base64.getUrlDecoder();
 
     public static String encodeSafe(String src) {
         Objects.requireNonNull(src, "src");
@@ -28,7 +32,8 @@ public class StringBase64Utils {
         if (SpringString.isEmpty(src)) {
             return "";
         }
-        return Base64Utils.encodeToUrlSafeString(src.getBytes());
+        // return Base64Utils.encodeToUrlSafeString(src.getBytes());
+        return ENCODER.encodeToString(src.getBytes());
     }
 
     public static String decode(String base) {
@@ -36,6 +41,7 @@ public class StringBase64Utils {
         if (SpringString.isEmpty(base)) {
             return "";
         }
-        return new String(Base64Utils.decodeFromUrlSafeString(base));
+        // return new String(Base64Utils.decodeFromUrlSafeString(base));
+        return new String(DECODER.decode(base));
     }
 }
