@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '0.5.2'
+version = '0.5.3'
 
 java {
     sourceCompatibility = 17
@@ -24,7 +24,6 @@ repositories {
 }
 
 dependencies {
-    api('cglib:cglib:3.3.0')
     api('com.google.guava:guava:33.2.0-jre')
     api('org.springframework:spring-core:6.1.6')
     api('com.fasterxml.jackson.core:jackson-annotations:2.15.4')
