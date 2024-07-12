@@ -1,9 +1,8 @@
 package com.bytehonor.sdk.lang.spring.thread;
 
 import java.util.Objects;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +11,11 @@ public class SpringTaskExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutor.class);
 
-    private final ThreadPoolExecutor executor;
+    private final ExecutorService service;
 
     private SpringTaskExecutor() {
-        this.executor = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(4096));
+        int nThreads = Runtime.getRuntime().availableProcessors();
+        this.service = Executors.newFixedThreadPool(nThreads + 1);
     }
 
     /**
@@ -26,14 +26,14 @@ public class SpringTaskExecutor {
         private static SpringTaskExecutor SINGLE = new SpringTaskExecutor();
     }
 
-    private static SpringTaskExecutor me() {
+    private static SpringTaskExecutor self() {
         return LazyHolder.SINGLE;
     }
 
     public static void put(Runnable runnable) {
         Objects.requireNonNull(runnable, "runnable");
         try {
-            me().executor.execute(runnable);
+            self().service.execute(runnable);
         } catch (Exception e) {
             LOG.error("execute({}) error:{}", runnable.getClass().getSimpleName(), e);
         }
