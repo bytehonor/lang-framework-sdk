@@ -12,7 +12,7 @@ public class SpringTaskExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutor.class);
 
-    private final static String NAMED = "spring-task-thread-";
+    private static final String NAMED = "spring-task-thread-";
 
     private final ExecutorService service;
 
