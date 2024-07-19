@@ -11,6 +11,7 @@ import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
  * @author lijianqiang
  *
  */
+@Deprecated
 public class SpringScheduleExecutor {
 
     private final static String NAMED = "spring-schedule-thread-";
