@@ -5,16 +5,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
+
 /**
  * @author lijianqiang
  *
  */
 public class SpringScheduleExecutor {
 
+    private final static String NAMED = "spring-schedule-thread-";
+
     private final ScheduledExecutorService service;
 
     private SpringScheduleExecutor() {
-        this.service = Executors.newSingleThreadScheduledExecutor();
+        this.service = Executors.newSingleThreadScheduledExecutor(new CustomizableThreadFactory(NAMED));
     }
 
     private static class LazyHolder {

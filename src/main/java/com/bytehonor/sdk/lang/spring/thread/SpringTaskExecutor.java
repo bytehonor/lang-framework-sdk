@@ -6,16 +6,19 @@ import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 public class SpringTaskExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutor.class);
 
+    private final static String NAMED = "spring-task-thread-";
+
     private final ExecutorService service;
 
     private SpringTaskExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newFixedThreadPool(nThreads + 1);
+        this.service = Executors.newFixedThreadPool(nThreads + 1, new CustomizableThreadFactory(NAMED));
     }
 
     /**
