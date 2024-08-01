@@ -21,4 +21,8 @@ public class TimeConstants {
     public static long WEEK = DAY * 7;
 
     public static long MONTH = DAY * 30;
+
+    public static long MONTH_HALF = DAY * 15;
+
+    public static long YEAR_HALF = DAY * 180;
 }
