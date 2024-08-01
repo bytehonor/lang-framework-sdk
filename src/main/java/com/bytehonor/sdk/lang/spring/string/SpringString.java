@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.lang.spring.string;
 
+import java.util.Objects;
+
 import com.bytehonor.sdk.lang.spring.constant.CharConstants;
 import com.bytehonor.sdk.lang.spring.constant.StringConstants;
 
@@ -17,7 +19,7 @@ public class SpringString {
         if (src1 == null || src2 == null) {
             return false;
         }
-        return src1.equals(src2);
+        return Objects.equals(src1, src2);
     }
 
     public static String reverse(String src) {

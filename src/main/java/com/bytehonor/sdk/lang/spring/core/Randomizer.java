@@ -3,7 +3,6 @@ package com.bytehonor.sdk.lang.spring.core;
 import java.util.Random;
 
 /**
- * Random Utils
  * 
  * @author lijianqiang
  *
