@@ -2,12 +2,10 @@ package com.bytehonor.sdk.lang.spring.thread;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 /**
  * @author lijianqiang
@@ -22,7 +20,7 @@ public class RateLimitedExecutor {
     private final ExecutorService service;
 
     private RateLimitedExecutor() {
-        this.service = Executors.newFixedThreadPool(1, new CustomizableThreadFactory(NAMED));
+        this.service = ThreadPoolBuilder.single(NAMED);
     }
 
     private static class LazyHolder {

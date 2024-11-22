@@ -2,12 +2,14 @@ package com.bytehonor.sdk.lang.spring.thread;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class SpringTaskExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutor.class);
@@ -17,8 +19,7 @@ public class SpringTaskExecutor {
     private final ExecutorService service;
 
     private SpringTaskExecutor() {
-        int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newFixedThreadPool(nThreads + 1, new CustomizableThreadFactory(NAMED));
+        this.service = ThreadPoolBuilder.full(NAMED);
     }
 
     /**
