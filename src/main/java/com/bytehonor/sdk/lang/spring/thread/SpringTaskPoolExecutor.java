@@ -10,15 +10,15 @@ import org.slf4j.LoggerFactory;
  * @author lijianqiang
  *
  */
-public class SpringTaskExecutor {
+public class SpringTaskPoolExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringTaskPoolExecutor.class);
 
     private static final String NAMED = "spring-task-thread-";
 
     private final ExecutorService service;
 
-    private SpringTaskExecutor() {
+    private SpringTaskPoolExecutor() {
         this.service = ThreadPoolBuilder.full(NAMED);
     }
 
@@ -27,10 +27,10 @@ public class SpringTaskExecutor {
      *
      */
     private static class LazyHolder {
-        private static SpringTaskExecutor SINGLE = new SpringTaskExecutor();
+        private static SpringTaskPoolExecutor SINGLE = new SpringTaskPoolExecutor();
     }
 
-    private static SpringTaskExecutor self() {
+    private static SpringTaskPoolExecutor self() {
         return LazyHolder.SINGLE;
     }
 
