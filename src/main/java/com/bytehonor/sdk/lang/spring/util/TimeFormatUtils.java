@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.lang.spring.constant.DateConstants;
 
+@Deprecated
 public class TimeFormatUtils {
 
     public static long toTimestamp(LocalDateTime ldt) {

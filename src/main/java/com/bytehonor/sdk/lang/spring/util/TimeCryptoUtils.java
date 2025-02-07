@@ -37,7 +37,7 @@ public class TimeCryptoUtils {
     }
 
     public static String encode(long timestamp) {
-        return encode(TimeFormatUtils.fromTimestamp(timestamp));
+        return encode(TimeConvertor.fromTimestamp(timestamp));
     }
 
     public static String encode(LocalDateTime ldt) {
