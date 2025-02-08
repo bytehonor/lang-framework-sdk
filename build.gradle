@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '0.5.15'
+version = '0.5.16'
 
 java {
     sourceCompatibility = 17
