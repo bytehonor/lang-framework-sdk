@@ -9,16 +9,16 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CollectionJoinerTest {
+public class JoinUtilsTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CollectionJoinerTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JoinUtilsTest.class);
 
     @Test
     public void testJoinStringSafe() {
         List<String> list = new ArrayList<String>();
         list.add("xxx");
         list.add("yyy");
-        LOG.info("testJoinString:{}", CollectionJoiner.joinSafe(list));
+        LOG.info("testJoinString:{}", JoinUtils.joinSafe(list));
         assertTrue("testJoinString", true);
     }
 
@@ -27,7 +27,7 @@ public class CollectionJoinerTest {
         List<Long> list = new ArrayList<Long>();
         list.add(1L);
         list.add(2L);
-        LOG.info("testJoinLong:{}", CollectionJoiner.longs(list));
+        LOG.info("testJoinLong:{}", JoinUtils.longs(list));
         assertTrue("testJoinLong", true);
     }
 
@@ -36,7 +36,7 @@ public class CollectionJoinerTest {
         List<Integer> list = new ArrayList<Integer>();
         list.add(1);
         list.add(2);
-        LOG.info("testJoinInteger:{}", CollectionJoiner.integers(list));
+        LOG.info("testJoinInteger:{}", JoinUtils.integers(list));
         assertTrue("testJoinInteger", true);
     }
 

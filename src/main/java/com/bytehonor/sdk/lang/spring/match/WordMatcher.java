@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.exception.SpringLangException;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
-import com.bytehonor.sdk.lang.spring.util.CollectionJoiner;
+import com.bytehonor.sdk.lang.spring.util.JoinUtils;
 
 /**
  * <pre>
@@ -86,7 +86,7 @@ public class WordMatcher {
 
     @Override
     public String toString() {
-        return CollectionJoiner.strings(matchers);
+        return JoinUtils.strings(matchers);
     }
 
 }

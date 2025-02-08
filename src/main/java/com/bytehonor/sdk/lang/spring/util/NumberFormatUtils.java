@@ -31,10 +31,10 @@ public class NumberFormatUtils {
         Double dou = 0.0;
         String unit = "";
         if (val < YI_VAL) {
-            dou = DoubleCalculator.divide(Double.valueOf(val), 10000.0, 2);
+            dou = DoubleMathUtils.divide(Double.valueOf(val), 10000.0, 2);
             unit = WANG;
         } else {
-            dou = DoubleCalculator.divide(Double.valueOf(val), 100000000.0, 2);
+            dou = DoubleMathUtils.divide(Double.valueOf(val), 100000000.0, 2);
             unit = YI;
         }
         String src = String.valueOf(dou);

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Deprecated
 public class JacksonUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(JacksonUtils.class);
