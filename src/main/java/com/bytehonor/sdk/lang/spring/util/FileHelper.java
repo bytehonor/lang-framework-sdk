@@ -146,7 +146,7 @@ public class FileHelper {
     public static void write(String filePath, String content) {
         RandomAccessFile raf = null;
         try {
-            isExistDir(filePath);
+            pathExistOrMake(filePath);
             raf = new RandomAccessFile(filePath, "rw");
             raf.write(content.getBytes());// 写入txt文件
         } catch (Exception e) {
@@ -168,7 +168,7 @@ public class FileHelper {
      * 
      * @param filePath 支持带文件名的Path：如：D:\news\2014\12\abc.text，和不带文件名的Path：如：D:\news\2014\12
      */
-    public static void isExistDir(String filePath) {
+    public static void pathExistOrMake(String filePath) {
         Objects.requireNonNull(filePath, "filePath");
 
         String paths[] = { "" };
@@ -230,38 +230,42 @@ public class FileHelper {
      * @param path2
      * @return
      */
-    public static String connectDirWithEnd(String path1, String path2) {
+    public static String connectWithEnd(String path1, String path2) {
         Objects.requireNonNull(path1, "path1");
-        String dir = connectPath(path1, path2);
-        if (dir.endsWith(SPL) == false) {
-            dir += SPL;
+        String path = connect(path1, path2);
+        if (path.endsWith(SPL) == false) {
+            path += SPL;
         }
-        return dir;
+        return path;
     }
 
     /**
      * 简单连接
      * 
-     * @param dir1
-     * @param dir2
+     * @param path1
+     * @param path2
      * @return
      */
-    public static String connectPath(String dir1, String dir2) {
-        Objects.requireNonNull(dir1, "dir1");
-        Objects.requireNonNull(dir2, "dir2");
-        if (dir1.endsWith(SPL) == false) {
-            dir1 += SPL;
+    public static String connect(String path1, String path2) {
+        Objects.requireNonNull(path1, "path1");
+        Objects.requireNonNull(path2, "path2");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(path1);
+        if (path1.endsWith(SPL) == false) {
+            sb.append(SPL);
         }
-        if (dir2.startsWith(SPL)) {
-            dir2 = dir2.substring(1);
+        if (path2.startsWith(SPL)) {
+            path2 = path2.substring(1);
         }
-        return dir1 + dir2;
+        sb.append(path2);
+        return sb.toString();
     }
 
     public static String subfixNoDot(String path) {
         String subfix = subfixWithDot(path);
-        if (subfix == null || subfix.isEmpty()) {
-            return subfix;
+        if (SpringString.isEmpty(subfix)) {
+            return "";
         }
 
         return subfix.substring(1, subfix.length());

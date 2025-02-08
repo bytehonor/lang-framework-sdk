@@ -23,7 +23,7 @@ public class FileHelperTestDir {
 
     // @Test
     public void testIsExistDir() {
-        FileHelper.isExistDir("\\testfile\\2018\\");
+        FileHelper.pathExistOrMake("\\testfile\\2018\\");
 
         assertTrue("*testIsExistDir*", true);
     }

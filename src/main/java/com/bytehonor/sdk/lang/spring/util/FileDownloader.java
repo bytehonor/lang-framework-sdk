@@ -76,8 +76,8 @@ public class FileDownloader {
         if (SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
             throw new RuntimeException("byte2File param is invalid");
         }
-        FileHelper.isExistDir(fileDir);// 判断文件目录是否存在
-        String filePath = FileHelper.connectPath(fileDir, fileName);
+        FileHelper.pathExistOrMake(fileDir);// 判断文件目录是否存在
+        String filePath = FileHelper.connect(fileDir, fileName);
         File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
@@ -106,9 +106,9 @@ public class FileDownloader {
         if (SpringString.isEmpty(fileUrl) || SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
-        FileHelper.isExistDir(fileDir);
+        FileHelper.pathExistOrMake(fileDir);
         LOG.debug("download fileDir:{}, fileName:{}", fileDir, fileName);
-        String filePath = FileHelper.connectPath(fileDir, fileName);
+        String filePath = FileHelper.connect(fileDir, fileName);
         File file = new File(filePath);
         // 获取连接
         InputStream in = null;
