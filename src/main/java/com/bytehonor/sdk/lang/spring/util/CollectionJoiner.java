@@ -6,7 +6,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.constant.StringConstants;
 
-public class JoinUtils {
+public class CollectionJoiner {
 
     /**
      * with quote ''

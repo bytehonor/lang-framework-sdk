@@ -16,6 +16,10 @@ public class StringGetter {
         return val;
     }
 
+    public static String optionals(String src) {
+        return optional(src, "");
+    }
+
     public static String optional(String src, String def) {
         return src != null ? src : def;
     }

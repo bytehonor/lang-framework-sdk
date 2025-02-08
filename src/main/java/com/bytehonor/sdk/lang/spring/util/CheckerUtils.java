@@ -12,7 +12,7 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  */
 public class CheckerUtils {
 
-	private static final String REGX = "^1[3|4|5|6|7|8][0-9]\\d{4,8}$";
+	private static final String REGX = "^1[3|4|5|6|7|8|9][0-9]\\d{4,8}$";
 
 	/**
 	 * @param mobile

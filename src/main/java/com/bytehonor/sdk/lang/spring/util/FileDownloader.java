@@ -21,9 +21,9 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  * @author lijianqiang
  *
  */
-public class FileDownloadUtils {
+public class FileDownloader {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileDownloadUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileDownloader.class);
 
     /**
      * 获得指定文件的byte数组
@@ -76,8 +76,8 @@ public class FileDownloadUtils {
         if (SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
             throw new RuntimeException("byte2File param is invalid");
         }
-        FileReadWriteUtils.isExistDir(fileDir);// 判断文件目录是否存在
-        String filePath = FileReadWriteUtils.connectPath(fileDir, fileName);
+        FileHelper.isExistDir(fileDir);// 判断文件目录是否存在
+        String filePath = FileHelper.connectPath(fileDir, fileName);
         File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
@@ -102,14 +102,13 @@ public class FileDownloadUtils {
         return file;
     }
 
-
     public static File download(String fileUrl, String fileDir, String fileName) {
         if (SpringString.isEmpty(fileUrl) || SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
-        FileReadWriteUtils.isExistDir(fileDir);
+        FileHelper.isExistDir(fileDir);
         LOG.debug("download fileDir:{}, fileName:{}", fileDir, fileName);
-        String filePath = FileReadWriteUtils.connectPath(fileDir, fileName);
+        String filePath = FileHelper.connectPath(fileDir, fileName);
         File file = new File(filePath);
         // 获取连接
         InputStream in = null;

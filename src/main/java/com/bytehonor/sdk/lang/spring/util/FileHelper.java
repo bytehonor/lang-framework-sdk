@@ -18,28 +18,45 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-@Deprecated
-public class FileReadWriteUtils {
+/**
+ * 20211130
+ * 
+ * @author lijianqiang
+ *
+ */
+public class FileHelper {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileReadWriteUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileHelper.class);
 
-    private static int CAPACITY = 1024;
+    private static final String SPL = "/";
 
-    private static Cache<String, Boolean> CACHE = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
-            .maximumSize(500 * CAPACITY) // 设置缓存的最大容量
-            .expireAfterWrite(3, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
-            .concurrencyLevel(20) // 设置并发级别为10
-            .build(); // .recordStats() // 开启缓存统计
+    private Cache<String, Boolean> cache;
+
+    private FileHelper() {
+        this.cache = CacheBuilder.newBuilder().initialCapacity(1024) // 设置初始容量为100
+                .maximumSize(1024 * 1024) // 设置缓存的最大容量
+                .expireAfterWrite(3, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
+                .concurrencyLevel(20) // 设置并发级别为10
+                .build(); // .recordStats() // 开启缓存统计
+    }
+
+    private static class LazyHolder {
+        private static FileHelper SINGLE = new FileHelper();
+    }
+
+    public static FileHelper self() {
+        return LazyHolder.SINGLE;
+    }
 
     private static void put(String key, Boolean value) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(value, "value");
-        CACHE.put(key, value);
+        self().cache.put(key, value);
     }
 
     private static Boolean getIfPresent(String key) {
         Objects.requireNonNull(key, "key");
-        return CACHE.getIfPresent(key);
+        return self().cache.getIfPresent(key);
     }
 
     /**
@@ -206,28 +223,60 @@ public class FileReadWriteUtils {
         }
     }
 
-    public static String subfixNoDot(String url) {
-        String subfix = subfixWithDot(url);
-        if (SpringString.isEmpty(subfix)) {
+    /**
+     * 有/结尾
+     * 
+     * @param path1
+     * @param path2
+     * @return
+     */
+    public static String connectDirWithEnd(String path1, String path2) {
+        Objects.requireNonNull(path1, "path1");
+        String dir = connectPath(path1, path2);
+        if (dir.endsWith(SPL) == false) {
+            dir += SPL;
+        }
+        return dir;
+    }
+
+    /**
+     * 简单连接
+     * 
+     * @param dir1
+     * @param dir2
+     * @return
+     */
+    public static String connectPath(String dir1, String dir2) {
+        Objects.requireNonNull(dir1, "dir1");
+        Objects.requireNonNull(dir2, "dir2");
+        if (dir1.endsWith(SPL) == false) {
+            dir1 += SPL;
+        }
+        if (dir2.startsWith(SPL)) {
+            dir2 = dir2.substring(1);
+        }
+        return dir1 + dir2;
+    }
+
+    public static String subfixNoDot(String path) {
+        String subfix = subfixWithDot(path);
+        if (subfix == null || subfix.isEmpty()) {
             return subfix;
         }
 
         return subfix.substring(1, subfix.length());
     }
 
-    public static String subfixWithDot(String url) {
-        Objects.requireNonNull(url, "url");
-        int at = url.indexOf('?');
+    public static String subfixWithDot(String path) {
+        Objects.requireNonNull(path, "path");
+        int at = path.indexOf('?');
         if (at > 1) {
-            url = url.substring(0, at);
+            path = path.substring(0, at);
         }
-        at = url.lastIndexOf('.');
+        at = path.lastIndexOf('.');
         if (at < 0) {
             return "";
         }
-        if (url.length() - at > 7) {
-            return "";
-        }
-        return url.substring(at).toLowerCase();
+        return path.substring(at).toLowerCase();
     }
 }

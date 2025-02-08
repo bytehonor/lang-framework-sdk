@@ -45,18 +45,6 @@ public final class SimpleDigestUtils {
     }
 
     /**
-     * Append a hexadecimal string representation of the MD5 digest of the given
-     * bytes to the given {@link StringBuilder}.
-     * 
-     * @param bytes   the bytes to calculate the digest over
-     * @param builder the string builder to append the digest to
-     * @return the given string builder
-     */
-    public static StringBuilder appendMd5DigestAsHex(byte[] bytes, StringBuilder builder) {
-        return appendDigestAsHex(MD5_ALGORITHM_NAME, bytes, builder);
-    }
-
-    /**
      * Create a new {@link MessageDigest} with the given algorithm. Necessary
      * because {@code MessageDigest} is not thread-safe.
      */
@@ -75,11 +63,6 @@ public final class SimpleDigestUtils {
     private static String digestAsHexString(String algorithm, byte[] bytes) {
         char[] hexDigest = digestAsHexChars(algorithm, bytes);
         return new String(hexDigest);
-    }
-
-    private static StringBuilder appendDigestAsHex(String algorithm, byte[] bytes, StringBuilder builder) {
-        char[] hexDigest = digestAsHexChars(algorithm, bytes);
-        return builder.append(hexDigest);
     }
 
     private static char[] digestAsHexChars(String algorithm, byte[] bytes) {

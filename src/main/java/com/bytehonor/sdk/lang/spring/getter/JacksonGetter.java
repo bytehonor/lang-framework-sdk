@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.lang.spring.util;
+package com.bytehonor.sdk.lang.spring.getter;
 
 import java.util.Objects;
 
@@ -12,10 +12,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Deprecated
-public class JacksonUtils {
+public class JacksonGetter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JacksonUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JacksonGetter.class);
 
     private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
 
