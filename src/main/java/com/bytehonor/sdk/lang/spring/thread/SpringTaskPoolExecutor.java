@@ -19,7 +19,7 @@ public class SpringTaskPoolExecutor {
     private final ExecutorService service;
 
     private SpringTaskPoolExecutor() {
-        this.service = ThreadPoolBuilder.full(NAMED);
+        this.service = ThreadPoolBuilder.half(NAMED);
     }
 
     /**
