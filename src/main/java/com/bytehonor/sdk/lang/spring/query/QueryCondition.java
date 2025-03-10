@@ -342,17 +342,17 @@ public final class QueryCondition {
         return this;
     }
 
-    public <T> QueryCondition sort(QueryOrderColumn column) {
-        this.order.sort(column);
+    public <T> QueryCondition order(QueryOrderColumn column) {
+        this.order.with(column);
         return this;
     }
 
-    public <T> QueryCondition sorts(List<QueryOrderColumn> list) {
+    public <T> QueryCondition orders(List<QueryOrderColumn> list) {
         if (CollectionUtils.isEmpty(list)) {
             return this;
         }
         for (QueryOrderColumn item : list) {
-            sort(item);
+            order(item);
         }
         return this;
     }

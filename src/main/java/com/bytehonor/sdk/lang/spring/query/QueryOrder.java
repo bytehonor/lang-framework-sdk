@@ -23,15 +23,15 @@ public class QueryOrder {
 
     public QueryOrder desc(String key) {
         Objects.requireNonNull(key, "key");
-        return sort(QueryOrderColumn.desc(key));
+        return with(QueryOrderColumn.desc(key));
     }
 
     public QueryOrder asc(String key) {
         Objects.requireNonNull(key, "key");
-        return sort(QueryOrderColumn.asc(key));
+        return with(QueryOrderColumn.asc(key));
     }
 
-    public QueryOrder sort(QueryOrderColumn column) {
+    public QueryOrder with(QueryOrderColumn column) {
         if (SpringString.isEmpty(column.getKey()) || SpringString.isEmpty(column.getSorter())) {
             return this;
         }
