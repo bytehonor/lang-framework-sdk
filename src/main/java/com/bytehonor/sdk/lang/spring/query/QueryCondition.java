@@ -342,8 +342,8 @@ public final class QueryCondition {
         return this;
     }
 
-    public <T> QueryCondition sort(String key, String sorter) {
-        this.order.sort(key, sorter);
+    public <T> QueryCondition sort(QueryOrderColumn column) {
+        this.order.sort(column);
         return this;
     }
 
@@ -352,7 +352,7 @@ public final class QueryCondition {
             return this;
         }
         for (QueryOrderColumn item : list) {
-            sort(item.getKey(), item.getSorter());
+            sort(item);
         }
         return this;
     }

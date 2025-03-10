@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class QueryOrder {
 
@@ -22,16 +23,19 @@ public class QueryOrder {
 
     public QueryOrder desc(String key) {
         Objects.requireNonNull(key, "key");
-        return sort(key, SqlOperator.DESC.getOpt());
+        return sort(QueryOrderColumn.desc(key));
     }
 
     public QueryOrder asc(String key) {
         Objects.requireNonNull(key, "key");
-        return sort(key, SqlOperator.ASC.getOpt());
+        return sort(QueryOrderColumn.asc(key));
     }
 
-    public QueryOrder sort(String key, String sorter) {
-        this.columns.add(QueryOrderColumn.of(key, sorter));
+    public QueryOrder sort(QueryOrderColumn column) {
+        if (SpringString.isEmpty(column.getKey()) || SpringString.isEmpty(column.getSorter())) {
+            return this;
+        }
+        this.columns.add(column);
         return this;
     }
 
@@ -61,6 +65,16 @@ public class QueryOrder {
         public static QueryOrderColumn of(String key, String sorter) {
             Objects.requireNonNull(key, "key");
             return new QueryOrderColumn(key, sorter);
+        }
+
+        public static QueryOrderColumn desc(String key) {
+            Objects.requireNonNull(key, "key");
+            return of(key, SqlOperator.DESC.getOpt());
+        }
+
+        public static QueryOrderColumn asc(String key) {
+            Objects.requireNonNull(key, "key");
+            return of(key, SqlOperator.ASC.getOpt());
         }
 
         public String getKey() {
