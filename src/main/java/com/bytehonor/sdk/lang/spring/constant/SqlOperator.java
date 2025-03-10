@@ -18,6 +18,7 @@ package com.bytehonor.sdk.lang.spring.constant;
  *
  */
 public enum SqlOperator {
+
     EQ("eq", "="),
 
     NEQ("neq", "!="),
@@ -31,14 +32,18 @@ public enum SqlOperator {
     ELT("elt", "<="),
 
     LIKE("like", "LIKE"),
-    
+
     LIKE_LEFT("like_left", "LIKE"),
-    
+
     LIKE_RIGHT("like_right", "LIKE"),
 
     BETWEEN("between", "BETWEEN"),
 
     IN("in", "IN"),
+
+    ASC("asc", "ASC"),
+
+    DESC("desc", "DESC"),
 
     ;
 

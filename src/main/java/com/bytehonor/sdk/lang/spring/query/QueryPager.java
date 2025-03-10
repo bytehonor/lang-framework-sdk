@@ -32,7 +32,7 @@ public class QueryPager {
         return model;
     }
 
-    public boolean isCounted() {
+    public boolean canCount() {
         return counted;
     }
 

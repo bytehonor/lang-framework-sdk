@@ -1,66 +1,84 @@
 package com.bytehonor.sdk.lang.spring.query;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import org.springframework.util.CollectionUtils;
+
+import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 
 public class QueryOrder {
 
-    private String key;
+    private final List<QueryOrderColumn> columns;
 
-    private boolean desc;
-
-    public static QueryOrder descOf(String key) {
-        Objects.requireNonNull(key, "key");
-        return new QueryOrder(key, true);
-    }
-
-    public static QueryOrder ascOf(String key) {
-        Objects.requireNonNull(key, "key");
-        return new QueryOrder(key, false);
-    }
-
-    public static QueryOrder of(String key, boolean desc) {
-        Objects.requireNonNull(key, "key");
-        return new QueryOrder(key, desc);
+    public QueryOrder() {
+        this.columns = new ArrayList<QueryOrderColumn>();
     }
 
     public static QueryOrder non() {
         return new QueryOrder();
     }
 
-    public QueryOrder() {
-        this("", false);
-    }
-
-    public QueryOrder(String key, boolean desc) {
-        this.key = key;
-        this.desc = desc;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public boolean isDesc() {
-        return desc;
-    }
-
-    public void setDesc(boolean desc) {
-        this.desc = desc;
-    }
-
     public QueryOrder desc(String key) {
-        this.key = key;
-        this.desc = true;
-        return this;
+        Objects.requireNonNull(key, "key");
+        return sort(key, SqlOperator.DESC.getOpt());
     }
 
     public QueryOrder asc(String key) {
-        this.key = key;
-        this.desc = false;
+        Objects.requireNonNull(key, "key");
+        return sort(key, SqlOperator.ASC.getOpt());
+    }
+
+    public QueryOrder sort(String key, String sorter) {
+        this.columns.add(QueryOrderColumn.of(key, sorter));
         return this;
     }
+
+    public List<QueryOrderColumn> getColumns() {
+        return columns;
+    }
+
+    public boolean canOrder() {
+        return CollectionUtils.isEmpty(columns) == false;
+    }
+
+    public static final class QueryOrderColumn {
+
+        private String key;
+
+        private String sorter;
+
+        public QueryOrderColumn() {
+            this("", "");
+        }
+
+        public QueryOrderColumn(String key, String sorter) {
+            this.key = key;
+            this.sorter = sorter;
+        }
+
+        public static QueryOrderColumn of(String key, String sorter) {
+            Objects.requireNonNull(key, "key");
+            return new QueryOrderColumn(key, sorter);
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getSorter() {
+            return sorter;
+        }
+
+        public void setSorter(String sorter) {
+            this.sorter = sorter;
+        }
+
+    }
+
 }

@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
+import org.springframework.util.CollectionUtils;
+
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
@@ -21,7 +23,7 @@ import com.bytehonor.sdk.lang.spring.function.getter.GetInteger;
 import com.bytehonor.sdk.lang.spring.function.getter.GetLong;
 import com.bytehonor.sdk.lang.spring.function.getter.GetString;
 import com.bytehonor.sdk.lang.spring.meta.MetaGetter;
-import com.bytehonor.sdk.lang.spring.string.SpringString;
+import com.bytehonor.sdk.lang.spring.query.QueryOrder.QueryOrderColumn;
 
 /**
  * 
@@ -322,7 +324,7 @@ public final class QueryCondition {
     }
 
     public <T> QueryCondition descIfNon(ClassGetter<T, ?> getter) {
-        if (sorted() == false) {
+        if (canOrder() == false) {
             this.order.desc(key(getter));
         }
         return this;
@@ -334,8 +336,23 @@ public final class QueryCondition {
     }
 
     public <T> QueryCondition ascIfNon(ClassGetter<T, ?> getter) {
-        if (sorted() == false) {
+        if (canOrder() == false) {
             this.order.asc(key(getter));
+        }
+        return this;
+    }
+
+    public <T> QueryCondition sort(String key, String sorter) {
+        this.order.sort(key, sorter);
+        return this;
+    }
+
+    public <T> QueryCondition sorts(List<QueryOrderColumn> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return this;
+        }
+        for (QueryOrderColumn item : list) {
+            sort(item.getKey(), item.getSorter());
         }
         return this;
     }
@@ -363,23 +380,8 @@ public final class QueryCondition {
         return this;
     }
 
-    public boolean counted() {
-        return this.pager.isCounted();
-    }
-
-    public QueryCondition order(QueryOrder order) {
-        if (order != null && SpringString.isEmpty(order.getKey()) == false) {
-            this.order.setKey(order.getKey());
-            this.order.setDesc(order.isDesc());
-        }
-        return this;
-    }
-
-    public QueryCondition orderIfNon(QueryOrder order) {
-        if (sorted()) {
-            return this;
-        }
-        return order(order);
+    public boolean canCount() {
+        return this.pager.canCount();
     }
 
     public QueryPager getPager() {
@@ -426,8 +428,8 @@ public final class QueryCondition {
         return MetaGetter.underline(Getters.field(getter));
     }
 
-    public boolean sorted() {
-        return SpringString.isEmpty(order.getKey()) == false;
+    public boolean canOrder() {
+        return order.canOrder();
     }
 
 }
