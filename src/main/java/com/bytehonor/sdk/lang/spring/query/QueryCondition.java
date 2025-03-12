@@ -82,6 +82,16 @@ public final class QueryCondition {
         return this;
     }
 
+    public <T> QueryCondition filters(List<QueryFilterColumn> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return this;
+        }
+        for (QueryFilterColumn item : list) {
+            filter(item);
+        }
+        return this;
+    }
+
     /**
      * 等于
      * 
