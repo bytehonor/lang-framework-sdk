@@ -35,9 +35,9 @@ public final class QueryCondition {
 
     private final QueryPager pager;
 
-    private final QueryOrder order;
-
     private final QueryFilter filter;
+
+    private final QueryOrder order;
 
     private QueryCondition(QueryLogic logic, QueryPager pager) {
         Objects.requireNonNull(logic, "logic");
@@ -45,8 +45,8 @@ public final class QueryCondition {
 
         this.logic = logic;
         this.pager = pager;
-        this.order = QueryOrder.non();
         this.filter = QueryFilter.non();
+        this.order = QueryOrder.non();
     }
 
     public static QueryCondition one() {
