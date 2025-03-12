@@ -17,7 +17,7 @@ public class QueryOrder {
         this.columns = new ArrayList<QueryOrderColumn>();
     }
 
-    public static QueryOrder non() {
+    public static QueryOrder plain() {
         return new QueryOrder();
     }
 

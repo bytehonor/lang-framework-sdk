@@ -30,7 +30,7 @@ public class QueryFilter {
         this.columns = new ArrayList<QueryFilterColumn>();
     }
 
-    public static QueryFilter non() {
+    public static QueryFilter plain() {
         return new QueryFilter();
     }
 

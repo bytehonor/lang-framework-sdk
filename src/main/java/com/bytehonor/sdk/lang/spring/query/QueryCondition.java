@@ -45,8 +45,8 @@ public final class QueryCondition {
 
         this.logic = logic;
         this.pager = pager;
-        this.filter = QueryFilter.non();
-        this.order = QueryOrder.non();
+        this.filter = QueryFilter.plain();
+        this.order = QueryOrder.plain();
     }
 
     public static QueryCondition one() {
