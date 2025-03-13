@@ -9,7 +9,7 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
-public class QueryOrder {
+public final class QueryOrder {
 
     private final List<QueryOrderColumn> columns;
 

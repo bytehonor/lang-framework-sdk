@@ -10,7 +10,7 @@ public class QueryConditionTest {
 
     @Test
     public void test() {
-        QueryCondition condition = QueryCondition.and().eq(Student::getCreateAt, 0L);
+        QueryCondition condition = QueryCondition.and().eq(Student::getCreateAt, 0L).gt(Student::getAge, 1);
 
         assertTrue("*testTime*", condition.has(Student::getCreateAt));
     }

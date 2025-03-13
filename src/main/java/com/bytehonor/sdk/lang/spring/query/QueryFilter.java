@@ -19,7 +19,7 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  * @author lijianqiang
  *
  */
-public class QueryFilter {
+public final class QueryFilter {
 
     private final Set<String> keys;
 

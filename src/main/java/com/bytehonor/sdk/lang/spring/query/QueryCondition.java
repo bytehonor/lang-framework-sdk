@@ -353,6 +353,10 @@ public final class QueryCondition {
         return this;
     }
 
+    public boolean canOrder() {
+        return order.canOrder();
+    }
+
     public int offset() {
         return this.pager.getOffset();
     }
@@ -416,10 +420,6 @@ public final class QueryCondition {
 
     public static <T> String key(ClassGetter<T, ?> getter) {
         return MetaGetter.underline(Getters.field(getter));
-    }
-
-    public boolean canOrder() {
-        return order.canOrder();
     }
 
 }
