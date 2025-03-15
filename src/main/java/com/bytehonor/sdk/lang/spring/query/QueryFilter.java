@@ -61,7 +61,7 @@ public final class QueryFilter {
 
         String value = "";
         for (QueryFilterColumn column : columns) {
-            if (Objects.equals(key, column.getValue()) || Objects.equals(operator, column.getOperator().getKey())) {
+            if (Objects.equals(key, column.getKey()) && Objects.equals(operator, column.getOperator().getKey())) {
                 value = column.getValue().toString();
                 break;
             }
