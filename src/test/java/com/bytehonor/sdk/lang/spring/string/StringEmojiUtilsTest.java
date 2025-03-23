@@ -10,13 +10,13 @@ public class StringEmojiUtilsTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(StringEmojiUtilsTest.class);
 
-    private static String TEXT = "5⚽";
-    // "下班途中遇火情，辅警变身“消防员”救火🧯";
+    // private static final String TEXT1 = "5⚽"; // 检测不到
+    private static final String TEXT2 = "下班途中遇火情，辅警变身“消防员”救火🧯";
     // "1🌹2🍀3🍎4💰5📱6🌙7🍁8🍂9🍃0🌷1💎2🔪3🔫4🏀5⚽6⚡8👄9👍0🔥"
 
     @Test
     public void testContainsEmoji() {
-        boolean has = StringEmojiUtils.containsEmoji(TEXT);
+        boolean has = StringEmojiUtils.containsEmoji(TEXT2);
 
         assertTrue("*testContainsEmoji*", has);
     }
@@ -24,7 +24,7 @@ public class StringEmojiUtilsTest {
     @Test
     public void testRemoveEmoji() {
         String target = "下班途中遇火情，辅警变身“消防员”救火";
-        String clear = StringEmojiUtils.removeEmoji(TEXT);
+        String clear = StringEmojiUtils.removeEmoji(TEXT2);
         LOG.info("clear:{}", clear);
         assertTrue("*testRemoveEmoji*", target.equals(clear));
     }

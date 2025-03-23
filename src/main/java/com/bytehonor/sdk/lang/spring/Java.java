@@ -12,6 +12,10 @@ public final class Java {
         throw new AssertionError("No java.util.Objects instances for you!");
     }
 
+    public static boolean isEmpty(String str) {
+        return (str == null || str.isEmpty());
+    }
+
     public static boolean equals(Object a, Object b) {
         return Objects.equals(a, b);
     }

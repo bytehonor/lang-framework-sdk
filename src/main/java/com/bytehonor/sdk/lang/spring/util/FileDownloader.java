@@ -77,7 +77,7 @@ public class FileDownloader {
             throw new RuntimeException("byte2File param is invalid");
         }
         FileHelper.pathExistOrMake(fileDir);// 判断文件目录是否存在
-        String filePath = FileHelper.connect(fileDir, fileName);
+        String filePath = PathHelper.connect(fileDir, fileName);
         File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
@@ -108,7 +108,7 @@ public class FileDownloader {
         }
         FileHelper.pathExistOrMake(fileDir);
         LOG.debug("download fileDir:{}, fileName:{}", fileDir, fileName);
-        String filePath = FileHelper.connect(fileDir, fileName);
+        String filePath = PathHelper.connect(fileDir, fileName);
         File file = new File(filePath);
         // 获取连接
         InputStream in = null;

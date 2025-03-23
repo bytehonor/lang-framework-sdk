@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileHelperTest {
+public class PathHelperTestConnect {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileHelperTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PathHelperTestConnect.class);
 
     @Test
     public void testConnectDirWhitEnd() {
@@ -18,10 +18,10 @@ public class FileHelperTest {
         String sub3 = "/name";
         String sub4 = "/name/";
         String target = "/dir/name/";
-        boolean res1 = target.equals(FileHelper.connectWithEnd(rootDir, sub1));
-        boolean res2 = target.equals(FileHelper.connectWithEnd(rootDir, sub2));
-        boolean res3 = target.equals(FileHelper.connectWithEnd(rootDir, sub3));
-        boolean res4 = target.equals(FileHelper.connectWithEnd(rootDir, sub4));
+        boolean res1 = target.equals(PathHelper.connectWithEnd(rootDir, sub1));
+        boolean res2 = target.equals(PathHelper.connectWithEnd(rootDir, sub2));
+        boolean res3 = target.equals(PathHelper.connectWithEnd(rootDir, sub3));
+        boolean res4 = target.equals(PathHelper.connectWithEnd(rootDir, sub4));
         boolean res = res1 && res2 && res3 && res4;
         assertTrue("*testConnectDirWhitEnd*", res);
     }
@@ -33,9 +33,9 @@ public class FileHelperTest {
         String sub2 = "name";
         String sub3 = "/name";
         String target = "/dir/name";
-        boolean res1 = target.equals(FileHelper.connect(rootDir, sub1));
-        boolean res2 = target.equals(FileHelper.connect(rootDir, sub2));
-        boolean res3 = target.equals(FileHelper.connect(rootDir, sub3));
+        boolean res1 = target.equals(PathHelper.connect(rootDir, sub1));
+        boolean res2 = target.equals(PathHelper.connect(rootDir, sub2));
+        boolean res3 = target.equals(PathHelper.connect(rootDir, sub3));
 
         LOG.info("{}, {}, {}", res1, res2, res3);
         boolean res = res1 && res2 && res3;
