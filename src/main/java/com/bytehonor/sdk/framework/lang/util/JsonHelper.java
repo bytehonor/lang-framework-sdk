@@ -12,9 +12,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JavaJson {
+public class JsonHelper {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JavaJson.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JsonHelper.class);
 
     private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
 
