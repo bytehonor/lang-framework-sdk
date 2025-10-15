@@ -12,9 +12,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JacksonUtils {
+public class JavaJson {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JacksonUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JavaJson.class);
 
     private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
 
@@ -77,6 +77,14 @@ public class JacksonUtils {
         }
         return jn.has(key) ? jn.get(key).asText() : null;
     }
+    
+    public static String gets(JsonNode jn, String key, String defValue) {
+        if (jn == null) {
+            LOG.warn("jn null, get key:{}", key);
+            return null;
+        }
+        return jn.has(key) ? jn.get(key).asText() : defValue;
+    }
 
     public static String get(JsonNode jn, int index) {
         if (jn == null) {
@@ -85,8 +93,16 @@ public class JacksonUtils {
         }
         return jn.has(index) ? jn.get(index).asText() : null;
     }
+    
+    public static String gets(JsonNode jn, int index, String defValue) {
+        if (jn == null) {
+            LOG.warn("jn null, get index:{}", index);
+            return null;
+        }
+        return jn.has(index) ? jn.get(index).asText() : defValue;
+    }
 
-    public static JsonNode nodeRequired(JsonNode jn, String field) {
+    public static JsonNode require(JsonNode jn, String field) {
         Objects.requireNonNull(jn, "jn");
         Objects.requireNonNull(field, "field");
         JsonNode node = jn.get(field);
