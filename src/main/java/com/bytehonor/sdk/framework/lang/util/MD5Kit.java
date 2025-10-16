@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author lijianqiang
  *
  */
-public class MD5Getter {
+public class MD5Kit {
 
     public static String md5(String src) {
         Objects.requireNonNull(src, "src");

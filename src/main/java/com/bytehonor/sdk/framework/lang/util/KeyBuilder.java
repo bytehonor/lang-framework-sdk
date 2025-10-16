@@ -24,7 +24,7 @@ public class KeyBuilder {
     }
 
     public static String md5(Object... args) {
-        return MD5Getter.md5(plain(args));
+        return MD5Kit.md5(plain(args));
     }
 
     public static String cache(Object... args) {
