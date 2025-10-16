@@ -6,15 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonHelper {
+public class JacksonKit {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JsonHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JacksonKit.class);
 
     private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
 
@@ -34,7 +34,7 @@ public class JsonHelper {
     }
 
     private static String cut(String text) {
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return "";
         }
         return text.length() < 512 ? text : text.substring(0, 510);

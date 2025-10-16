@@ -9,7 +9,7 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.lang.util.JoinUtils;
 
 /**
@@ -48,7 +48,7 @@ public class WordMatcher {
 
         Set<String> matchers = new HashSet<String>();
         for (String word : words) {
-            if (SpringString.isEmpty(word)) {
+            if (StringKit.isEmpty(word)) {
                 continue;
             }
             matchers.add(format(word));
@@ -61,7 +61,7 @@ public class WordMatcher {
         Objects.requireNonNull(word, "word");
 
         String val = word.trim();
-        if (SpringString.isEmpty(val)) {
+        if (StringKit.isEmpty(val)) {
             throw new SpringLangException("word cannt be empty");
         }
         return val.toLowerCase();

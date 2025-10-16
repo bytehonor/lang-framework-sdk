@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 public class MetaGetter {
 
@@ -14,11 +14,11 @@ public class MetaGetter {
         Objects.requireNonNull(column, "column");
 
         String val = UNDERLINE_CACHE.get(column);
-        if (SpringString.isEmpty(val) == false) {
+        if (StringKit.isEmpty(val) == false) {
             return val;
         }
 
-        val = SpringString.camelToUnderline(column);
+        val = StringKit.camelToUnderline(column);
         UNDERLINE_CACHE.put(column, val);
         return val;
     }

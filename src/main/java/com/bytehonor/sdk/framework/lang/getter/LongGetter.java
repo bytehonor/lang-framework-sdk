@@ -3,7 +3,7 @@ package com.bytehonor.sdk.framework.lang.getter;
 import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * @author lijianqiang
@@ -30,7 +30,7 @@ public class LongGetter {
     }
 
     public static Long optional(String src, Long def) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return def;
         }
         try {

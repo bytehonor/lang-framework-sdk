@@ -8,7 +8,7 @@ import java.util.UUID;
  * @author lijianqiang
  *
  */
-public class UuidUtils {
+public class UuidGetter {
 	
 	private static final char CON = '-';
 

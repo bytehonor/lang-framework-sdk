@@ -4,18 +4,18 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class UuidUtilsTest {
+public class UuidGetterTest {
 
 	@Test
 	public void testGetSimple() {
-		String src = UuidUtils.getSimple();
+		String src = UuidGetter.getSimple();
 		boolean isOk = src != null && src.length() == 32;
 		assertTrue("testGetSimple", isOk);
 	}
 
 	@Test
 	public void testGetFull() {
-		String src = UuidUtils.getFull();
+		String src = UuidGetter.getFull();
 		boolean isOk = src != null && src.length() == 36;
 		assertTrue("testGetFull", isOk);
 	}
@@ -24,13 +24,13 @@ public class UuidUtilsTest {
 		int size = 10000;
 		long start1 = System.nanoTime();
 		for (int i=0;i<size;i++) {
-			UuidUtils.getFull().replaceAll("-", "");
+			UuidGetter.getFull().replaceAll("-", "");
 		}
 		long cost1 = System.nanoTime() - start1;
 		
 		long start2 = System.nanoTime();
 		for (int i=0;i<size;i++) {
-			UuidUtils.getSimple();
+			UuidGetter.getSimple();
 		}
 		long cost2 = System.nanoTime() - start2;
 		

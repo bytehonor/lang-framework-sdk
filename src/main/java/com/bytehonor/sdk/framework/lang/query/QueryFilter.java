@@ -13,7 +13,7 @@ import com.bytehonor.sdk.framework.lang.constant.JavaValueTypes;
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 import com.bytehonor.sdk.framework.lang.meta.MetaGetter;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * @author lijianqiang
@@ -125,7 +125,7 @@ public final class QueryFilter {
             if (filter.getOperator() == null) {
                 return false;
             }
-            if (SpringString.isEmpty(filter.getKey())) {
+            if (StringKit.isEmpty(filter.getKey())) {
                 return false;
             }
             return filter.getValue() != null;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 public class KeyValueMap {
 
@@ -52,7 +52,7 @@ public class KeyValueMap {
 
     public KeyValueMap put(String key, String value) {
         Objects.requireNonNull(key, "key");
-        if (SpringString.isEmpty(value) == false) {
+        if (StringKit.isEmpty(value) == false) {
             this.map.put(key, value);
         }
         return this;

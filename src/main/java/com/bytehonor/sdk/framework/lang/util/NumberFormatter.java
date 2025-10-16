@@ -3,9 +3,9 @@ package com.bytehonor.sdk.framework.lang.util;
 import java.text.DecimalFormat;
 
 import com.bytehonor.sdk.framework.lang.getter.DoubleGetter;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
-public class NumberFormatUtils {
+public class NumberFormatter {
 
     private static final DecimalFormat DF = new DecimalFormat(",###.##");
 
@@ -53,7 +53,7 @@ public class NumberFormatUtils {
     }
 
     public static String en(String val) {
-        if (SpringString.isEmpty(val)) {
+        if (StringKit.isEmpty(val)) {
             return ZERO;
         }
         Double dou = DoubleGetter.optional(val);

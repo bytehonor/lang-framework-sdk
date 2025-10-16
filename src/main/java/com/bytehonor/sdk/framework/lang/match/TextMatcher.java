@@ -10,8 +10,8 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.constant.CharConstants;
-import com.bytehonor.sdk.framework.lang.regex.PatternUtils;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.regex.PatternKit;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.lang.string.StringRemoveUtils;
 import com.bytehonor.sdk.framework.lang.string.StringSliceUtils;
 import com.bytehonor.sdk.framework.lang.string.StringSplitUtils;
@@ -51,7 +51,7 @@ public class TextMatcher {
     }
 
     public boolean match(String text) {
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return false;
         }
 
@@ -94,7 +94,7 @@ public class TextMatcher {
     public static Set<String> words(String text) {
         // 只保留 英文,数字,汉字,空格
         text = prepare(text);
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return new HashSet<String>();
         }
         text = text.toLowerCase(); // 全小写
@@ -107,19 +107,19 @@ public class TextMatcher {
                 continue;
             }
 
-            if (PatternUtils.isLetter(raw)) {
+            if (PatternKit.isLetter(raw)) {
                 result.add(raw); // 纯英文,直接使用, 且小写
                 continue;
             }
-            if (PatternUtils.isNumber(raw)) {
+            if (PatternKit.isNumber(raw)) {
                 result.add(raw); // 纯数字,直接使用
                 continue;
             }
-            if (PatternUtils.isLetterNumber(raw)) {
+            if (PatternKit.isLetterNumber(raw)) {
                 result.add(raw); // 英文数字,直接使用
                 continue;
             }
-            if (PatternUtils.isChinese(raw)) {
+            if (PatternKit.isChinese(raw)) {
                 chineseWords.add(raw); // 汉字块二次分割
                 continue;
             }
@@ -148,12 +148,12 @@ public class TextMatcher {
      * @return
      */
     public static String prepare(String text) {
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return "";
         }
         text = StringRemoveUtils.removeHttp(text);
         text = StringRemoveUtils.replaceNonNormalWithBlank(text);
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return "";
         }
         int length = text.length();
@@ -164,7 +164,7 @@ public class TextMatcher {
         char[] target = new char[length * 2];
         int at = 0;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isNormalChar(source[i])) {
+            if (PatternKit.isNormalChar(source[i])) {
                 if (i > 1 && blank(source[i - 1], source[i])) {
                     // 非中文之间补个空格
                     target[at++] = CharConstants.BLANK;
@@ -181,10 +181,10 @@ public class TextMatcher {
         if (last == CharConstants.BLANK || now == CharConstants.BLANK) {
             return false;
         }
-        if (PatternUtils.isChineseChar(last) && PatternUtils.isChineseChar(now) == false) {
+        if (PatternKit.isChineseChar(last) && PatternKit.isChineseChar(now) == false) {
             return true;
         }
-        if (PatternUtils.isChineseChar(last) == false && PatternUtils.isChineseChar(now)) {
+        if (PatternKit.isChineseChar(last) == false && PatternKit.isChineseChar(now)) {
             return true;
         }
         return false;

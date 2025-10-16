@@ -3,7 +3,7 @@ package com.bytehonor.sdk.framework.lang.cache;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -22,7 +22,7 @@ public class SpringLocker {
     public boolean lock(String key) {
         Objects.requireNonNull(key, "key");
 
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return false;
         }
         if (cache.getIfPresent(key) != null) {

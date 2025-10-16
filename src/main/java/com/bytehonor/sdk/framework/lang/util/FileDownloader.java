@@ -15,7 +15,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * @author lijianqiang
@@ -73,11 +73,11 @@ public class FileDownloader {
      * @param fileName 文件名称
      */
     public static File byte2File(byte[] bfile, String fileDir, String fileName) {
-        if (SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
+        if (StringKit.isEmpty(fileDir) || StringKit.isEmpty(fileName)) {
             throw new RuntimeException("byte2File param is invalid");
         }
-        FileHelper.pathExistOrMake(fileDir);// 判断文件目录是否存在
-        String filePath = PathHelper.connect(fileDir, fileName);
+        FileKit.pathExistOrMake(fileDir);// 判断文件目录是否存在
+        String filePath = PathKit.connect(fileDir, fileName);
         File file = new File(filePath);
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
@@ -103,12 +103,12 @@ public class FileDownloader {
     }
 
     public static File download(String fileUrl, String fileDir, String fileName) {
-        if (SpringString.isEmpty(fileUrl) || SpringString.isEmpty(fileDir) || SpringString.isEmpty(fileName)) {
+        if (StringKit.isEmpty(fileUrl) || StringKit.isEmpty(fileDir) || StringKit.isEmpty(fileName)) {
             throw new RuntimeException("download file param is invalid");
         }
-        FileHelper.pathExistOrMake(fileDir);
+        FileKit.pathExistOrMake(fileDir);
         LOG.debug("download fileDir:{}, fileName:{}", fileDir, fileName);
-        String filePath = PathHelper.connect(fileDir, fileName);
+        String filePath = PathKit.connect(fileDir, fileName);
         File file = new File(filePath);
         // 获取连接
         InputStream in = null;

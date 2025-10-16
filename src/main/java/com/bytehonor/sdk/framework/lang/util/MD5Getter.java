@@ -8,10 +8,10 @@ import java.util.Objects;
  * @author lijianqiang
  *
  */
-public class MD5Utils {
+public class MD5Getter {
 
     public static String md5(String src) {
         Objects.requireNonNull(src, "src");
-        return SimpleDigestUtils.md5DigestAsHex(src.getBytes());
+        return SimpleDigestKit.md5DigestAsHex(src.getBytes());
     }
 }

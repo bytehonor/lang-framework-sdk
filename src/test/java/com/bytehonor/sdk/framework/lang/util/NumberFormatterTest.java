@@ -4,31 +4,31 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NumberFormatUtilsTest {
+public class NumberFormatterTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(NumberFormatUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NumberFormatterTest.class);
 
     @Test
     public void testEnString() {
-        String en = NumberFormatUtils.en("123456789.987654321");
+        String en = NumberFormatter.en("123456789.987654321");
         LOG.info("testEnString :{}", en);
     }
 
     @Test
     public void testEnDouble() {
-        String en = NumberFormatUtils.en(123456789.987654321);
+        String en = NumberFormatter.en(123456789.987654321);
         LOG.info("testEnDouble :{}", en);
     }
 
     @Test
     public void testEnLong() {
-        String en = NumberFormatUtils.en(123456789L);
+        String en = NumberFormatter.en(123456789L);
         LOG.info("testEnLong :{}", en);
     }
 
     @Test
     public void testEnInteger() {
-        String en = NumberFormatUtils.en(123456789);
+        String en = NumberFormatter.en(123456789);
         LOG.info("testEnInteger :{}", en);
     }
 
@@ -38,9 +38,9 @@ public class NumberFormatUtilsTest {
         long middle = 240L;
         long big = 999L;
         for (int i = 0; i < 9; i++) {
-            String s = NumberFormatUtils.cn(small);
-            String m = NumberFormatUtils.cn(middle);
-            String b = NumberFormatUtils.cn(big);
+            String s = NumberFormatter.cn(small);
+            String m = NumberFormatter.cn(middle);
+            String b = NumberFormatter.cn(big);
             LOG.info("{}={}, {}={}, {}={}", small, s, middle, m, big, b);
             small *= 10;
             middle *= 10;

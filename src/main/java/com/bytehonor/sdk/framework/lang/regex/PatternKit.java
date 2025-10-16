@@ -2,9 +2,9 @@ package com.bytehonor.sdk.framework.lang.regex;
 
 import java.util.regex.Pattern;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
-public class PatternUtils {
+public class PatternKit {
 
     // private static final Logger LOG =
     // LoggerFactory.getLogger(PatternUtils.class);
@@ -24,7 +24,7 @@ public class PatternUtils {
     // private static final Pattern CHINESE_PT = Pattern.compile(CHINESE_REG);
 
     public static boolean isInteger(String str) {
-        if (SpringString.isEmpty(str)) {
+        if (StringKit.isEmpty(str)) {
             return false;
         }
         int len = str.length();
@@ -45,7 +45,7 @@ public class PatternUtils {
     }
 
     public static boolean isNumber(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -65,7 +65,7 @@ public class PatternUtils {
     }
 
     public static boolean isLetterNumber(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -79,7 +79,7 @@ public class PatternUtils {
     }
 
     public static boolean isLetter(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -113,7 +113,7 @@ public class PatternUtils {
     }
 
     public static boolean isChinese(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return false;
         }
         int len = src.length();
@@ -136,7 +136,7 @@ public class PatternUtils {
     }
 
     public static boolean isLetterStart(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return true;
         }
 
@@ -144,7 +144,7 @@ public class PatternUtils {
     }
 
     public static boolean isSpecial(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return true;
         }
         char c = src.charAt(0);

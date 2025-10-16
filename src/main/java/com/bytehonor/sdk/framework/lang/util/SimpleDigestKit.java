@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Craig Andrews
  * @since 3.0
  */
-public final class SimpleDigestUtils {
+public final class SimpleDigestKit {
 
     private static final String MD5_ALGORITHM_NAME = "MD5";
 

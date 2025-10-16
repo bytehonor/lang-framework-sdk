@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 public final class QueryOrder {
 
@@ -32,7 +32,7 @@ public final class QueryOrder {
     }
 
     public QueryOrder with(QueryOrderColumn column) {
-        if (SpringString.isEmpty(column.getKey()) || SpringString.isEmpty(column.getSorter())) {
+        if (StringKit.isEmpty(column.getKey()) || StringKit.isEmpty(column.getSorter())) {
             return this;
         }
         this.columns.add(column);

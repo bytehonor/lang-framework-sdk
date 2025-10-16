@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.framework.lang.string;
 
-import com.bytehonor.sdk.framework.lang.regex.PatternUtils;
+import com.bytehonor.sdk.framework.lang.regex.PatternKit;
 
 public class SentenceAlgothrim {
 
@@ -19,7 +19,7 @@ public class SentenceAlgothrim {
      * @return
      */
     public static boolean isSemanticSimalar(String src1, String src2, int maxCount) {
-        if (SpringString.isEmpty(src1) || SpringString.isEmpty(src2)) {
+        if (StringKit.isEmpty(src1) || StringKit.isEmpty(src2)) {
             return false;
         }
         // 统一去掉标点符号
@@ -45,7 +45,7 @@ public class SentenceAlgothrim {
         if (longSrc.charAt(0) != shortSrc.charAt(0) && (longLength - shortLength) > shortLength) {
             return longSrc.contains(shortSrc);
         }
-        if (PatternUtils.isLetter(shortSrc)) {
+        if (PatternKit.isLetter(shortSrc)) {
             return false;
         }
         int maxDistance = shortLength - 1;

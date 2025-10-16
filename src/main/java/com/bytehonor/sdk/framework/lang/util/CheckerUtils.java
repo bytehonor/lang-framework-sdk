@@ -3,7 +3,7 @@ package com.bytehonor.sdk.framework.lang.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 
 /**
@@ -19,7 +19,7 @@ public class CheckerUtils {
 	 * @return
 	 */
 	public static boolean isMobile(String mobile) {
-		if (SpringString.isEmpty(mobile) || mobile.length() < 11) {
+		if (StringKit.isEmpty(mobile) || mobile.length() < 11) {
 			return false;
 		}
 		Pattern p = Pattern.compile(REGX);

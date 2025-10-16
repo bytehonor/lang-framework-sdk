@@ -9,7 +9,7 @@ import com.bytehonor.sdk.framework.lang.constant.StringConstants;
  * @author lijianqiang
  *
  */
-public class SpringString {
+public class StringKit {
 
     public static boolean isEmpty(String str) {
         return (str == null || str.isEmpty());

@@ -2,7 +2,7 @@ package com.bytehonor.sdk.framework.lang.getter;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * @author lijianqiang
@@ -25,7 +25,7 @@ public class BooleanGetter {
     }
 
     public static Boolean optional(String src, Boolean defVal) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return defVal;
         }
         String lc = src.toLowerCase();

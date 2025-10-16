@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -24,13 +24,13 @@ import com.google.common.cache.CacheBuilder;
  * @author lijianqiang
  *
  */
-public final class FileHelper {
+public final class FileKit {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileKit.class);
 
     private final Cache<String, Boolean> cache;
 
-    private FileHelper() {
+    private FileKit() {
         this.cache = CacheBuilder.newBuilder().initialCapacity(1024) // 设置初始容量为100
                 .maximumSize(1024 * 1024) // 设置缓存的最大容量
                 .expireAfterWrite(3, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
@@ -39,10 +39,10 @@ public final class FileHelper {
     }
 
     private static class LazyHolder {
-        private static FileHelper SINGLE = new FileHelper();
+        private static FileKit SINGLE = new FileKit();
     }
 
-    private static FileHelper self() {
+    private static FileKit self() {
         return LazyHolder.SINGLE;
     }
 
@@ -71,7 +71,7 @@ public final class FileHelper {
         Objects.requireNonNull(dir, "dir");
 
         List<String> list = new ArrayList<String>();
-        if (SpringString.isEmpty(dir)) {
+        if (StringKit.isEmpty(dir)) {
             LOG.error("filesFromDir dir null");
             return list;
         }
@@ -84,7 +84,7 @@ public final class FileHelper {
         if (length < 1) {
             return list;
         }
-        boolean filter = SpringString.isEmpty(type) == false;
+        boolean filter = StringKit.isEmpty(type) == false;
         for (int i = 0; i < length; i++) {
             if (files[i].isDirectory()) {
                 continue;
@@ -230,7 +230,7 @@ public final class FileHelper {
      */
     @Deprecated
     public static String connectWithEnd(String path1, String path2) {
-        return PathHelper.connectWithEnd(path1, path2);
+        return PathKit.connectWithEnd(path1, path2);
     }
 
     /**
@@ -242,16 +242,16 @@ public final class FileHelper {
      */
     @Deprecated
     public static String connect(String path1, String path2) {
-        return PathHelper.connect(path1, path2);
+        return PathKit.connect(path1, path2);
     }
 
     @Deprecated
     public static String subfixNoDot(String path) {
-        return PathHelper.subfixNoDot(path);
+        return PathKit.subfixNoDot(path);
     }
 
     @Deprecated
     public static String subfixWithDot(String path) {
-        return PathHelper.subfixWithDot(path);
+        return PathKit.subfixWithDot(path);
     }
 }

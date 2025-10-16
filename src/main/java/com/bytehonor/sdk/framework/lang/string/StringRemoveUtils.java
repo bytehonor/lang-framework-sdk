@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.constant.CharConstants;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.regex.PatternUtils;
+import com.bytehonor.sdk.framework.lang.regex.PatternKit;
 
 public class StringRemoveUtils {
 
@@ -33,7 +33,7 @@ public class StringRemoveUtils {
     private static final String HTTPS_PRE = "https://";
 
     public static String removeHttp(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int begin = src.indexOf(HTTP_PRE);
@@ -100,7 +100,7 @@ public class StringRemoveUtils {
      * @return clear
      */
     public static String cleanPS(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         // return src.replaceAll(PSZ, "");
@@ -114,7 +114,7 @@ public class StringRemoveUtils {
      * @return clear
      */
     public static String cleanPSZ(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         // return src.replaceAll(PSZ, "");
@@ -128,7 +128,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceNonChineseWithBlank(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -136,7 +136,7 @@ public class StringRemoveUtils {
         int at = 0;
         boolean hasInsertBlank = false;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isChineseChar(src.charAt(i))) {
+            if (PatternKit.isChineseChar(src.charAt(i))) {
                 target[at++] = src.charAt(i);
                 hasInsertBlank = false;
             } else {
@@ -163,14 +163,14 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonChinese(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int length = src.length();
         char[] target = new char[length];
         int total = 0;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isChineseChar(src.charAt(i))) {
+            if (PatternKit.isChineseChar(src.charAt(i))) {
                 target[total++] = src.charAt(i);
             }
         }
@@ -187,14 +187,14 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonNumber(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int length = src.length();
         char[] target = new char[length];
         int total = 0;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isNumberChar(src.charAt(i))) {
+            if (PatternKit.isNumberChar(src.charAt(i))) {
                 target[total++] = src.charAt(i);
             }
         }
@@ -211,14 +211,14 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonLetter(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int length = src.length();
         char[] target = new char[length];
         int total = 0;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isLetterChar(src.charAt(i))) {
+            if (PatternKit.isLetterChar(src.charAt(i))) {
                 target[total++] = src.charAt(i);
             }
         }
@@ -235,7 +235,7 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceNonNormalWithBlank(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int length = src.length();
@@ -243,7 +243,7 @@ public class StringRemoveUtils {
         int at = 0;
         boolean hasInsertBlank = false;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isNormalChar(src.charAt(i))) {
+            if (PatternKit.isNormalChar(src.charAt(i))) {
                 target[at++] = src.charAt(i);
                 hasInsertBlank = false;
             } else {
@@ -270,14 +270,14 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeNonNormal(String src) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
         int length = src.length();
         char[] target = new char[length];
         int total = 0;
         for (int i = 0; i < length; i++) {
-            if (PatternUtils.isNormalChar(src.charAt(i))) {
+            if (PatternKit.isNormalChar(src.charAt(i))) {
                 target[total++] = src.charAt(i);
             }
         }
@@ -294,10 +294,10 @@ public class StringRemoveUtils {
      * @return
      */
     public static String replaceRegexWithBlank(String src, String regex) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
-        if (SpringString.isEmpty(regex)) {
+        if (StringKit.isEmpty(regex)) {
             return src;
         }
         int regLen = regex.length();
@@ -336,10 +336,10 @@ public class StringRemoveUtils {
      * @return
      */
     public static String removeRegex(String src, String regex) {
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return "";
         }
-        if (SpringString.isEmpty(regex)) {
+        if (StringKit.isEmpty(regex)) {
             return src;
         }
         int regLen = regex.length();

@@ -2,7 +2,7 @@ package com.bytehonor.sdk.framework.lang.getter;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * @author lijianqiang
@@ -25,7 +25,7 @@ public class StringGetter {
     }
 
     public static String getOrNull(String src) {
-        return SpringString.isEmpty(src) ? null : src;
+        return StringKit.isEmpty(src) ? null : src;
     }
 
 }

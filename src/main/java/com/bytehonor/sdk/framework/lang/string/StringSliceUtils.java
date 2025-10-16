@@ -44,7 +44,7 @@ public class StringSliceUtils {
      */
     public static Set<String> slice(String text, int limit) {
         Set<String> set = new HashSet<String>();
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return set;
         }
         int len = text.length();
@@ -81,7 +81,7 @@ public class StringSliceUtils {
      */
     public static List<String> sliceOrderd(String text, int limit) {
         List<String> list = new ArrayList<String>();
-        if (SpringString.isEmpty(text)) {
+        if (StringKit.isEmpty(text)) {
             return list;
         }
         int len = text.length();

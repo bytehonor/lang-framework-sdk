@@ -3,7 +3,7 @@ package com.bytehonor.sdk.framework.lang.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * <pre>
@@ -105,7 +105,7 @@ public class DoubleMathUtils {
     }
 
     public static double round(String value, int scale) {
-        if (SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(value)) {
             return 0.00;
         }
         Double dou = Double.valueOf(value);

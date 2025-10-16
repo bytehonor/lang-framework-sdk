@@ -60,10 +60,10 @@ public class StringExtractUtils {
         Objects.requireNonNull(header, "header");
         Objects.requireNonNull(footer, "footer");
 
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return EMPTY;
         }
-        if (SpringString.isEmpty(header) || SpringString.isEmpty(footer)) {
+        if (StringKit.isEmpty(header) || StringKit.isEmpty(footer)) {
             LOG.warn("header:{} or footer:{} empty");
             return EMPTY;
         }

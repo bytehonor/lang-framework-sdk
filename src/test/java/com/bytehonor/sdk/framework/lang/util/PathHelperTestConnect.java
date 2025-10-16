@@ -18,10 +18,10 @@ public class PathHelperTestConnect {
         String sub3 = "/name";
         String sub4 = "/name/";
         String target = "/dir/name/";
-        boolean res1 = target.equals(PathHelper.connectWithEnd(rootDir, sub1));
-        boolean res2 = target.equals(PathHelper.connectWithEnd(rootDir, sub2));
-        boolean res3 = target.equals(PathHelper.connectWithEnd(rootDir, sub3));
-        boolean res4 = target.equals(PathHelper.connectWithEnd(rootDir, sub4));
+        boolean res1 = target.equals(PathKit.connectWithEnd(rootDir, sub1));
+        boolean res2 = target.equals(PathKit.connectWithEnd(rootDir, sub2));
+        boolean res3 = target.equals(PathKit.connectWithEnd(rootDir, sub3));
+        boolean res4 = target.equals(PathKit.connectWithEnd(rootDir, sub4));
         boolean res = res1 && res2 && res3 && res4;
         assertTrue("*testConnectDirWhitEnd*", res);
     }
@@ -33,9 +33,9 @@ public class PathHelperTestConnect {
         String sub2 = "name";
         String sub3 = "/name";
         String target = "/dir/name";
-        boolean res1 = target.equals(PathHelper.connect(rootDir, sub1));
-        boolean res2 = target.equals(PathHelper.connect(rootDir, sub2));
-        boolean res3 = target.equals(PathHelper.connect(rootDir, sub3));
+        boolean res1 = target.equals(PathKit.connect(rootDir, sub1));
+        boolean res2 = target.equals(PathKit.connect(rootDir, sub2));
+        boolean res3 = target.equals(PathKit.connect(rootDir, sub3));
 
         LOG.info("{}, {}, {}", res1, res2, res3);
         boolean res = res1 && res2 && res3;

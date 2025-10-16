@@ -2,7 +2,7 @@ package com.bytehonor.sdk.framework.lang.util;
 
 import java.util.Objects;
 
-public class HexUtils {
+public class HexKit {
 
     /**
      * 字节数组倒序

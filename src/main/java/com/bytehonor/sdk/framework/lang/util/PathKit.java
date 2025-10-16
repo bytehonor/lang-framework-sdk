@@ -2,7 +2,7 @@ package com.bytehonor.sdk.framework.lang.util;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * 20211130
@@ -10,7 +10,7 @@ import com.bytehonor.sdk.framework.lang.string.SpringString;
  * @author lijianqiang
  *
  */
-public class PathHelper {
+public class PathKit {
 
     private static final String SPL = "/";
 
@@ -55,7 +55,7 @@ public class PathHelper {
 
     public static String subfixNoDot(String path) {
         String subfix = subfixWithDot(path);
-        if (SpringString.isEmpty(subfix)) {
+        if (StringKit.isEmpty(subfix)) {
             return "";
         }
 
