@@ -7,7 +7,7 @@ import com.bytehonor.sdk.framework.lang.string.StringKit;
 public class PatternKit {
 
     // private static final Logger LOG =
-    // LoggerFactory.getLogger(PatternUtils.class);
+    // LoggerFactory.getLogger(PatternKit.class);
 
     private static final String INTEGER_REG = "^-?[1-9]\\d*$";
 
