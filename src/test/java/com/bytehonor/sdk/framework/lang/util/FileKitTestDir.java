@@ -8,9 +8,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileHelperTestDir {
+public class FileKitTestDir {
 
-    private static Logger LOG = LoggerFactory.getLogger(FileHelperTestDir.class);
+    private static Logger LOG = LoggerFactory.getLogger(FileKitTestDir.class);
 
     @Test
     public void testRead() {
