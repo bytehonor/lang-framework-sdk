@@ -5,8 +5,7 @@ import java.text.DecimalFormat;
 import com.bytehonor.sdk.framework.lang.getter.DoubleGetter;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
-@Deprecated
-public class NumberFormatter {
+public class NumberLocalizer {
 
     private static final DecimalFormat DF = new DecimalFormat(",###.##");
 
