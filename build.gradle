@@ -18,13 +18,13 @@ repositories {
 
 dependencies {
     api('com.google.guava:guava:33.3.1-jre')
-    api('org.springframework:spring-core:6.2.11')
-    api('org.springframework:spring-context:6.2.11')
-    api('com.fasterxml.jackson.core:jackson-annotations:2.19.2')
-    api('com.fasterxml.jackson.core:jackson-databind:2.19.2')
-    api('com.fasterxml.jackson.core:jackson-core:2.19.2')
+    api('org.springframework:spring-core:6.2.14')
+    api('org.springframework:spring-context:6.2.14')
+    api('com.fasterxml.jackson.core:jackson-annotations:2.19.4')
+    api('com.fasterxml.jackson.core:jackson-databind:2.19.4')
+    api('com.fasterxml.jackson.core:jackson-core:2.19.4')
     implementation('org.slf4j:slf4j-api:2.0.17')
-    implementation('ch.qos.logback:logback-classic:1.5.18')
+    implementation('ch.qos.logback:logback-classic:1.5.21')
     testImplementation('junit:junit:4.13.2')
 }
 
