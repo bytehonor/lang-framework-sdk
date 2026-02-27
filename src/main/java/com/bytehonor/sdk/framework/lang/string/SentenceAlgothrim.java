@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.framework.lang.string;
 
-import com.bytehonor.sdk.framework.lang.regex.PatternKit;
+import com.bytehonor.sdk.framework.lang.util.PatternKit;
 
 public class SentenceAlgothrim {
 

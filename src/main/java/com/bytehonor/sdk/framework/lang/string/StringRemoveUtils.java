@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.constant.CharConstants;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.regex.PatternKit;
+import com.bytehonor.sdk.framework.lang.util.PatternKit;
 
 public class StringRemoveUtils {
 

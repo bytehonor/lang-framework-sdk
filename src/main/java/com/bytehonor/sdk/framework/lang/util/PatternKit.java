@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.lang.regex;
+package com.bytehonor.sdk.framework.lang.util;
 
 import java.util.regex.Pattern;
 
