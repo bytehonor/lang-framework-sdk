@@ -17,8 +17,6 @@ import com.bytehonor.sdk.framework.lang.function.getter.GetInteger;
 import com.bytehonor.sdk.framework.lang.function.getter.GetLong;
 import com.bytehonor.sdk.framework.lang.function.getter.GetString;
 import com.bytehonor.sdk.framework.lang.meta.MetaGetter;
-import com.bytehonor.sdk.framework.lang.query.QueryFilter.QueryFilterColumn;
-import com.bytehonor.sdk.framework.lang.query.QueryOrder.QueryOrderColumn;
 
 /**
  * 
