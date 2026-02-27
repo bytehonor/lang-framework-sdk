@@ -9,8 +9,7 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.constant.DateConstants;
 
-@Deprecated
-public class TimeFormatter {
+public class TimeKit {
 
     public static long toTimestamp(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
