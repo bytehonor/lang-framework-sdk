@@ -2,6 +2,7 @@ package com.bytehonor.sdk.framework.lang.function;
 
 import java.util.Objects;
 
+import com.bytehonor.sdk.framework.lang.core.field.SerializedLambdaUtils;
 import com.bytehonor.sdk.framework.lang.function.getter.GetBoolean;
 import com.bytehonor.sdk.framework.lang.function.getter.GetDouble;
 import com.bytehonor.sdk.framework.lang.function.getter.GetInteger;

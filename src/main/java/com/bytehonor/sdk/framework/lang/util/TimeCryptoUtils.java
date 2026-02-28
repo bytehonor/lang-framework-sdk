@@ -8,7 +8,6 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.framework.lang.core.Randomizer;
 import com.bytehonor.sdk.framework.lang.getter.IntegerGetter;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
@@ -43,7 +42,7 @@ public class TimeCryptoUtils {
     public static String encode(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
-        int rand = Randomizer.integer(111, 678); // 3
+        int rand = RandomKit.integer(111, 678); // 3
         int year = ldt.getYear() - YEAR; // 1
         int month = ldt.getMonthValue(); // 1
         int day = ldt.getDayOfMonth(); // 1
@@ -59,7 +58,7 @@ public class TimeCryptoUtils {
     }
 
     private static String randstr(int len) {
-        return Randomizer.string(4);
+        return RandomKit.string(4);
     }
 
     private static char toChar(int at) {

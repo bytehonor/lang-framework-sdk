@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.bytehonor.sdk.framework.lang.meta.Student;
+import com.bytehonor.sdk.framework.lang.core.meta.Student;
 
 public class QueryConditionTest {
 

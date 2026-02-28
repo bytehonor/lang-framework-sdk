@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.lang.meta;
+package com.bytehonor.sdk.framework.lang.core.meta;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MetaModelUtils {
+import com.bytehonor.sdk.framework.lang.core.field.FieldNameKit;
+
+public class MetaParser {
 
     private static final Map<String, MetaModel> CACHES = new ConcurrentHashMap<String, MetaModel>();
 
@@ -29,9 +31,9 @@ public class MetaModelUtils {
                 continue;
             }
 
-            MetaModelField modelField = new MetaModelField();
+            MetaField modelField = new MetaField();
             modelField.setCamel(camel);
-            modelField.setUnderline(MetaGetter.underline(camel));
+            modelField.setUnderline(FieldNameKit.underline(camel));
             modelField.setType(field.getType().getName());
             model.add(modelField);
         }

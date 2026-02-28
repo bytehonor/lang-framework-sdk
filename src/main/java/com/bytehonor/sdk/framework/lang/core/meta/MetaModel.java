@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.lang.meta;
+package com.bytehonor.sdk.framework.lang.core.meta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,19 +20,19 @@ public class MetaModel {
 
     private String name;
 
-    private final List<MetaModelField> fields;
+    private final List<MetaField> fields;
 
     private final Set<String> camels;
 
     private final Set<String> underlines;
 
-    private final Map<String, MetaModelField> map;
+    private final Map<String, MetaField> map;
 
     public MetaModel() {
-        fields = new ArrayList<MetaModelField>();
+        fields = new ArrayList<MetaField>();
         camels = new HashSet<String>();
         underlines = new HashSet<String>();
-        map = new HashMap<String, MetaModelField>();
+        map = new HashMap<String, MetaField>();
     }
 
     public String getName() {
@@ -43,7 +43,7 @@ public class MetaModel {
         this.name = name;
     }
 
-    public List<MetaModelField> getFields() {
+    public List<MetaField> getFields() {
         return fields;
     }
 
@@ -55,7 +55,7 @@ public class MetaModel {
         return underlines;
     }
 
-    public void add(MetaModelField field) {
+    public void add(MetaField field) {
         Objects.requireNonNull(field, "field");
 
         fields.add(field);
@@ -92,7 +92,7 @@ public class MetaModel {
         return hasCamel(field) || hasUnderline(field);
     }
 
-    public MetaModelField getIfPresent(String field) {
+    public MetaField getIfPresent(String field) {
         Objects.requireNonNull(field, "field");
         return map.get(field);
     }

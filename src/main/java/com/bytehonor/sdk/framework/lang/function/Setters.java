@@ -1,5 +1,6 @@
 package com.bytehonor.sdk.framework.lang.function;
 
+import com.bytehonor.sdk.framework.lang.core.field.SerializedLambdaUtils;
 import com.bytehonor.sdk.framework.lang.function.consumer.ConsumeBoolean;
 import com.bytehonor.sdk.framework.lang.function.consumer.ConsumeDouble;
 import com.bytehonor.sdk.framework.lang.function.consumer.ConsumeInteger;

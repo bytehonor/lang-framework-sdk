@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import com.bytehonor.sdk.framework.lang.constant.JavaValueTypes;
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
+import com.bytehonor.sdk.framework.lang.core.field.FieldNameKit;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
-import com.bytehonor.sdk.framework.lang.meta.MetaGetter;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 public class QueryFilterColumn {
@@ -28,7 +28,7 @@ public class QueryFilterColumn {
     private final SqlOperator operator;
 
     private QueryFilterColumn(String key, Object value, String type, SqlOperator operator) {
-        this.key = MetaGetter.underline(key);
+        this.key = FieldNameKit.underline(key);
         this.value = value;
         this.type = type;
         this.operator = operator;

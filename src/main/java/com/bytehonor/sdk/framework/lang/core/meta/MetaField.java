@@ -1,10 +1,10 @@
-package com.bytehonor.sdk.framework.lang.meta;
+package com.bytehonor.sdk.framework.lang.core.meta;
 
 /**
  * @author lijianqiang
  *
  */
-public class MetaModelField {
+public class MetaField {
 
     /**
      * 如：updateAt
@@ -21,11 +21,11 @@ public class MetaModelField {
      */
     private String type;
 
-    public MetaModelField() {
+    public MetaField() {
         this("", "", "");
     }
 
-    public MetaModelField(String camel, String underline, String type) {
+    public MetaField(String camel, String underline, String type) {
         this.camel = camel;
         this.underline = underline;
         this.type = type;

@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.lang.meta;
+package com.bytehonor.sdk.framework.lang.core.field;
 
 import java.util.Map;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
-public class MetaGetter {
+public class FieldNameKit {
 
     private static final Map<String, String> UNDERLINE_CACHE = new ConcurrentHashMap<String, String>();
 

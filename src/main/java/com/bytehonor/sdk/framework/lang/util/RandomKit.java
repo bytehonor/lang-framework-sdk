@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.lang.core;
+package com.bytehonor.sdk.framework.lang.util;
 
 import java.util.Random;
 
@@ -7,7 +7,7 @@ import java.util.Random;
  * @author lijianqiang
  *
  */
-public class Randomizer {
+public class RandomKit {
 
     /** 数字与字母字典 */
     private static final char[] LETTER_AND_DIGIT = ("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")

@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.framework.lang.constant.HttpConstants;
 import com.bytehonor.sdk.framework.lang.constant.QueryLogic;
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
+import com.bytehonor.sdk.framework.lang.core.field.FieldNameKit;
 import com.bytehonor.sdk.framework.lang.function.ClassGetter;
 import com.bytehonor.sdk.framework.lang.function.Getters;
 import com.bytehonor.sdk.framework.lang.function.getter.GetBoolean;
@@ -16,7 +17,6 @@ import com.bytehonor.sdk.framework.lang.function.getter.GetDouble;
 import com.bytehonor.sdk.framework.lang.function.getter.GetInteger;
 import com.bytehonor.sdk.framework.lang.function.getter.GetLong;
 import com.bytehonor.sdk.framework.lang.function.getter.GetString;
-import com.bytehonor.sdk.framework.lang.meta.MetaGetter;
 
 /**
  * 
@@ -417,7 +417,7 @@ public final class QueryCondition {
     }
 
     public static <T> String key(ClassGetter<T, ?> getter) {
-        return MetaGetter.underline(Getters.field(getter));
+        return FieldNameKit.underline(Getters.field(getter));
     }
 
 }
