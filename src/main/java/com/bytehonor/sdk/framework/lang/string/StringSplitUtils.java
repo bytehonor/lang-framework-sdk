@@ -71,12 +71,13 @@ public class StringSplitUtils {
         if (StringKit.isEmpty(src)) {
             return target;
         }
-        int length = src.length();
+        char[] chars = src.toCharArray();
+        int length = chars.length;
         int tokenStart = -1;
         for (int i = 0; i < length; i++) {
-            if (src.charAt(i) == sp) {
+            if (chars[i] == sp) {
                 if (tokenStart >= 0) {
-                    target.add(src.substring(tokenStart, i));
+                    target.add(new String(chars, tokenStart, i - tokenStart));
                     tokenStart = -1;
                 }
             } else if (tokenStart < 0) {
@@ -84,7 +85,7 @@ public class StringSplitUtils {
             }
         }
         if (tokenStart >= 0) {
-            target.add(src.substring(tokenStart, length));
+            target.add(new String(chars, tokenStart, length - tokenStart));
         }
         return target;
     }
