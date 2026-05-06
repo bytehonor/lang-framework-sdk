@@ -14,8 +14,6 @@ public class StringSplitUtilsTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(StringSplitUtilsTest.class);
 
-    private static final String TEXT = " 1 a bc def       adsfasdfasdf ";
-
     @Test
     public void test() {
         String src = "aaa,bbb ，c cc,ddd，d，，   ，，,,,x";
@@ -29,11 +27,12 @@ public class StringSplitUtilsTest {
 
     @Test
     public void testSplitString() {
-        List<String> list = StringSplitUtils.splitWithBlank(TEXT);
+        String src = " 1 a bc def       adsfasdfasdf ";
+        List<String> list = StringSplitUtils.splitWithBlank(src);
         for (String s : list) {
             LOG.info("1.({})", s);
         }
-        String[] arr = TEXT.split(" ");
+        String[] arr = src.split(" ");
         for (String s : arr) {
             LOG.info("2.({})", s);
         }
@@ -41,13 +40,13 @@ public class StringSplitUtilsTest {
         int total = 1000000;
         long start1 = System.nanoTime();
         for (int i = 0; i < total; i++) {
-            StringSplitUtils.split(TEXT, CharConstants.BLANK);
+            StringSplitUtils.split(src, CharConstants.BLANK);
         }
         long cost1 = System.nanoTime() - start1;
 
         long start2 = System.nanoTime();
         for (int i = 0; i < total; i++) {
-            TEXT.split(" ");
+            src.split(" ");
         }
         long cost2 = System.nanoTime() - start2;
 

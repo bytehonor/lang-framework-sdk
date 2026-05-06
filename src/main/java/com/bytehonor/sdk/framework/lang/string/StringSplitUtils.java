@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.framework.lang.string;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,26 +27,9 @@ public class StringSplitUtils {
      */
     public static List<String> split(String src) {
         if (StringKit.isEmpty(src)) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
-        boolean replaced = false;
-        int length = src.length();
-        char[] chars = src.toCharArray();
-        char[] targets = new char[length * 2];
-        for (int i = 0; i < length; i++) {
-            if (chars[i] == SPL || chars[i] == SPL_CN) {
-                targets[i] = SPL;
-                replaced = true;
-            } else {
-                targets[i] = chars[i];
-            }
-        }
-
-        if (replaced) {
-            src = new String(targets, 0, length);
-        }
-
-        return split(src, SPL);
+        return split(normalizeComma(src), SPL);
     }
 
     /**
@@ -59,40 +43,7 @@ public class StringSplitUtils {
      * 按指定字符 {@code sp} 拆分 {@code src}，连续分隔符之间不产生空串片段。
      */
     public static List<String> split(String src, char sp) {
-        if (StringKit.isEmpty(src)) {
-            return new ArrayList<String>();
-        }
-        int length = src.length();
-        List<String> res = new ArrayList<String>(length * 2);
-        int begin = 0;
-        int count = 0;
-        boolean findOne = false;
-        boolean beginNewOne = true;
-        char[] charArray = src.toCharArray();
-        for (int i = 0; i < length; i++) {
-            if (sp != charArray[i]) {
-                if (beginNewOne) {
-                    begin = i;
-                    beginNewOne = false;
-                }
-                count++;
-                findOne = false;
-            } else {
-                findOne = true;
-            }
-
-            if (findOne && count > 0) {
-                res.add(new String(charArray, begin, count));
-                count = 0;
-                beginNewOne = true;
-            }
-        }
-
-        if (count > 0) {
-            res.add(new String(charArray, begin, count));
-        }
-
-        return res;
+        return splitToCollection(src, sp, new ArrayList<>());
     }
 
     public static Set<String> toSet(String src) {
@@ -100,39 +51,41 @@ public class StringSplitUtils {
     }
 
     public static Set<String> toSet(String src, char sp) {
+        return splitToCollection(src, sp, new HashSet<>());
+    }
+
+    private static String normalizeComma(String src) {
+        if (src.indexOf(SPL_CN) < 0) {
+            return src;
+        }
+        char[] chars = src.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == SPL_CN) {
+                chars[i] = SPL;
+            }
+        }
+        return new String(chars);
+    }
+
+    private static <C extends Collection<String>> C splitToCollection(String src, char sp, C target) {
         if (StringKit.isEmpty(src)) {
-            return new HashSet<String>();
+            return target;
         }
         int length = src.length();
-        Set<String> res = new HashSet<String>(length * 2);
-        int begin = 0;
-        int count = 0;
-        boolean findOne = false;
-        boolean beginNewOne = true;
-        char[] charArray = src.toCharArray();
+        int tokenStart = -1;
         for (int i = 0; i < length; i++) {
-            if (sp != charArray[i]) {
-                if (beginNewOne) {
-                    begin = i;
-                    beginNewOne = false;
+            if (src.charAt(i) == sp) {
+                if (tokenStart >= 0) {
+                    target.add(src.substring(tokenStart, i));
+                    tokenStart = -1;
                 }
-                count++;
-                findOne = false;
-            } else {
-                findOne = true;
-            }
-
-            if (findOne && count > 0) {
-                res.add(new String(charArray, begin, count));
-                count = 0;
-                beginNewOne = true;
+            } else if (tokenStart < 0) {
+                tokenStart = i;
             }
         }
-
-        if (count > 0) {
-            res.add(new String(charArray, begin, count));
+        if (tokenStart >= 0) {
+            target.add(src.substring(tokenStart, length));
         }
-
-        return res;
+        return target;
     }
 }
