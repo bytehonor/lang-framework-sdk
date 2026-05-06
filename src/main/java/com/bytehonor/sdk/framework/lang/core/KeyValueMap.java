@@ -6,6 +6,11 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 链式构建 {@code Map<String, String>}：将各类值转为字符串后放入，空字符串与 null 数值会被跳过。
+ *
+ * @author lijianqiang
+ */
 public class KeyValueMap {
 
     private final Map<String, String> map;

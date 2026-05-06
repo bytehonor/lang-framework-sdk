@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.constant;
 
 /**
+ * 业务中常用的字符串片段常量（分隔符、空串等）。
+ *
  * @author lijianqiang
  *
  */

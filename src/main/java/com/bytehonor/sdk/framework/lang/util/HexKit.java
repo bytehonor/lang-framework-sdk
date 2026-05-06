@@ -2,6 +2,11 @@ package com.bytehonor.sdk.framework.lang.util;
 
 import java.util.Objects;
 
+/**
+ * 字节数组与十六进制字符串互转及倒序等辅助方法。
+ *
+ * @author lijianqiang
+ */
 public class HexKit {
 
     /**

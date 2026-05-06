@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 基于 {@link ThreadPoolBuilder#half(String)} 的 Spring 风格异步任务线程池单例封装。
+ *
  * @author lijianqiang
  *
  */

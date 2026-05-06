@@ -6,6 +6,11 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.constant.StringConstants;
 
+/**
+ * 将集合元素拼接为逗号分隔字符串（可选为每个元素加单引号）。
+ *
+ * @author lijianqiang
+ */
 public class JoinUtils {
 
     /**

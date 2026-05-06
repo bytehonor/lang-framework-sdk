@@ -3,6 +3,11 @@ package com.bytehonor.sdk.framework.lang.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 按 {@link #intervals()} 毫秒间隔循环执行 {@link #runThenSleep()}，可在首次循环前通过 {@link #delays()} 延迟。
+ *
+ * @author lijianqiang
+ */
 public abstract class LoopIntervalTask extends SafeTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoopIntervalTask.class);

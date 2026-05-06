@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.constant;
 
 /**
+ * 以毫秒为单位的时间跨度常量（秒、分、时、日等）。
+ *
  * @author lijianqiang
  *
  */

@@ -7,6 +7,8 @@ import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 
 /**
+ * 手机号等常见格式的正则校验工具。
+ *
  * @author lijianqiang
  *
  */

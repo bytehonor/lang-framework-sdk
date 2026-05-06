@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
+ * 通过 HTTP 下载远程资源或读取本地文件为字节数组/落盘。
+ *
  * @author lijianqiang
  *
  */

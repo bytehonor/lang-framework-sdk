@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 /**
+ * 基于 CPU 核数的 {@link java.util.concurrent.ScheduledExecutorService} 单例，用于定时/延迟任务调度。
+ *
  * @author lijianqiang
  *
  */

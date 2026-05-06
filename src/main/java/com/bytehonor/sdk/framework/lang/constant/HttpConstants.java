@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.constant;
 
 /**
+ * HTTP 请求中分页、排序等常用参数名与默认值常量。
+ *
  * @author lijianqiang
  *
  */

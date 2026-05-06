@@ -3,8 +3,8 @@ package com.bytehonor.sdk.framework.lang.util;
 import java.util.Objects;
 
 /**
- * MD5 utils
- * 
+ * MD5 摘要十六进制字符串工具（委托 {@link SimpleDigestKit}）。
+ *
  * @author lijianqiang
  *
  */

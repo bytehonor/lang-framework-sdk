@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
+ * 对 {@link java.util.Objects} 常用静态方法的薄封装，便于统一从本 SDK 引用。
+ *
  * @author lijianqiang
  */
 public final class Java {

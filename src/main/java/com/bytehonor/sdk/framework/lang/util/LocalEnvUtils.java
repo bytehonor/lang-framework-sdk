@@ -8,6 +8,11 @@ import java.util.Enumeration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 本机网络环境相关工具（如获取非回环 IPv4 地址）。
+ *
+ * @author lijianqiang
+ */
 public class LocalEnvUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalEnvUtils.class);

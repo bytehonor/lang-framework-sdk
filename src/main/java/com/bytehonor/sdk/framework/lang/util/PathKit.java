@@ -6,7 +6,9 @@ import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
  * 20211130
- * 
+ *
+ * 路径片段连接与文件扩展名提取工具。
+ *
  * @author lijianqiang
  *
  */

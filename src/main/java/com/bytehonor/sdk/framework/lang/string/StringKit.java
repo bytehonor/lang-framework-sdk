@@ -6,6 +6,8 @@ import com.bytehonor.sdk.framework.lang.constant.CharConstants;
 import com.bytehonor.sdk.framework.lang.constant.StringConstants;
 
 /**
+ * 常用字符串判空、比较、反转以及驼峰与下划线互转等工具方法。
+ *
  * @author lijianqiang
  *
  */

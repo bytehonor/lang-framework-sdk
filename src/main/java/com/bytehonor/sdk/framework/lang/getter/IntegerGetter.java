@@ -6,6 +6,8 @@ import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
+ * 从字符串等原始输入安全解析 {@link Integer} 的工具类。
+ *
  * @author lijianqiang
  *
  */

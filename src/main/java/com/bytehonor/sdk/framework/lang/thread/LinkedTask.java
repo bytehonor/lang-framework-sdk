@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.thread;
 
 /**
+ * 定时间隔链式任务：按固定间隔从 {@link QueueProducer} 取元素并由 {@link QueueConsumer} 消费。
+ *
  * @author lijianqiang
  *
  */

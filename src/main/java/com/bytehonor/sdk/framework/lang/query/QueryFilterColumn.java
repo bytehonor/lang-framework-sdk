@@ -8,6 +8,11 @@ import com.bytehonor.sdk.framework.lang.core.field.FieldNameKit;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 单条查询过滤条件：列名（统一转下划线）、值、Java 类型标识与 {@link SqlOperator}。
+ *
+ * @author lijianqiang
+ */
 public class QueryFilterColumn {
 
     /**

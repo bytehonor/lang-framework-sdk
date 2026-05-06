@@ -12,6 +12,11 @@ import com.bytehonor.sdk.framework.lang.function.setter.SetInteger;
 import com.bytehonor.sdk.framework.lang.function.setter.SetLong;
 import com.bytehonor.sdk.framework.lang.function.setter.SetString;
 
+/**
+ * 针对各类 Setter / Consumer 的便捷静态方法（解析字段名、向模型赋值等）。
+ *
+ * @author lijianqiang
+ */
 public class Setters {
 
     public static <T> String field(ClassSetter<T, ?> setter) {

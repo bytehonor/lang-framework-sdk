@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 任务线程 实现Delayed接口
+ *
+ * @author lijianqiang
  */
 public class DelayedTask<T extends SafeTask> implements Delayed {
 

@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.core.meta;
 
 /**
+ * 描述单个 Java Bean 字段的驼峰名、下划线名与类型全限定名。
+ *
  * @author lijianqiang
  *
  */

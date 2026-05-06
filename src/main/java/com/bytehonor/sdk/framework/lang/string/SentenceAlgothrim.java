@@ -2,6 +2,11 @@ package com.bytehonor.sdk.framework.lang.string;
 
 import com.bytehonor.sdk.framework.lang.util.PatternKit;
 
+/**
+ * 基于字符对齐与长度约束的短句语义相似度启发式判断。
+ *
+ * @author lijianqiang
+ */
 public class SentenceAlgothrim {
 
     /**

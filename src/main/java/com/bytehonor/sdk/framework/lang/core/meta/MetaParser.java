@@ -8,10 +8,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.bytehonor.sdk.framework.lang.core.field.FieldNameKit;
 
+/**
+ * 通过反射解析 POJO 的非静态字段，生成 {@link MetaModel}（按类名全限定名缓存）。
+ *
+ * @author lijianqiang
+ */
 public class MetaParser {
 
     private static final Map<String, MetaModel> CACHES = new ConcurrentHashMap<String, MetaModel>();
 
+    /**
+     * 解析 {@code clazz} 的实例字段元信息；已解析过的类从缓存返回。
+     *
+     * @param clazz 非空类型
+     * @return 字段元模型
+     */
     public static MetaModel parse(Class<?> clazz) {
         Objects.requireNonNull(clazz, "clazz");
 

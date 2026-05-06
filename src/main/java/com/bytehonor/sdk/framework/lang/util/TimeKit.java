@@ -9,6 +9,11 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.constant.DateConstants;
 
+/**
+ * {@link LocalDateTime} 与毫秒时间戳、格式化字符串之间的转换（时区为东八区 {@code +8} 或系统默认）。
+ *
+ * @author lijianqiang
+ */
 public class TimeKit {
 
     public static long toTimestamp(LocalDateTime ldt) {

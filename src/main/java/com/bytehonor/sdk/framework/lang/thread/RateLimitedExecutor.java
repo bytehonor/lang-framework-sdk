@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 单线程 {@link ExecutorService} 封装，用于对提交任务做串行/限流执行（单例懒加载）。
+ *
  * @author lijianqiang
  *
  */

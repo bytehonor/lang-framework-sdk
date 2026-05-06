@@ -5,6 +5,8 @@ import java.util.Objects;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 /**
+ * 从字符串等原始输入安全解析 {@link Boolean} 的工具类。
+ *
  * @author lijianqiang
  *
  */

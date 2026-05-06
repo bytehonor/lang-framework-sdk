@@ -14,6 +14,11 @@ import com.bytehonor.sdk.framework.lang.function.supplier.SupplyInteger;
 import com.bytehonor.sdk.framework.lang.function.supplier.SupplyLong;
 import com.bytehonor.sdk.framework.lang.function.supplier.SupplyString;
 
+/**
+ * 针对各类 Getter / Supplier 的便捷静态方法（解析字段名、从模型取值等）。
+ *
+ * @author lijianqiang
+ */
 public class Getters {
 
     /**

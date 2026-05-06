@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.framework.lang.getter.IntegerGetter;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 时间与自定义字母表之间的可逆编解码（用于短码、混淆展示等场景）。
+ *
+ * @author lijianqiang
+ */
 public class TimeCryptoUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(TimeCryptoUtils.class);

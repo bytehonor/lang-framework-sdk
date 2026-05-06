@@ -3,6 +3,11 @@ package com.bytehonor.sdk.framework.lang.constant;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * 常用日期时间格式化器（默认使用 {@link java.util.Locale#CHINA}）。
+ *
+ * @author lijianqiang
+ */
 public class DateConstants {
 
     private static final Locale CN = Locale.CHINA;

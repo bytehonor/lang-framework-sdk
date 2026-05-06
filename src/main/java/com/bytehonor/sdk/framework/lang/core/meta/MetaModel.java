@@ -13,6 +13,8 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 
 /**
+ * 某类型的字段元信息集合（驼峰/下划线索引、按名查找等）。
+ *
  * @author lijianqiang
  *
  */

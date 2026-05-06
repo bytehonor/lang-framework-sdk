@@ -7,6 +7,11 @@ import java.util.Set;
 
 import com.bytehonor.sdk.framework.lang.constant.CharConstants;
 
+/**
+ * 按分隔符拆分字符串为列表（支持中英文逗号归一、空白分隔等）。
+ *
+ * @author lijianqiang
+ */
 public class StringSplitUtils {
 
     private static final char SPL = ',';
@@ -43,10 +48,16 @@ public class StringSplitUtils {
         return split(src, SPL);
     }
 
+    /**
+     * 按空白字符拆分 {@code src}。
+     */
     public static List<String> splitWithBlank(String src) {
         return split(src, CharConstants.BLANK);
     }
 
+    /**
+     * 按指定字符 {@code sp} 拆分 {@code src}，连续分隔符之间不产生空串片段。
+     */
     public static List<String> split(String src, char sp) {
         if (StringKit.isEmpty(src)) {
             return new ArrayList<String>();

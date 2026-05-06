@@ -12,6 +12,8 @@ import com.bytehonor.sdk.framework.lang.function.ClassSetter;
  * {@link SerializedLambda}工具类
  *
  * https://blog.csdn.net/justry_deng/article/details/124059375
+ *
+ * @author lijianqiang
  */
 public class SerializedLambdaUtil {
 

@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 /**
+ * 使用 Spring {@link org.springframework.scheduling.concurrent.CustomizableThreadFactory} 创建固定大小线程池的工厂方法。
+ *
  * @author lijianqiang
  *
  */

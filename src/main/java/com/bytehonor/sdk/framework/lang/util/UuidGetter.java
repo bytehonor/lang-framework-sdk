@@ -3,8 +3,8 @@ package com.bytehonor.sdk.framework.lang.util;
 import java.util.UUID;
 
 /**
- * Unid Utils
- * 
+ * UUID 生成与去掉连字符等格式处理。
+ *
  * @author lijianqiang
  *
  */

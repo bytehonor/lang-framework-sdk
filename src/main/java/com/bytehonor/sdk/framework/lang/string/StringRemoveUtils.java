@@ -9,6 +9,11 @@ import com.bytehonor.sdk.framework.lang.constant.CharConstants;
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 import com.bytehonor.sdk.framework.lang.util.PatternKit;
 
+/**
+ * 使用正则等方式移除或清洗字符串中的标点、链接、空白等片段。
+ *
+ * @author lijianqiang
+ */
 public class StringRemoveUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(StringRemoveUtils.class);
@@ -32,6 +37,9 @@ public class StringRemoveUtils {
 
     private static final String HTTPS_PRE = "https://";
 
+    /**
+     * 去掉 {@code src} 中首个 {@code http://} 或 {@code https://} 开头的 URL 片段（至下一个空格或串尾）。
+     */
     public static String removeHttp(String src) {
         if (StringKit.isEmpty(src)) {
             return "";

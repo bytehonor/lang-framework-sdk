@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 一次消费多个
- * 
+ * 一次消费多个。
+ *
+ * 定时间隔批量链式任务：按批次从 {@link QueueProducer} 收集多个元素后交给 {@link QueueBatchConsumer}。
+ *
  * @author lijianqiang
  *
  * @param <T>

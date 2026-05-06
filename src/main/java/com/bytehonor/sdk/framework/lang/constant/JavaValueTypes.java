@@ -1,5 +1,10 @@
 package com.bytehonor.sdk.framework.lang.constant;
 
+/**
+ * 与 {@link com.bytehonor.sdk.framework.lang.query.QueryFilterColumn} 等配合使用的 Java 类型全限定名字符串常量。
+ *
+ * @author lijianqiang
+ */
 public class JavaValueTypes {
 
     public static final String STRING = String.class.getName();

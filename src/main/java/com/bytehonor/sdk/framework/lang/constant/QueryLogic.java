@@ -1,7 +1,8 @@
 package com.bytehonor.sdk.framework.lang.constant;
 
 /**
- * 
+ * 查询条件片段之间的逻辑关系（AND/OR）。
+ *
  * @author lijianqiang
  *
  */

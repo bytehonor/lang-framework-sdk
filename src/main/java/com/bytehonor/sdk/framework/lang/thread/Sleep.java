@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.framework.lang.util.RandomKit;
 
 /**
+ * 线程休眠与随机休眠工具（封装 {@link Thread#sleep(long)} 并记录日志）。
+ *
  * @author lijianqiang
  *
  */

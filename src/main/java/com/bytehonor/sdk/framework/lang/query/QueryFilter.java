@@ -9,6 +9,8 @@ import java.util.Set;
 import org.springframework.util.CollectionUtils;
 
 /**
+ * 查询过滤条件容器：维护已出现字段 key 集合与 {@link QueryFilterColumn} 列表。
+ *
  * @author lijianqiang
  *
  */

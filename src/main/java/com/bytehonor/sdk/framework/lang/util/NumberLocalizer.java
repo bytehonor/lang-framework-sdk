@@ -5,6 +5,11 @@ import java.text.DecimalFormat;
 import com.bytehonor.sdk.framework.lang.getter.DoubleGetter;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 将数值格式化为中文语境下的可读字符串（万、亿、千分位等）。
+ *
+ * @author lijianqiang
+ */
 public class NumberLocalizer {
 
     private static final DecimalFormat DF = new DecimalFormat(",###.##");

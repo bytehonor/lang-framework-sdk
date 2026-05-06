@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.thread;
 
 /**
+ * 阻塞链式任务：每次从 {@link QueueBlockingProducer} 取出一个元素并交给 {@link QueueConsumer} 处理。
+ *
  * @author lijianqiang
  *
  */

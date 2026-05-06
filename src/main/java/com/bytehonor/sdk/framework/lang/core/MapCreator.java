@@ -6,6 +6,11 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 链式构建 {@code Map<String, String>}，最终通过 {@link #toMap()} 取出（语义与 {@link KeyValueMap} 类似，命名侧重“创建器”）。
+ *
+ * @author lijianqiang
+ */
 public class MapCreator {
 
     private final Map<String, String> map;

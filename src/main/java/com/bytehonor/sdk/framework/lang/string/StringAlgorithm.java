@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.constant.CharConstants;
 
+/**
+ * 最长公共子串、编辑距离（Levenshtein）等字符串算法工具。
+ *
+ * @author lijianqiang
+ */
 public class StringAlgorithm {
 
     private static final Logger LOG = LoggerFactory.getLogger(StringAlgorithm.class);

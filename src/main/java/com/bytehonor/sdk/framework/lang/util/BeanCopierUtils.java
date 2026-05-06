@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.framework.lang.util;
 
 /**
- * 属性拷贝工具
- * 
+ * 属性拷贝工具（已废弃，实现已整体注释，请勿在新代码中使用）。
+ *
  * @author lijianqiang
  *
  */

@@ -12,6 +12,8 @@ import com.bytehonor.sdk.framework.lang.string.StringKit;
  * 整型地方法适合于货币精度已知的情况，比如12.11+1.10转成1211+110计算，最后再/100即可 
  * 以下是摘抄的BigDecimal方法:
  * </pre>
+ *
+ * @author lijianqiang
  */
 public class DoubleMathUtils {
 

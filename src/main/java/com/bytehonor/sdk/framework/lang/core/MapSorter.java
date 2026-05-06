@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * 将 {@link Map} 的条目按 value 排序后写入 {@link LinkedHashMap}，保持插入顺序。
+ *
+ * @author lijianqiang
+ */
 public class MapSorter {
 
     /**

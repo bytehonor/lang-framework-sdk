@@ -8,6 +8,11 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 查询排序片段列表容器，按添加顺序保存 {@link QueryOrderColumn}。
+ *
+ * @author lijianqiang
+ */
 public final class QueryOrder {
 
     private final List<QueryOrderColumn> columns;

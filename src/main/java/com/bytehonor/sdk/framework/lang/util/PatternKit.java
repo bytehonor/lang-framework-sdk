@@ -4,6 +4,11 @@ import java.util.regex.Pattern;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 常用正则判断（整数、小数、字母、中文等）与简单匹配工具。
+ *
+ * @author lijianqiang
+ */
 public class PatternKit {
 
     // private static final Logger LOG =

@@ -19,7 +19,8 @@ import com.bytehonor.sdk.framework.lang.function.getter.GetLong;
 import com.bytehonor.sdk.framework.lang.function.getter.GetString;
 
 /**
- * 
+ * 查询条件 DSL 入口：组合分页、过滤（{@link QueryFilter}）、排序（{@link QueryOrder}）与 AND/OR 逻辑，支持方法引用解析字段名。
+ *
  * @author lijianqiang
  *
  */

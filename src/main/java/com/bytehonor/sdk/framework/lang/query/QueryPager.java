@@ -2,6 +2,11 @@ package com.bytehonor.sdk.framework.lang.query;
 
 import com.bytehonor.sdk.framework.lang.constant.HttpConstants;
 
+/**
+ * 分页参数：offset、limit 以及是否需要进行 count 统计。
+ *
+ * @author lijianqiang
+ */
 public class QueryPager {
 
     private boolean counted;

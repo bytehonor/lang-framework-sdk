@@ -3,6 +3,11 @@ package com.bytehonor.sdk.framework.lang.string;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Emoji 检测与过滤（基于 Unicode 区间与正则）。
+ *
+ * @author lijianqiang
+ */
 public class StringEmojiUtils {
 
     private static final String EMOJI = "[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]";

@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
+/**
+ * 线程名后缀生成与简单 {@link Thread#sleep(long)} 封装（单例计数保证名称唯一）。
+ *
+ * @author lijianqiang
+ */
 public final class ThreadKit {
     
     private static final Logger LOG = LoggerFactory.getLogger(ThreadKit.class);

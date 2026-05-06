@@ -13,6 +13,7 @@ import com.bytehonor.sdk.framework.lang.function.ClassSetter;
 /**
  * {@link SerializedLambda}工具类
  *
+ * @author lijianqiang
  */
 public class SerializedLambdaUtils {
 

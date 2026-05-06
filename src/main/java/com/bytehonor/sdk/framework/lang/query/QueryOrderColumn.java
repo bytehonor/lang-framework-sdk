@@ -4,6 +4,11 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
 
+/**
+ * 单条排序条件：列名与排序方向（ASC/DESC 等，取自 {@link SqlOperator}）。
+ *
+ * @author lijianqiang
+ */
 public class QueryOrderColumn {
 
     private String key;

@@ -3,7 +3,8 @@ package com.bytehonor.sdk.framework.lang.util;
 import java.util.Random;
 
 /**
- * 
+ * 区间内随机整数、随机长度字母数字串等。
+ *
  * @author lijianqiang
  *
  */

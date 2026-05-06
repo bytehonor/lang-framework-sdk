@@ -12,6 +12,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 基于单例 {@link ObjectMapper} 的 JSON 读写工具（反序列化默认忽略未知字段）。
+ *
+ * @author lijianqiang
+ */
 public class JacksonKit {
 
     private static final Logger LOG = LoggerFactory.getLogger(JacksonKit.class);
@@ -22,6 +27,9 @@ public class JacksonKit {
         JACKSON_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
+    /**
+     * 将 JSON 字符串反序列化为指定 {@code valueType}。
+     */
     public static <T> T fromJson(String json, Class<T> valueType) {
         Objects.requireNonNull(json, "json");
         Objects.requireNonNull(valueType, "valueType");
@@ -40,6 +48,9 @@ public class JacksonKit {
         return text.length() < 512 ? text : text.substring(0, 510);
     }
 
+    /**
+     * 将 JSON 字符串反序列化为泛型类型（如 {@code List<String>}、{@code Map<...>}）。
+     */
     public static <T> T fromJson(String json, TypeReference<T> valueTypeRef) {
         Objects.requireNonNull(json, "json");
         Objects.requireNonNull(valueTypeRef, "valueTypeRef");
@@ -51,6 +62,9 @@ public class JacksonKit {
         }
     }
 
+    /**
+     * 将对象序列化为 JSON 字符串。
+     */
     public static String toJson(Object value) {
         Objects.requireNonNull(value, "value");
         try {
@@ -60,6 +74,9 @@ public class JacksonKit {
         }
     }
 
+    /**
+     * 将 JSON 字符串解析为 {@link JsonNode} 树。
+     */
     public static JsonNode readTree(String json) {
         Objects.requireNonNull(json, "json");
         try {

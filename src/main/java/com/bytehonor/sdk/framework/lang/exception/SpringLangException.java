@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.exception;
 
 /**
+ * SDK 内使用的通用非受检异常（运行时异常）。
+ *
  * @author lijianqiang
  *
  */

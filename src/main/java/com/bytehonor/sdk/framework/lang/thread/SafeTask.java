@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 带异常兜底的 {@link Runnable}：子类实现 {@link #handle()}，异常仅记录日志不向外抛出。
+ *
  * @author lijianqiang
  *
  */

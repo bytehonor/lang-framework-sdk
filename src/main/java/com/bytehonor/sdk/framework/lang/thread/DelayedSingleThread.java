@@ -6,6 +6,11 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 单例后台线程 + {@link DelayQueue}：按延迟时间调度执行 {@link SafeTask}（到期后在线程内 {@link Runnable#run()}）。
+ *
+ * @author lijianqiang
+ */
 public class DelayedSingleThread {
 
     private static final Logger LOG = LoggerFactory.getLogger(DelayedSingleThread.class);

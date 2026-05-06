@@ -20,7 +20,9 @@ import com.google.common.cache.CacheBuilder;
 
 /**
  * 20211130
- * 
+ *
+ * 本地文件读写、按行读取、简单互斥标记等文件相关工具。
+ *
  * @author lijianqiang
  *
  */

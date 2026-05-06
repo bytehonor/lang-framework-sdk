@@ -1,6 +1,8 @@
 package com.bytehonor.sdk.framework.lang.thread;
 
 /**
+ * 消费者：接收单个由生产者产出的元素并完成业务处理。
+ *
  * @author lijianqiang
  *
  */
