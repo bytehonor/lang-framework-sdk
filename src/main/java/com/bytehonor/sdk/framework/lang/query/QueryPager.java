@@ -32,7 +32,7 @@ public class QueryPager {
     public static QueryPager of(boolean counted, int offset, int limit) {
         QueryPager model = new QueryPager();
         model.setCounted(counted);
-        model.setOffset(offset > -1 ? offset : HttpConstants.OFFSET_DEF);
+        model.setOffset(offset);
         model.setLimit(limit);
         return model;
     }
@@ -50,7 +50,7 @@ public class QueryPager {
     }
 
     public void setOffset(int offset) {
-        this.offset = offset;
+        this.offset = normalizeOffset(offset);
     }
 
     public int getLimit() {
@@ -58,7 +58,21 @@ public class QueryPager {
     }
 
     public void setLimit(int limit) {
-        this.limit = limit;
+        this.limit = normalizeLimit(limit);
+    }
+
+    private static int normalizeOffset(int offset) {
+        return offset > -1 ? offset : HttpConstants.OFFSET_DEF;
+    }
+
+    private static int normalizeLimit(int limit) {
+        if (limit == HttpConstants.LIMIT_NON) {
+            return HttpConstants.LIMIT_NON;
+        }
+        if (limit < 1) {
+            return HttpConstants.LIMIT_DEF;
+        }
+        return limit;
     }
 
 }

@@ -3,6 +3,8 @@ package com.bytehonor.sdk.framework.lang.query;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
 
 import org.springframework.util.CollectionUtils;
 
@@ -29,6 +31,8 @@ public final class QueryCondition {
     private static final int LIMIT_DEF = HttpConstants.LIMIT_DEF;
 
     private static final int LIMIT_NON = HttpConstants.LIMIT_NON;
+
+    private static final ConcurrentHashMap<String, String> KEY_CACHE = new ConcurrentHashMap<String, String>();
 
     private final QueryLogic logic;
 
@@ -81,7 +85,7 @@ public final class QueryCondition {
         return this;
     }
 
-    public <T> QueryCondition filters(List<QueryFilterColumn> list) {
+    public QueryCondition filters(List<QueryFilterColumn> list) {
         if (CollectionUtils.isEmpty(list)) {
             return this;
         }
@@ -99,7 +103,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetString<T> getter, String value) {
-        return this.filter(QueryFilterColumn.eq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::eq);
     }
 
     /**
@@ -110,7 +114,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetLong<T> getter, Long value) {
-        return this.filter(QueryFilterColumn.eq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::eq);
     }
 
     /**
@@ -121,7 +125,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetInteger<T> getter, Integer value) {
-        return this.filter(QueryFilterColumn.eq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::eq);
     }
 
     /**
@@ -132,7 +136,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition eq(GetBoolean<T> getter, Boolean value) {
-        return this.filter(QueryFilterColumn.eq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::eq);
     }
 
     /**
@@ -143,7 +147,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetString<T> getter, String value) {
-        return this.filter(QueryFilterColumn.neq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::neq);
     }
 
     /**
@@ -154,7 +158,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetLong<T> getter, Long value) {
-        return this.filter(QueryFilterColumn.neq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::neq);
     }
 
     /**
@@ -165,7 +169,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetInteger<T> getter, Integer value) {
-        return this.filter(QueryFilterColumn.neq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::neq);
     }
 
     /**
@@ -176,7 +180,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition neq(GetBoolean<T> getter, Boolean value) {
-        return this.filter(QueryFilterColumn.neq(key(getter), value));
+        return append(getter, value, QueryFilterColumn::neq);
     }
 
     /**
@@ -187,7 +191,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(GetLong<T> getter, Long value) {
-        return this.filter(QueryFilterColumn.gt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::gt);
     }
 
     /**
@@ -198,7 +202,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(GetInteger<T> getter, Integer value) {
-        return this.filter(QueryFilterColumn.gt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::gt);
     }
 
     /**
@@ -209,7 +213,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition gt(GetDouble<T> getter, Double value) {
-        return this.filter(QueryFilterColumn.gt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::gt);
     }
 
     /**
@@ -220,7 +224,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition egt(GetLong<T> getter, Long value) {
-        return this.filter(QueryFilterColumn.egt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::egt);
     }
 
     /**
@@ -231,7 +235,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition egt(GetInteger<T> getter, Integer value) {
-        return this.filter(QueryFilterColumn.egt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::egt);
     }
 
     /**
@@ -242,7 +246,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetLong<T> getter, Long value) {
-        return this.filter(QueryFilterColumn.lt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::lt);
     }
 
     /**
@@ -253,7 +257,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetInteger<T> getter, Integer value) {
-        return this.filter(QueryFilterColumn.lt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::lt);
     }
 
     /**
@@ -264,7 +268,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition lt(GetDouble<T> getter, Double value) {
-        return this.filter(QueryFilterColumn.lt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::lt);
     }
 
     /**
@@ -275,7 +279,7 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition elt(GetLong<T> getter, Long value) {
-        return this.filter(QueryFilterColumn.elt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::elt);
     }
 
     /**
@@ -286,63 +290,55 @@ public final class QueryCondition {
      * @return
      */
     public <T> QueryCondition elt(GetInteger<T> getter, Integer value) {
-        return this.filter(QueryFilterColumn.elt(key(getter), value));
+        return append(getter, value, QueryFilterColumn::elt);
     }
 
     public <T> QueryCondition like(GetString<T> getter, String value) {
-        return this.filter(QueryFilterColumn.like(key(getter), value));
+        return append(getter, value, QueryFilterColumn::like);
     }
 
     public <T> QueryCondition likeLeft(GetString<T> getter, String value) {
-        return this.filter(QueryFilterColumn.likeLeft(key(getter), value));
+        return append(getter, value, QueryFilterColumn::likeLeft);
     }
 
     public <T> QueryCondition likeRight(GetString<T> getter, String value) {
-        return this.filter(QueryFilterColumn.likeRight(key(getter), value));
+        return append(getter, value, QueryFilterColumn::likeRight);
     }
 
     public <T> QueryCondition in(GetString<T> getter, Collection<String> value) {
-        return this.filter(QueryFilterColumn.in(key(getter), value, String.class));
+        return inValues(getter, value, String.class);
     }
 
     public <T> QueryCondition in(GetLong<T> getter, Collection<Long> value) {
-        return this.filter(QueryFilterColumn.in(key(getter), value, Long.class));
+        return inValues(getter, value, Long.class);
     }
 
     public <T> QueryCondition in(GetInteger<T> getter, Collection<Integer> value) {
-        return this.filter(QueryFilterColumn.in(key(getter), value, Integer.class));
+        return inValues(getter, value, Integer.class);
     }
 
     public <T> QueryCondition desc(ClassGetter<T, ?> getter) {
-        this.order.desc(key(getter));
-        return this;
+        return orderBy(getter, true, false);
     }
 
     public <T> QueryCondition descIfNon(ClassGetter<T, ?> getter) {
-        if (canOrder() == false) {
-            this.order.desc(key(getter));
-        }
-        return this;
+        return orderBy(getter, true, true);
     }
 
     public <T> QueryCondition asc(ClassGetter<T, ?> getter) {
-        this.order.asc(key(getter));
-        return this;
+        return orderBy(getter, false, false);
     }
 
     public <T> QueryCondition ascIfNon(ClassGetter<T, ?> getter) {
-        if (canOrder() == false) {
-            this.order.asc(key(getter));
-        }
-        return this;
+        return orderBy(getter, false, true);
     }
 
-    public <T> QueryCondition order(QueryOrderColumn column) {
+    public QueryCondition order(QueryOrderColumn column) {
         this.order.with(column);
         return this;
     }
 
-    public <T> QueryCondition orders(List<QueryOrderColumn> list) {
+    public QueryCondition orders(List<QueryOrderColumn> list) {
         if (CollectionUtils.isEmpty(list)) {
             return this;
         }
@@ -400,8 +396,7 @@ public final class QueryCondition {
     }
 
     public <T> boolean has(ClassGetter<T, ?> getter) {
-        String key = key(getter);
-        return filter.contains(key);
+        return filter.contains(key(getter));
     }
 
     public boolean canFilter() {
@@ -409,8 +404,7 @@ public final class QueryCondition {
     }
 
     public <T> String getString(GetString<T> getter, String operator) {
-        String key = key(getter);
-        return filter.getString(key, operator);
+        return filter.getString(key(getter), operator);
     }
 
     public <T> String getStringEq(GetString<T> getter) {
@@ -418,7 +412,31 @@ public final class QueryCondition {
     }
 
     public static <T> String key(ClassGetter<T, ?> getter) {
-        return FieldNameKit.underline(Getters.field(getter));
+        Objects.requireNonNull(getter, "getter");
+        String lambdaClassName = getter.getClass().getName();
+        return KEY_CACHE.computeIfAbsent(lambdaClassName, ignored -> FieldNameKit.underline(Getters.field(getter)));
+    }
+
+    private <T> QueryCondition orderBy(ClassGetter<T, ?> getter, boolean desc, boolean onlyIfEmpty) {
+        if (onlyIfEmpty && canOrder()) {
+            return this;
+        }
+        String key = key(getter);
+        if (desc) {
+            this.order.desc(key);
+        } else {
+            this.order.asc(key);
+        }
+        return this;
+    }
+
+    private <T, V> QueryCondition append(ClassGetter<T, ?> getter, V value,
+            BiFunction<String, V, QueryFilterColumn> creator) {
+        return filter(creator.apply(key(getter), value));
+    }
+
+    private <T, V> QueryCondition inValues(ClassGetter<T, ?> getter, Collection<V> values, Class<V> type) {
+        return filter(QueryFilterColumn.in(key(getter), values, type));
     }
 
 }

@@ -36,6 +36,9 @@ public final class QueryOrder {
     }
 
     public QueryOrder with(QueryOrderColumn column) {
+        if (column == null) {
+            return this;
+        }
         if (StringKit.isEmpty(column.getKey()) || StringKit.isEmpty(column.getSorter())) {
             return this;
         }
@@ -48,7 +51,7 @@ public final class QueryOrder {
     }
 
     public boolean canOrder() {
-        return CollectionUtils.isEmpty(columns) == false;
+        return !CollectionUtils.isEmpty(columns);
     }
 
 }

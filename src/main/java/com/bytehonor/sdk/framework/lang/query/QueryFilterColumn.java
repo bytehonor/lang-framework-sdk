@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.framework.lang.query;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import com.bytehonor.sdk.framework.lang.constant.JavaValueTypes;
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
@@ -14,6 +15,8 @@ import com.bytehonor.sdk.framework.lang.string.StringKit;
  * @author lijianqiang
  */
 public class QueryFilterColumn {
+
+    private static final String LIKE_ONLY_SUPPORT_STRING = "LIKE operator only supports String type";
 
     /**
      * 忽略驼峰及下划线风格, 统一转成了下划线
@@ -44,23 +47,30 @@ public class QueryFilterColumn {
     }
 
     public static QueryFilterColumn of(String key, Object value, String type, SqlOperator operator) {
-        if (SqlOperator.LIKE.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
-            throw new SpringLangException(key + " cannt be like");
-        }
-        if (SqlOperator.LIKE_LEFT.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
-            throw new SpringLangException(key + " cannt be like");
-        }
-        if (SqlOperator.LIKE_RIGHT.equals(operator) && JavaValueTypes.STRING.equals(type) == false) {
-            throw new SpringLangException(key + " cannt be like");
-        }
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(operator, "operator");
+        validateOperatorType(key, type, operator);
         return new QueryFilterColumn(key, value, type, operator);
+    }
+
+    private static void validateOperatorType(String key, String type, SqlOperator operator) {
+        if (isLikeOperator(operator) && !JavaValueTypes.STRING.equals(type)) {
+            throw new SpringLangException(key + " " + LIKE_ONLY_SUPPORT_STRING + ", but was: " + type);
+        }
+    }
+
+    private static boolean isLikeOperator(SqlOperator operator) {
+        return SqlOperator.LIKE.equals(operator) || SqlOperator.LIKE_LEFT.equals(operator)
+                || SqlOperator.LIKE_RIGHT.equals(operator);
     }
 
     /**
      * 字符串空值也会被采纳
+     * 非空集合才会被采纳（空集合会被过滤，避免产生无效 IN 条件）
      * 
      * @param filter
-     * @return
+     * @return true 表示该条件有效（key/operator/value 均有效，且 Collection 值非空）
      */
     public static boolean accept(QueryFilterColumn filter) {
         if (filter == null) {
@@ -72,7 +82,13 @@ public class QueryFilterColumn {
         if (StringKit.isEmpty(filter.getKey())) {
             return false;
         }
-        return filter.getValue() != null;
+        if (filter.getValue() == null) {
+            return false;
+        }
+        if (filter.getValue() instanceof Collection<?>) {
+            return !((Collection<?>) filter.getValue()).isEmpty();
+        }
+        return true;
     }
 
     /**
@@ -86,7 +102,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn eq(String key, String value) {
-        return of(key, value, JavaValueTypes.STRING, SqlOperator.EQ);
+        return ofString(key, value, SqlOperator.EQ);
     }
 
     /**
@@ -100,7 +116,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn eq(String key, Long value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.EQ);
+        return ofLong(key, value, SqlOperator.EQ);
     }
 
     /**
@@ -114,7 +130,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn eq(String key, Integer value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.EQ);
+        return ofInteger(key, value, SqlOperator.EQ);
     }
 
     /**
@@ -128,7 +144,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn eq(String key, Boolean value) {
-        return of(key, value, JavaValueTypes.BOOLEAN, SqlOperator.EQ);
+        return ofBoolean(key, value, SqlOperator.EQ);
     }
 
     /**
@@ -142,7 +158,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn neq(String key, String value) {
-        return of(key, value, JavaValueTypes.STRING, SqlOperator.NEQ);
+        return ofString(key, value, SqlOperator.NEQ);
     }
 
     /**
@@ -156,7 +172,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn neq(String key, Long value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.NEQ);
+        return ofLong(key, value, SqlOperator.NEQ);
     }
 
     /**
@@ -170,7 +186,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn neq(String key, Integer value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.NEQ);
+        return ofInteger(key, value, SqlOperator.NEQ);
     }
 
     /**
@@ -184,7 +200,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn neq(String key, Boolean value) {
-        return of(key, value, JavaValueTypes.BOOLEAN, SqlOperator.NEQ);
+        return ofBoolean(key, value, SqlOperator.NEQ);
     }
 
     /**
@@ -197,7 +213,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn gt(String key, Long value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.GT);
+        return ofLong(key, value, SqlOperator.GT);
     }
 
     /**
@@ -210,7 +226,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn gt(String key, Integer value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.GT);
+        return ofInteger(key, value, SqlOperator.GT);
     }
 
     /**
@@ -223,7 +239,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn gt(String key, Double value) {
-        return of(key, value, JavaValueTypes.DOUBLE, SqlOperator.GT);
+        return ofDouble(key, value, SqlOperator.GT);
     }
 
     /**
@@ -236,7 +252,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn egt(String key, Long value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.EGT);
+        return ofLong(key, value, SqlOperator.EGT);
     }
 
     /**
@@ -249,7 +265,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn egt(String key, Integer value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.EGT);
+        return ofInteger(key, value, SqlOperator.EGT);
     }
 
     /**
@@ -262,7 +278,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn lt(String key, Long value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.LT);
+        return ofLong(key, value, SqlOperator.LT);
     }
 
     /**
@@ -275,7 +291,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn lt(String key, Integer value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.LT);
+        return ofInteger(key, value, SqlOperator.LT);
     }
 
     /**
@@ -288,7 +304,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn lt(String key, Double value) {
-        return of(key, value, JavaValueTypes.DOUBLE, SqlOperator.LT);
+        return ofDouble(key, value, SqlOperator.LT);
     }
 
     /**
@@ -301,7 +317,7 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn elt(String key, Long value) {
-        return of(key, value, JavaValueTypes.LONG, SqlOperator.ELT);
+        return ofLong(key, value, SqlOperator.ELT);
     }
 
     /**
@@ -314,27 +330,28 @@ public class QueryFilterColumn {
      * @return
      */
     public static QueryFilterColumn elt(String key, Integer value) {
-        return of(key, value, JavaValueTypes.INTEGER, SqlOperator.ELT);
+        return ofInteger(key, value, SqlOperator.ELT);
     }
 
     public static QueryFilterColumn like(String key, String value) {
-        return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE);
+        return ofString(key, value, SqlOperator.LIKE);
     }
 
     public static QueryFilterColumn likeLeft(String key, String value) {
-        return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE_LEFT);
+        return ofString(key, value, SqlOperator.LIKE_LEFT);
     }
 
     public static QueryFilterColumn likeRight(String key, String value) {
-        return of(key, value, JavaValueTypes.STRING, SqlOperator.LIKE_RIGHT);
+        return ofString(key, value, SqlOperator.LIKE_RIGHT);
     }
 
     public static <T> QueryFilterColumn in(String key, Collection<T> values, Class<T> type) {
-        return of(key, values, type.getName(), SqlOperator.IN);
+        Objects.requireNonNull(type, "type");
+        return ofType(key, values, type.getName(), SqlOperator.IN);
     }
 
     public static <T> QueryFilterColumn in(String key, Collection<T> values, String type) {
-        return of(key, values, type, SqlOperator.IN);
+        return ofType(key, values, type, SqlOperator.IN);
     }
 
     public String getKey() {
@@ -354,10 +371,30 @@ public class QueryFilterColumn {
     }
 
     public String unique() {
-        return unique(key, operator.getKey());
+        return QueryHelper.unique(key, operator.getKey());
     }
 
-    public static String unique(String key, String operator) {
-        return new StringBuilder().append(key).append("-").append(operator).toString();
+    private static QueryFilterColumn ofString(String key, String value, SqlOperator operator) {
+        return ofType(key, value, JavaValueTypes.STRING, operator);
+    }
+
+    private static QueryFilterColumn ofLong(String key, Long value, SqlOperator operator) {
+        return ofType(key, value, JavaValueTypes.LONG, operator);
+    }
+
+    private static QueryFilterColumn ofInteger(String key, Integer value, SqlOperator operator) {
+        return ofType(key, value, JavaValueTypes.INTEGER, operator);
+    }
+
+    private static QueryFilterColumn ofBoolean(String key, Boolean value, SqlOperator operator) {
+        return ofType(key, value, JavaValueTypes.BOOLEAN, operator);
+    }
+
+    private static QueryFilterColumn ofDouble(String key, Double value, SqlOperator operator) {
+        return ofType(key, value, JavaValueTypes.DOUBLE, operator);
+    }
+
+    private static QueryFilterColumn ofType(String key, Object value, String type, SqlOperator operator) {
+        return of(key, value, type, operator);
     }
 }
