@@ -146,4 +146,19 @@ public class TextMatcherTest {
         }
         assertTrue("test9", isOk);
     }
+
+    @Test
+    public void test10() {
+        String text = "中a";
+        String prepare = TextMatcher.prepare(text);
+        LOG.info("test10 prepare:({})", prepare);
+        assertTrue("test10", "中 a".equals(prepare));
+    }
+
+    @Test
+    public void test11() {
+        TextMatcher matcher = TextMatcher.builder().exclude("one").build();
+        LOG.info("test11 matcher:{}", matcher);
+        assertTrue("test11", matcher.match("one two three") == false);
+    }
 }

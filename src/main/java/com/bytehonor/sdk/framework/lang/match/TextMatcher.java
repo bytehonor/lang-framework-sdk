@@ -1,9 +1,9 @@
 package com.bytehonor.sdk.framework.lang.match;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,19 +17,31 @@ import com.bytehonor.sdk.framework.lang.string.StringSplitUtils;
 import com.bytehonor.sdk.framework.lang.util.PatternKit;
 
 /**
- * <pre>
- * 支持中文,英文,数字
- * 
- * 优先排除, 其次满足. 排除或满足都只需要命中一组即可
- * 
- * 长度最小2，最大4
- * 
- * </pre>
- * 
- * @author lijianqiang
+ * 文本关键词匹配：将输入拆成“词”集合后，与多组 {@link WordMatcher} 比较。
  *
+ * <p>
+ * 支持的字符类别见 {@link #prepare(String)} / {@link #words(String)}：英文、数字、汉字及空格；
+ * 英文与数字可混合为一段；纯汉字超过 {@value #CHINESE_MAX_LENGTH} 个字时会再切成更短片段参与匹配。
+ * 参与匹配的词长度下限为 {@value #WORD_MIN_LENGTH}。
+ * </p>
+ *
+ * <p>
+ * 规则（组间均为 OR，组内为 AND，与 {@link WordMatcher} 一致）：
+ * </p>
+ * <ol>
+ * <li>先判断排除：任一排除组的词全部出现在拆分结果中 → 整体不匹配；</li>
+ * <li>再判断包含：任一包含组的词全部出现 → 匹配成功；否则不匹配。</li>
+ * </ol>
+ *
+ * @author lijianqiang
  */
 public class TextMatcher {
+
+    private enum TokenType {
+        WORD,
+        CHINESE,
+        INVALID
+    }
 
     private static final int WORD_MIN_LENGTH = 2;
 
@@ -46,12 +58,18 @@ public class TextMatcher {
     private final List<WordMatcher> includers;
 
     public TextMatcher(List<WordMatcher> excluders, List<WordMatcher> includers) {
-        this.excluders = excluders;
-        this.includers = includers;
+        Objects.requireNonNull(excluders, "excluders");
+        Objects.requireNonNull(includers, "includers");
+        this.excluders = List.copyOf(excluders);
+        this.includers = List.copyOf(includers);
     }
 
     public boolean match(String text) {
         if (StringKit.isEmpty(text)) {
+            return false;
+        }
+        // 没有包含条件时，整体语义恒为“不匹配”
+        if (CollectionUtils.isEmpty(this.includers)) {
             return false;
         }
 
@@ -76,9 +94,7 @@ public class TextMatcher {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("excluders:").append(excluders.size()).append(", includers:").append(includers.size());
-        return sb.toString();
+        return "excluders:" + excluders.size() + ", includers:" + includers.size();
     }
 
     /**
@@ -97,48 +113,77 @@ public class TextMatcher {
         if (StringKit.isEmpty(text)) {
             return new HashSet<String>();
         }
-        text = text.toLowerCase(); // 全小写
+        text = text.toLowerCase(Locale.ROOT); // 全小写
         Set<String> raws = StringSplitUtils.toSet(text, CharConstants.BLANK);
         int size = raws.size();
         Set<String> result = new HashSet<String>(size * 10);
-        Set<String> chineseWords = new HashSet<String>(size * 10);
         for (String raw : raws) {
             if (raw.length() < WORD_MIN_LENGTH) {
                 continue;
             }
-
-            if (PatternKit.isLetter(raw)) {
-                result.add(raw); // 纯英文,直接使用, 且小写
+            TokenType type = tokenType(raw);
+            if (type == TokenType.WORD) {
+                result.add(raw); // 英文、数字、英文数字, 直接使用
                 continue;
             }
-            if (PatternKit.isNumber(raw)) {
-                result.add(raw); // 纯数字,直接使用
+            if (type == TokenType.CHINESE) {
+                addChineseParts(raw, result); // 汉字块二次分割
                 continue;
-            }
-            if (PatternKit.isLetterNumber(raw)) {
-                result.add(raw); // 英文数字,直接使用
-                continue;
-            }
-            if (PatternKit.isChinese(raw)) {
-                chineseWords.add(raw); // 汉字块二次分割
-                continue;
-            }
-        }
-        if (CollectionUtils.isEmpty(chineseWords) == false) {
-            for (String chinese : chineseWords) {
-                if (chinese.length() < WORD_MIN_LENGTH) {
-                    continue;
-                }
-                Set<String> parts = StringSliceUtils.slice(chinese, CHINESE_MAX_LENGTH);
-                for (String part : parts) {
-                    if (part.length() < WORD_MIN_LENGTH) {
-                        continue;
-                    }
-                    result.add(part);
-                }
             }
         }
         return result;
+    }
+
+    private static TokenType tokenType(String raw) {
+        boolean hasLetter = false;
+        boolean hasNumber = false;
+        boolean hasChinese = false;
+        int len = raw.length();
+        for (int i = 0; i < len; i++) {
+            char ch = raw.charAt(i);
+            if (PatternKit.isLetterChar(ch)) {
+                if (hasChinese) {
+                    return TokenType.INVALID;
+                }
+                hasLetter = true;
+                continue;
+            }
+            if (PatternKit.isNumberChar(ch)) {
+                if (hasChinese) {
+                    return TokenType.INVALID;
+                }
+                hasNumber = true;
+                continue;
+            }
+            if (PatternKit.isChineseChar(ch)) {
+                if (hasLetter || hasNumber) {
+                    return TokenType.INVALID;
+                }
+                hasChinese = true;
+                continue;
+            }
+            return TokenType.INVALID;
+        }
+        if (hasChinese) {
+            if (!hasLetter && !hasNumber) {
+                return TokenType.CHINESE;
+            }
+            return TokenType.INVALID;
+        }
+        if (hasLetter || hasNumber) {
+            return TokenType.WORD;
+        }
+        return TokenType.INVALID;
+    }
+
+    private static void addChineseParts(String chinese, Set<String> result) {
+        Set<String> parts = StringSliceUtils.slice(chinese, CHINESE_MAX_LENGTH);
+        for (String part : parts) {
+            if (part.length() < WORD_MIN_LENGTH) {
+                continue;
+            }
+            result.add(part);
+        }
     }
 
     /**
@@ -165,7 +210,7 @@ public class TextMatcher {
         int at = 0;
         for (int i = 0; i < length; i++) {
             if (PatternKit.isNormalChar(source[i])) {
-                if (i > 1 && blank(source[i - 1], source[i])) {
+                if (i > 0 && blank(source[i - 1], source[i])) {
                     // 非中文之间补个空格
                     target[at++] = CharConstants.BLANK;
                 }
@@ -181,13 +226,7 @@ public class TextMatcher {
         if (last == CharConstants.BLANK || now == CharConstants.BLANK) {
             return false;
         }
-        if (PatternKit.isChineseChar(last) && PatternKit.isChineseChar(now) == false) {
-            return true;
-        }
-        if (PatternKit.isChineseChar(last) == false && PatternKit.isChineseChar(now)) {
-            return true;
-        }
-        return false;
+        return PatternKit.isChineseChar(last) != PatternKit.isChineseChar(now);
     }
 
     private static boolean doMatch(Set<String> words, List<WordMatcher> matchers) {
@@ -221,14 +260,14 @@ public class TextMatcher {
         public Builder exclude(String... words) {
             Objects.requireNonNull(words, "words");
 
-            this.excluders.add(WordMatcher.of(Arrays.asList(words)));
+            this.excluders.add(WordMatcher.of(words));
             return this;
         }
 
         public Builder include(String... words) {
             Objects.requireNonNull(words, "words");
 
-            this.includers.add(WordMatcher.of(Arrays.asList(words)));
+            this.includers.add(WordMatcher.of(words));
             return this;
         }
 

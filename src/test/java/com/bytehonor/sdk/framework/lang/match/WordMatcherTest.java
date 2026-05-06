@@ -1,11 +1,13 @@
 package com.bytehonor.sdk.framework.lang.match;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 import com.google.common.collect.Sets;
 
 public class WordMatcherTest {
@@ -38,5 +40,15 @@ public class WordMatcherTest {
             LOG.error("test2", e);
         }
         assertTrue("test2", isOk);
+    }
+
+    @Test(expected = SpringLangException.class)
+    public void test3() {
+        WordMatcher.of("  ", "");
+    }
+
+    @Test
+    public void test4() {
+        assertEquals("web3", WordMatcher.format(" WeB3 "));
     }
 }

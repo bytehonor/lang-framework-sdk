@@ -1,8 +1,10 @@
 package com.bytehonor.sdk.framework.lang.match;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,10 +26,10 @@ import com.bytehonor.sdk.framework.lang.util.JoinUtils;
  */
 public class WordMatcher {
 
-    private final Set<String> matchers;
+    private final Set<String> targets;
 
-    private WordMatcher(Set<String> matchers) {
-        this.matchers = matchers;
+    private WordMatcher(Set<String> targets) {
+        this.targets = targets;
     }
 
     public static WordMatcher of(String... words) {
@@ -46,15 +48,18 @@ public class WordMatcher {
             throw new SpringLangException("words cannt be empty");
         }
 
-        Set<String> matchers = new HashSet<String>();
+        Set<String> formats = new HashSet<String>(words.size());
         for (String word : words) {
             if (StringKit.isEmpty(word)) {
                 continue;
             }
-            matchers.add(format(word));
+            formats.add(format(word));
+        }
+        if (CollectionUtils.isEmpty(formats)) {
+            throw new SpringLangException("words cannt be empty");
         }
 
-        return new WordMatcher(matchers);
+        return new WordMatcher(Collections.unmodifiableSet(formats));
     }
 
     public static String format(String word) {
@@ -64,16 +69,16 @@ public class WordMatcher {
         if (StringKit.isEmpty(val)) {
             throw new SpringLangException("word cannt be empty");
         }
-        return val.toLowerCase();
+        return val.toLowerCase(Locale.ROOT);
     }
 
     public boolean match(Set<String> words) {
-        if (CollectionUtils.isEmpty(words)) {
+        if (CollectionUtils.isEmpty(words) || CollectionUtils.isEmpty(targets)) {
             return false;
         }
 
-        for (String word : matchers) {
-            if (words.contains(word) == false) {
+        for (String target : targets) {
+            if (words.contains(target) == false) {
                 return false;
             }
         }
@@ -81,12 +86,12 @@ public class WordMatcher {
     }
 
     public Set<String> getWords() {
-        return matchers;
+        return targets;
     }
 
     @Override
     public String toString() {
-        return JoinUtils.strings(matchers);
+        return JoinUtils.strings(targets);
     }
 
 }
