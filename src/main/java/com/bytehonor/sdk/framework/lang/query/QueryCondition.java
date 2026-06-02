@@ -408,7 +408,7 @@ public final class QueryCondition {
     }
 
     public <T> String getStringEq(GetString<T> getter) {
-        return getString(getter, SqlOperator.EQ.getKey());
+        return getString(getter, SqlOperator.EQ.key());
     }
 
     public static <T> String key(ClassGetter<T, ?> getter) {

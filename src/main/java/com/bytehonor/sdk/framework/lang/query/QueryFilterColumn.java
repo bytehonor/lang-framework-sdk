@@ -371,7 +371,7 @@ public class QueryFilterColumn {
     }
 
     public String unique() {
-        return QueryHelper.unique(key, operator.getKey());
+        return QueryHelper.unique(key, operator.key());
     }
 
     private static QueryFilterColumn ofString(String key, String value, SqlOperator operator) {

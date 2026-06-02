@@ -1,5 +1,9 @@
 package com.bytehonor.sdk.framework.lang.constant;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <pre>
  * eq 等于
@@ -47,9 +51,28 @@ public enum SqlOperator {
 
     ;
 
-    private String key;
+    private static final Map<String, SqlOperator> BY_KEY;
 
-    private String opt;
+    private static final Map<String, String> MAPPING;
+
+    static {
+        Map<String, SqlOperator> m = new HashMap<String, SqlOperator>();
+        for (SqlOperator v : values()) {
+            SqlOperator prev = m.putIfAbsent(v.key, v);
+            if (prev != null) {
+                throw new IllegalStateException("duplicate key: " + v.key);
+            }
+        }
+        BY_KEY = Collections.unmodifiableMap(m);
+
+        MAPPING = new HashMap<String, String>();
+        MAPPING.put("gte", "egt");
+        MAPPING.put("lte", "elt");
+    }
+
+    private final String key;
+
+    private final String opt;
 
     private SqlOperator(String key, String opt) {
         this.key = key;
@@ -57,27 +80,33 @@ public enum SqlOperator {
     }
 
     public static SqlOperator keyOf(String key) {
-        for (SqlOperator sc : SqlOperator.values()) {
-            if (sc.key.equals(key)) {
-                return sc;
-            }
+        SqlOperator item = BY_KEY.get(realKey(key));
+        if (item == null) {
+            return EQ;
         }
-        return EQ;
+        return item;
     }
 
-    public String getKey() {
+    private static String realKey(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+        return MAPPING.getOrDefault(key, key);
+    }
+
+    public String key() {
         return key;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getOpt() {
+    public String opt() {
         return opt;
     }
 
-    public void setOpt(String opt) {
-        this.opt = opt;
+    /**
+     * 调试或对外序列化时可用；业务比较请优先用枚举引用而非字符串。
+     */
+    @Override
+    public String toString() {
+        return name() + "(" + key + ")";
     }
 }

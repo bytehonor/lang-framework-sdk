@@ -31,12 +31,12 @@ public class QueryOrderColumn {
 
     public static QueryOrderColumn desc(String key) {
         Objects.requireNonNull(key, "key");
-        return of(key, SqlOperator.DESC.getOpt());
+        return of(key, SqlOperator.DESC.opt());
     }
 
     public static QueryOrderColumn asc(String key) {
         Objects.requireNonNull(key, "key");
-        return of(key, SqlOperator.ASC.getOpt());
+        return of(key, SqlOperator.ASC.opt());
     }
 
     public String getKey() {
