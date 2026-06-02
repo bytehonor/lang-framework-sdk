@@ -66,8 +66,8 @@ public enum SqlOperator {
         BY_KEY = Collections.unmodifiableMap(m);
 
         MAPPING = new HashMap<String, String>();
-        MAPPING.put("gte", "egt");
-        MAPPING.put("lte", "elt");
+        MAPPING.put("gte", EGT.key);
+        MAPPING.put("lte", ELT.key);
     }
 
     private final String key;
