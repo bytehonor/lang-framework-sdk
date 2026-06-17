@@ -31,7 +31,7 @@ public class DoubleMathUtils {
      */
     public static double add(Double value1, Double value2) {
         BigDecimal b1 = BigDecimal.valueOf(value1);
-        BigDecimal b2 = BigDecimal.valueOf(value1);
+        BigDecimal b2 = BigDecimal.valueOf(value2);
         return b1.add(b2).doubleValue();
     }
 
