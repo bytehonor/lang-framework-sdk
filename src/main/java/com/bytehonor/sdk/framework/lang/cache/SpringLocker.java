@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.framework.lang.cache;
 
+import java.time.Duration;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.google.common.cache.Cache;
@@ -19,12 +19,11 @@ public class SpringLocker {
     /**
      * @param size     初始容量（同时影响最大条目数上限为 1024 * size）
      * @param duration 写入后经过多久条目过期
-     * @param unit     时间单位
      */
-    public SpringLocker(int size, long duration, TimeUnit unit) {
+    public SpringLocker(int size, Duration duration) {
         cache = CacheBuilder.newBuilder().initialCapacity(size) // 设置初始容量为100
                 .maximumSize(1024 * size) // 设置缓存的最大容量
-                .expireAfterWrite(duration, unit) // 设置缓存在写入一分钟后失效
+                .expireAfterWrite(duration) // 设置缓存在写入一分钟后失效
                 .concurrencyLevel(10) // 设置并发级别为10
                 .build(); // .recordStats() // 开启缓存统计
     }

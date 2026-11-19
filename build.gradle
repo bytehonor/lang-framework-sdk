@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '0.5.34'
+version = '0.6.0'
 
 java {
     sourceCompatibility = 17
@@ -17,14 +17,14 @@ repositories {
 }
 
 dependencies {
-    api('com.google.guava:guava:33.3.1-jre')
-    api('org.springframework:spring-core:6.2.18')
-    api('org.springframework:spring-context:6.2.18')
+    api('com.google.guava:guava:33.8.0-jre')
+    api('org.springframework:spring-core:7.0.10')
+    api('org.springframework:spring-context:7.0.10')
     api('com.fasterxml.jackson.core:jackson-annotations:2.21')
-    api('com.fasterxml.jackson.core:jackson-databind:2.21.2')
-    api('com.fasterxml.jackson.core:jackson-core:2.21.2')
-    implementation('org.slf4j:slf4j-api:2.0.17')
-    implementation('ch.qos.logback:logback-classic:1.5.32')
+    api('tools.jackson.core:jackson-databind:3.1.7')
+    api('tools.jackson.core:jackson-core:3.1.7')
+    implementation('org.slf4j:slf4j-api:2.0.20')
+    implementation('ch.qos.logback:logback-classic:1.5.38')
     testImplementation('junit:junit:4.13.2')
 }
 

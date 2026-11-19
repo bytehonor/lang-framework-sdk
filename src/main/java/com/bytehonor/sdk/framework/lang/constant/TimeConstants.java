@@ -18,7 +18,7 @@ public class TimeConstants {
 
     public static final long DAY = HOUR * 24;
 
-    public static final long DAY_HALF = DAY * 12;
+    public static final long DAY_HALF = HOUR * 12;
 
     public static final long WEEK = DAY * 7;
 

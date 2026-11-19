@@ -5,10 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public final class FileKit {
     private FileKit() {
         this.cache = CacheBuilder.newBuilder().initialCapacity(1024) // 设置初始容量为100
                 .maximumSize(1024 * 1024) // 设置缓存的最大容量
-                .expireAfterWrite(3, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
+                .expireAfterWrite(Duration.ofDays(3L)) // 设置缓存在写入一分钟后失效
                 .concurrencyLevel(20) // 设置并发级别为10
                 .build(); // .recordStats() // 开启缓存统计
     }

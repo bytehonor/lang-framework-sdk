@@ -7,34 +7,49 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.exception.SpringLangException;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * 基于单例 {@link ObjectMapper} 的 JSON 读写工具（反序列化默认忽略未知字段）。
  *
  * @author lijianqiang
  */
-public class JacksonKit {
+public final class JacksonKit {
 
     private static final Logger LOG = LoggerFactory.getLogger(JacksonKit.class);
 
-    private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
-    static {
-        JACKSON_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    private JacksonKit() {
+        objectMapper = JsonMapper.builder().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).build();
+    }
+    
+    private static class LazyHolder {
+        private static JacksonKit SINGLE = new JacksonKit();
     }
 
+    private static JacksonKit self() {
+        return LazyHolder.SINGLE;
+    }
+    
+    private static ObjectMapper mapper() {
+        return self().objectMapper;
+    }
+    
     /**
      * 将 JSON 字符串反序列化为指定 {@code valueType}。
      */
     public static <T> T fromJson(String json, Class<T> valueType) {
         Objects.requireNonNull(json, "json");
         Objects.requireNonNull(valueType, "valueType");
+        
         try {
-            return JACKSON_MAPPER.readValue(json, valueType);
+            return mapper().readValue(json, valueType);
         } catch (Exception e) {
             LOG.error("error json:{}", cut(json));
             throw new SpringLangException("readValue valueType error", e);
@@ -55,7 +70,7 @@ public class JacksonKit {
         Objects.requireNonNull(json, "json");
         Objects.requireNonNull(valueTypeRef, "valueTypeRef");
         try {
-            return JACKSON_MAPPER.readValue(json, valueTypeRef);
+            return mapper().readValue(json, valueTypeRef);
         } catch (Exception e) {
             LOG.error("error json:{}", cut(json));
             throw new SpringLangException("readValue valueTypeRef error", e);
@@ -68,7 +83,7 @@ public class JacksonKit {
     public static String toJson(Object value) {
         Objects.requireNonNull(value, "value");
         try {
-            return JACKSON_MAPPER.writeValueAsString(value);
+            return mapper().writeValueAsString(value);
         } catch (Exception e) {
             throw new SpringLangException("writeValueAsString error", e);
         }
@@ -80,7 +95,7 @@ public class JacksonKit {
     public static JsonNode readTree(String json) {
         Objects.requireNonNull(json, "json");
         try {
-            return JACKSON_MAPPER.readTree(json);
+            return mapper().readTree(json);
         } catch (Exception e) {
             LOG.error("error json:{}", cut(json));
             throw new SpringLangException("readTree error", e);
@@ -92,7 +107,7 @@ public class JacksonKit {
             LOG.warn("jn null, get key:{}", key);
             return null;
         }
-        return jn.has(key) ? jn.get(key).asText() : null;
+        return jn.has(key) ? jn.get(key).asString() : null;
     }
     
     public static String gets(JsonNode jn, String key, String defValue) {
@@ -100,7 +115,7 @@ public class JacksonKit {
             LOG.warn("jn null, get key:{}", key);
             return null;
         }
-        return jn.has(key) ? jn.get(key).asText() : defValue;
+        return jn.has(key) ? jn.get(key).asString() : defValue;
     }
 
     public static String get(JsonNode jn, int index) {
@@ -108,7 +123,7 @@ public class JacksonKit {
             LOG.warn("jn null, get index:{}", index);
             return null;
         }
-        return jn.has(index) ? jn.get(index).asText() : null;
+        return jn.has(index) ? jn.get(index).asString() : null;
     }
     
     public static String gets(JsonNode jn, int index, String defValue) {
@@ -116,7 +131,7 @@ public class JacksonKit {
             LOG.warn("jn null, get index:{}", index);
             return null;
         }
-        return jn.has(index) ? jn.get(index).asText() : defValue;
+        return jn.has(index) ? jn.get(index).asString() : defValue;
     }
 
     public static JsonNode require(JsonNode jn, String field) {
