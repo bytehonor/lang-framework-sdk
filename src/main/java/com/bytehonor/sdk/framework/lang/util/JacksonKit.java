@@ -11,7 +11,6 @@ import com.bytehonor.sdk.framework.lang.string.StringKit;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
@@ -23,10 +22,10 @@ public final class JacksonKit {
 
     private static final Logger LOG = LoggerFactory.getLogger(JacksonKit.class);
 
-    private final ObjectMapper objectMapper;
+    private final JsonMapper mapper;
 
     private JacksonKit() {
-        objectMapper = JsonMapper.builder().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).build();
+        mapper = JsonMapper.builder().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).build();
     }
     
     private static class LazyHolder {
@@ -37,8 +36,8 @@ public final class JacksonKit {
         return LazyHolder.SINGLE;
     }
     
-    private static ObjectMapper mapper() {
-        return self().objectMapper;
+    private static JsonMapper mapper() {
+        return self().mapper;
     }
     
     /**
@@ -102,45 +101,45 @@ public final class JacksonKit {
         }
     }
 
-    public static String get(JsonNode jn, String key) {
-        if (jn == null) {
-            LOG.warn("jn null, get key:{}", key);
-            return null;
-        }
-        return jn.has(key) ? jn.get(key).asString() : null;
-    }
-    
-    public static String gets(JsonNode jn, String key, String defValue) {
-        if (jn == null) {
-            LOG.warn("jn null, get key:{}", key);
-            return null;
-        }
-        return jn.has(key) ? jn.get(key).asString() : defValue;
-    }
-
-    public static String get(JsonNode jn, int index) {
-        if (jn == null) {
-            LOG.warn("jn null, get index:{}", index);
-            return null;
-        }
-        return jn.has(index) ? jn.get(index).asString() : null;
-    }
-    
-    public static String gets(JsonNode jn, int index, String defValue) {
-        if (jn == null) {
-            LOG.warn("jn null, get index:{}", index);
-            return null;
-        }
-        return jn.has(index) ? jn.get(index).asString() : defValue;
-    }
-
-    public static JsonNode require(JsonNode jn, String field) {
-        Objects.requireNonNull(jn, "jn");
-        Objects.requireNonNull(field, "field");
-        JsonNode node = jn.get(field);
+    public static String get(JsonNode node, String key) {
         if (node == null) {
+            LOG.warn("node null, get key:{}", key);
+            return null;
+        }
+        return node.has(key) ? node.get(key).asString() : null;
+    }
+    
+    public static String gets(JsonNode node, String key, String defValue) {
+        if (node == null) {
+            LOG.warn("node null, get key:{}", key);
+            return null;
+        }
+        return node.has(key) ? node.get(key).asString() : defValue;
+    }
+
+    public static String get(JsonNode node, int index) {
+        if (node == null) {
+            LOG.warn("node null, get index:{}", index);
+            return null;
+        }
+        return node.has(index) ? node.get(index).asString() : null;
+    }
+    
+    public static String gets(JsonNode node, int index, String defValue) {
+        if (node == null) {
+            LOG.warn("node null, get index:{}", index);
+            return null;
+        }
+        return node.has(index) ? node.get(index).asString() : defValue;
+    }
+
+    public static JsonNode require(JsonNode node, String field) {
+        Objects.requireNonNull(node, "node");
+        Objects.requireNonNull(field, "field");
+        JsonNode value = node.get(field);
+        if (value == null) {
             throw new SpringLangException("JsonNode null, field:" + field);
         }
-        return node;
+        return value;
     }
 }
